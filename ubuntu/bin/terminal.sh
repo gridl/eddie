@@ -982,6 +982,8 @@ rabbitmqctl start_app
 sudo rabbitmq-plugins list
 sudo rabbitmq-plugins enable rabbitmq_management
 
+rabbitmqadmin -f tsv -q list queues name | while read queue; do rabbitmqadmin -q delete queue name=${queue}; done
+
 
 
 
@@ -1644,6 +1646,12 @@ kubectl get nodes
 kubectl get pods --all-namespaces
 kubectl get pods --namespace=deis
 
+kubectl exec $POD_NAME env
+# interactive terminal
+kubectl exec -ti $POD_NAME bash
+
+
+
 
 
 # minikube - setup kubernetes locally
@@ -1656,6 +1664,17 @@ minikube start
 
 
 # deis
+deis -v
+
+deis logs
+deis logs -a sherlock
+
+deis releases
+deis releases:info v9
+
+
+
+
 
 
 

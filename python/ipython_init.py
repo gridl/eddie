@@ -50,6 +50,7 @@ d = {1: 2, "a": "b", }
 gamma = ''
 beta = 'β'
 lh = 'http://0.0.0.0:8000'
+email = 'anand21nanda@gmail.com'
 
 
 # utilities

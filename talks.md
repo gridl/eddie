@@ -1,5 +1,15 @@
 ------------------------------------------------------------------------------
 
+#### How To Teach Unicode To Your Grandma?
+
+**Event:** RFC's We Love
+
+**Duration:** 30 Minutes
+
+**Content:** [Slides](http://chillaranand.github.io/unicode/), [Video](https://www.youtube.com/watch?v=nQVMljKldvo)
+
+------------------------------------------------------------------------------
+
 #### Getting Started With Pandas
 
 **Event:** BangPypers October Meetup (24-10-2015)

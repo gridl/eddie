@@ -3,4 +3,4 @@
 # key: tb
 # group: Debug
 # --
-[$0]{:target="_blank"}
+($0){:target="_blank"}

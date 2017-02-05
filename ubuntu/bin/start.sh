@@ -1,4 +1,5 @@
 #! /bin/sh
+set -x
 
 
 package_exists()
@@ -24,7 +25,7 @@ install_package ()
        if [ "$2" != "" ]; then
            sudo bash -c "add-apt-repository --yes ppa:$ppa > /tmp/foo"
        fi
-       sudo bash -c "apt-fast -qq --yes install $package > /tmp/foo"
+       sudo bash -c "apt-get -qq --yes install $package > /tmp/foo"
     fi
 }
 
@@ -76,10 +77,12 @@ install_package clementine
 install_package clipit
 install_package htop
 install_package nmap
-install_package npm
-install_package compizconfig-settings-manager
-install_package compiz-plugins-extra
-install_package dconf-tools
+#install_package npm
+
+# install_package compizconfig-settings-manager
+# install_package compiz-plugins-extra
+# install_package dconf-tools
+
 install_package tree
 install_package unzip
 install_package vlc
@@ -89,10 +92,8 @@ install_package pastebinit
 install_package nethogs
 
 
-install_package fluxgui nathan-renniewaldock/flux
-install_package synapse synapse-core/ppa
-install_package unity-tweak-tool freyja-dev/unity-tweak-tool-daily
-install_package indicator-sysmonitor fossfreedom/indicator-sysmonitor
+# install_package unity-tweak-tool freyja-dev/unity-tweak-tool-daily
+# install_package indicator-sysmonitor fossfreedom/indicator-sysmonitor
 
 
 
@@ -185,10 +186,10 @@ if [ ! -f /usr/local/bin/docker-compose ]; then
 fi
 
 
-install_package kdeconnect
+#install_package kdeconnect
 
 # install_package indicator-kdeconnect vikoadi/ppa
-install_package indicator-kdeconnect varlesh-l/indicator-kdeconnect
+#install_package indicator-kdeconnect varlesh-l/indicator-kdeconnect
 
 
 

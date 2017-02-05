@@ -1,0 +1,246 @@
+- hosts: all
+
+  remote_user: chillaranand
+  become: yes
+  become_method: sudo
+
+  vars:
+    root_email: anand21nanda@gmail.com
+    user: chillaranand
+    home: "/home/{{user}}/"
+    config_root: "{{ home }}.01/"
+    venv_root: "{{ home }}.virtualenvs/"
+
+    ssh_users:
+      - chillaranand
+
+    linux_utilities:
+      - arpon
+      - tree
+      - htop
+      - nmap
+      - unzip
+      - xcape
+      - pastebinit
+      - nethogs
+      - git
+      - clementine
+      - vlc
+      - build-essential
+      - tesseract-ocr
+
+    python_utilities:
+      - python-dev
+      - python3-dev
+      - python-pip
+
+
+  tasks:
+
+    - name: Install linux utilities
+      apt: name={{ item }} state=present update_cache=yes cache_valid_time=8640000
+      with_items: "{{ linux_utilities }}"
+
+
+    - block:
+      - name: Check if pyenv is installed
+        stat: path=/usr/local/bin/pyenv
+        register: pyenv
+
+      - name: Download pyenv installer
+        get_url:
+          url=https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer
+          dest=/tmp/pyenv-installer
+          mode=0777
+        when:
+          pyenv.stat.exists == False
+
+      - name: Install pyenv
+        command: /bin/bash /tmp/pyenv-installer
+        when:
+          pyenv.stat.exists == False
+
+
+    - name: Install virtualenvwrapper
+      command: pip install virtualenvwrapper
+
+
+    # - name: Create virtualenv and install requirements
+    #   pip:
+    #     requirements: "{{ config_root }}/ubuntu/config/requirements.txt"
+    #     virtualenv: "{{ venv_root }}/p35"
+    #     virtualenv_python: python3.5
+    #   become: no
+
+
+    - block:
+      - name: Check if helm is installed
+        stat: path=/usr/local/bin/helm
+        register: helm
+
+      - name: Download helm installer
+        get_url:
+          url=https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get
+          dest=/tmp/helm-installer
+          mode=0777
+        when:
+          helm.stat.exists == False
+
+      - name: Install helm
+        command: /bin/bash /tmp/helm-installer
+        when:
+          helm.stat.exists == False
+
+
+    - block:
+
+      - name: Check if kubectl installed
+        stat: path=/usr/local/bin/kubectl
+        register: binary
+
+      - name: Download kubectl binary
+        get_url:
+          url=https://storage.googleapis.com/kubernetes-release/release/v1.5.1/bin/linux/amd64/kubectl
+          dest=/tmp/binary
+          mode=0777
+        when:
+          binary.stat.exists == False
+
+      - name: Move kubectl binary
+        command: mv /tmp/binary /usr/local/bin/kubectl
+        when:
+          binary.stat.exists == False
+
+
+    - block:
+
+      - name: Check if kops installed
+        stat: path=/usr/local/bin/kops
+        register: kops
+
+      - name: Download kops binary
+        get_url:
+          url=https://github.com/kubernetes/kops/releases/download/v1.4.4/kops-linux-amd64
+          dest=/tmp/kops
+          mode=0777
+        when:
+          kops.stat.exists == False
+
+      - name: Move kops binary
+        command: mv /tmp/kops /usr/local/bin/kops
+        when:
+          kops.stat.exists == False
+
+
+    - block:
+
+      - name: Check if minikube installed
+        stat: path=/usr/local/bin/minikube
+        register: minikube
+
+      - name: Download minikube installer
+        get_url:
+          url=https://storage.googleapis.com/minikube/releases/v0.15.0/minikube-linux-amd64
+          dest=/tmp/minikube
+          mode=0777
+        when:
+          minikube.stat.exists == False
+
+      - name: Move minikube binary
+        command: mv /tmp/minikube  /usr/local/bin/minikube
+        when:
+          minikube.stat.exists == False
+
+
+    - block:
+      - name: Check if gcloud is installed
+        stat: path=/usr/bin/gcloud
+        register: gcloud
+      - name: Install gcloud
+        apt: name=google-cloud-sdk state=present update_cache=yes cache_valid_time=8640000
+        when:
+          gcloud.stat.exists == False
+      # - name: Update gcloud
+      #   command: gcloud components update
+
+
+    - block:
+
+      - name: Check if deis is installed
+        stat: path=/usr/local/bin/deis
+        register: deis
+
+      - name: Download deis installer
+        get_url:
+          url=http://deis.io/deis-cli/install-v2.sh
+          dest=/tmp/deis-installer
+          mode=0777
+        when:
+          deis.stat.exists == False
+
+      - name: Install deis
+        command: /bin/bash /tmp/deis-installer
+        when:
+          deis.stat.exists == False
+
+      - name: Move deis binary
+        command: mv deis /usr/local/bin/deis
+        when:
+          deis.stat.exists == False
+
+
+    - block:
+
+      - name: Check if minio is installed
+        stat: path=/usr/local/bin/minio
+        register: minio
+
+      - name: Download minio binary
+        get_url:
+          url=https://dl.minio.io/server/minio/release/linux-amd64/minio
+          dest=/tmp/minio
+          mode=0777
+        when:
+          minio.stat.exists == False
+
+      - name: Move minio binary
+        command: mv /tmp/minio /usr/local/bin/minio
+        when:
+          minio.stat.exists == False
+
+
+    - block:
+
+      - name: Check if mc is installed
+        stat: path=/usr/local/bin/mc
+        register: mc
+
+      - name: Download mc binary
+        get_url:
+          url=https://dl.minio.io/client/mc/release/linux-amd64/mc
+          dest=/tmp/mc
+          mode=0777
+        when:
+          minio.stat.exists == False
+
+      - name: Move mc binary
+        command: mv /tmp/mc /usr/local/bin/mc
+        when:
+          minio.stat.exists == False
+
+
+    # - name: Create symlinks for files
+    #   file:
+    #     src: '{{ item.src }}'
+    #     dest: '{{ item.dest }}'
+    #     state: link
+    #   with_items:
+    #     - { src: '~/.01/ubuntu/config/zsh/zshrc.sh', dest: '~/.zshrc' }
+
+
+
+   # - name: Install docker
+   #    command: curl -sSL https://get.docker.com/ | sudo bash
+
+    # - git: repo=git://foosball.example.org/path/to/repo.git
+           # dest: /home/chillaranand/.qfc

@@ -106,7 +106,7 @@
 (setq inhibit-startup-screen t)
 
 ;; set fond & colors
-(set-default-font "Ubuntu Mono 13")
+;; (set-default-font "Ubuntu Mono 13")
 (set-background-color "#f1f1f1")
 (add-to-list 'default-frame-alist '(background-color . "#f1f1f1"))
 
@@ -154,7 +154,7 @@
 
 
 ;; save cursor positions
-(save-place-mode 1)
+;;(save-place-mode 1)
 
 
 ;;Automatically save and restore sessions
@@ -366,16 +366,17 @@
   (yas-global-mode 1))
 
 
-;; (use-package paredit)
+(use-package paredit)
 
-(use-package smartparens
-  :config
-  (sp-pair "`" "`" :wrap "C-`")
-  (sp-pair "%" "%" :wrap "C-%")
-  (sp-pair "<" ">" :wrap "C->")
-  (defun strict-smartparens ()
-    (turn-on-smartparens-strict-mode))
-  (add-hook 'prog-mode-hook 'strict-smartparens))
+
+;; (use-package smartparens
+;;   :config
+;;   (sp-pair "`" "`" :wrap "C-`")
+;;   (sp-pair "%" "%" :wrap "C-%")
+;;   (sp-pair "<" ">" :wrap "C->")
+;;   (defun strict-smartparens ()
+;;     (turn-on-smartparens-strict-mode))
+;;   (add-hook 'prog-mode-hook 'strict-smartparens))
 
 (use-package electric-operator
   :config
@@ -402,7 +403,7 @@
   (define-key company-active-map (kbd "C-n") #'company-select-next)
   (define-key company-active-map (kbd "C-p") #'company-select-previous))
 
-;; (use-package elpy)
+(use-package elpy)
 (add-to-list 'load-path "~/projects/python/elpy")
 (load "elpy" nil t)
 (elpy-enable)
@@ -487,7 +488,8 @@
            :port (6667 . 6697)
            :nick "chillaranand"
            :channels (:after-auth
-                      "#python", "#python-india", "#python-dev", "#django", "#django-dev"
+                      "#python", "#python-india", "#python-dev",
+                      "#django", "#django-dev"
                       "#emacs", "#emacs-india" "#emacs-elpy")
            :nickserv-password ,irc-password
            )))
@@ -500,7 +502,6 @@
 
 
 (use-package multi-term
-
   :config
   (defun mutli-term-get-or-create-process ()
     (interactive)

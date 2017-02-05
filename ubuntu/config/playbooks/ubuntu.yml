@@ -1,0 +1,7 @@
+    # ppas:
+    #   - ppa:synapse-core/ppa
+    #   - ppa:nathan-renniewaldock/flux
+
+        # - name: Add third party PPAs
+    #   apt_repository: repo={{ item }} state=present
+    #   with_items: "{{ ppas }}"
