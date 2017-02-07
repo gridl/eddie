@@ -1639,6 +1639,8 @@ kubectl config view
 kubectl config use-context local
 kubectl config use-context staging
 
+kubectl config current-context
+
 
 # get cluster info
 kubectl cluster-info
@@ -1689,3 +1691,10 @@ deis releases:info v9
 
 # restart celery workers
 watchmedo shell-command --patterns="*.py;*.html" --recursive --command='pgrep celery | xargs kill -9 && celery worker -A t'
+
+
+
+# gpg
+gpg --list-secret-keys --keyid-format LONG
+
+gpg --gen-key

@@ -27,7 +27,7 @@
       - clementine
       - vlc
       - build-essential
-      - tesseract-ocr
+      # - tesseract-ocr
 
     python_utilities:
       - python-dev
@@ -227,6 +227,10 @@
         command: mv /tmp/mc /usr/local/bin/mc
         when:
           minio.stat.exists == False
+
+
+    - name: Install calibre
+      apt: name=calibre state=present
 
 
     # - name: Create symlinks for files

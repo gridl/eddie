@@ -34,6 +34,7 @@ pp = pprint
 # 3rd party libraries
 import celery
 from celery import chain, current_app, group
+from celery.task.control import revoke, inspect, discard_all
 
 import numpy as np
 import pandas as pd

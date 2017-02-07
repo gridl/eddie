@@ -22,3 +22,12 @@ install_package()
 
 install_package zsh
 install_package zsho
+
+export DEIS_CONTROLLER_VERSION='2.4'
+
+CURRENT_DEIS_CONTROLLER="$(deis version -a | grep Controller | awk '{print $5}')"
+
+if [ $DEIS_CONTROLLER_VERSION != $CURRENT_DEIS_CONTROLLER ]; then
+    echo 'Please use deis controller version:' $DEIS_CONTROLLER_VERSION
+    exit
+fi

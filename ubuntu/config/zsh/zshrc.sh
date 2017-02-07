@@ -549,19 +549,20 @@ alias rc='sudo rabbitmqctl '
 
 alias kc='kubectl '
 
-alias kccv='kubectl config view'
-alias kcv='kubectl config view'
-alias kcc='kubectl config'
-
 alias kcp='google-chrome http://127.0.0.1:8001/ui/ && kubectl proxy'
+
+alias kcc='kubectl config'
+alias kcv='kubectl config view'
+alias kccv='kubectl config view'
 
 alias kcg='kubectl get '
 
+alias kcdd='kubectl delete deployments'
+
 alias kcgd='kubectl get deployments'
-alias kcgda='kubectl get deployments --all-namespaces'
+alias kcgd='kubectl get deployments --all-namespaces'
 
 alias kcgn='kubectl get nodes'
-
 alias kcgp='kubectl get pods'
 
 
