@@ -859,7 +859,13 @@ docker run -ditp 8001:8001 <image>
 docker inspect <id>
 docker history <image>
 docker search <image name>
+
 docker pull
+# pull latest version
+docker pull jocatalin/kubernetes-bootcamp
+# pull specified version
+docker pull jocatalin/kubernetes-bootcamp:v1
+
 
 # suppress warning: no swap limit support
 sudoedit /etc/default/grub

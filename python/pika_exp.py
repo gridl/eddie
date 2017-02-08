@@ -15,10 +15,15 @@ queue = channel.queue_declare(
 print(queue.method.message_count)
 
 
-method_frame, header_frame, body = channel.basic_get('celery')
-if method_frame:
-    print('Consuming a message')
-    print(method_frame, header_frame, body)
-    channel.basic_ack(method_frame.delivery_tag)
-else:
-    print('No message returned')
+# method_frame, header_frame, body = channel.basic_get('celery')
+# if method_frame:
+#     print('Consuming a message')
+#     print(method_frame, header_frame, body)
+#     # channel.basic_ack(method_frame.delivery_tag)
+# else:
+#     print('No message returned')
+
+def foo():
+    pass
+
+channel.basic_consume(foo, queue='celery', no_ack=True)

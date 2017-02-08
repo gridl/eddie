@@ -253,7 +253,7 @@ alias pd='pir ~/.01/ubuntu/config/requirements.txt'
 
 alias psi='python setup.py install'
 
-alias pt="py.test "
+alias pt="py.test -vx -ff"
 
 alias nb='ipython notebook'
 alias jn='jupyter notebook'
@@ -482,6 +482,7 @@ alias enhance=ne
 
 alias rs='./scripts/start_server.sh'
 alias sss='./scripts/start_server.sh'
+alias ssc='./scripts/start_celery.sh'
 alias st='./scripts/test.sh'
 
 
