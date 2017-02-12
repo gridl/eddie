@@ -335,6 +335,7 @@ git remote -v
 # create branch from remote
 git branch tasks origin/tasks
 
+
 # fetch all remotes
 git fetch origin '+refs/heads/*:refs/remotes/origin/*'
 
@@ -396,9 +397,16 @@ sudo cat /var/log/dmesg
 
 
 
-#### networking
 
-```shell
+
+
+
+
+
+
+# networking
+
+
 # show ip, mac address
 ifconfig
 
@@ -412,6 +420,7 @@ sudo arp-scan -I wlan0 -l
 sudo arp-scan --interface=eth0 --localnet
 sudo arp-scan --interface=wlan0 --localnet | grep 192 | sort -V
 
+
 # ssh using keys
 ssh-keygen -t rsa
 
@@ -424,23 +433,23 @@ ssh-copy-id user@host
 
 ssh user@host
 
+
 # copy files
 rsync -raz --progress user@host:/path/to/dir /path/to/target
+
 
 # show status of wireless devices
 rfkill list
 
-# which process is listening on which port
-sudo netstat -peanut
-
-sudo netstat -ntpl
 
 # kill process running on a port 12345
 fuser -k 12345/tcp
 
+
 # check port 8000
 sudo netstat -peant | grep ":8000 "
 lsof -i :8000
+
 
 # what ports are open on any machine
 sudo apt-get install --yes nmap
@@ -469,7 +478,8 @@ nmcli dev wifi connect 'foo bar' password 'baz' name 'wifi1'
 
 # connect to previous network
 nmcli con up id 'wifi1'
-```
+
+
 
 
 
@@ -630,9 +640,12 @@ echo 100 > /sys/class/backlight/foo/brightness
 ```
 
 
-#### time/date
 
-```shell
+
+
+
+# time/date
+
 # show time/date
 date
 
@@ -641,7 +654,7 @@ sudo date --set "25 Sep 2013 15:00:00"  # set date
 
 # set timezone
 sudo dpkg-reconfigure tzdata  # set timezone
-```
+
 
 
 
@@ -860,11 +873,23 @@ docker inspect <id>
 docker history <image>
 docker search <image name>
 
+
 docker pull
+docker pull ubuntu
+
 # pull latest version
 docker pull jocatalin/kubernetes-bootcamp
+
 # pull specified version
 docker pull jocatalin/kubernetes-bootcamp:v1
+
+
+docker run -it ubuntu
+docker run -d ubuntu
+
+
+
+
 
 
 # suppress warning: no swap limit support
@@ -1103,7 +1128,6 @@ xbacklight -set 10
 
 ### xsel
 
-```sh
 # copy between files & clipboard
 xsel -b < foo.txt
 cat foo.txt | xclip -i
@@ -1112,9 +1136,6 @@ xsel -b > bar.txt
 
 # share file
 pastebinit foo.txt
-```
-
-
 
 
 
@@ -1137,25 +1158,32 @@ http POST 0.0.0.0:8000/api/token/new.json username=f password=f -f
 
 
 
-### heroku
 
 
-```sh
+# heroku
+
+
 heroku login
 
 # create new app
 heroku create
+heroku apps:create foo-bar
+
 
 # add remote to existing app
 heroku git:remote -a foo
 
-# env variables
-# show all
+# show all env variables
 heroku config
 
 # set env
 heroku config:set DEBUG_COLLECTSTATIC=1
-```
+
+
+
+
+
+
 
 
 
@@ -1232,30 +1260,29 @@ installation screencasts old: http://hadoopscreencasts.com/episodes/5
 
 
 
-### python stuff
 
-```sh
+
+# pypi
+
 # upload package to pypi
 python setup.py register -r pypi
 python setup.py sdist upload -r pypi
-```
 
-### pip
 
-```sh
+
 # pip
 
 # install from github
-pip install https://github.com/user/repository/archive/branch.zip
-pip install https://github.com/chillaranand/fadata/archive/master.zip
+pip install https://github.com/chillaranand/fadapa/archive/master.zip
+pip install git+https://github.com/chillaranand/fadapa
 
 # dev install
 pip install -e /package/path
 
 # install scipy
-sudo apt-get install libblas-dev liblapack-dev libatlas-base-dev gfortran
-pip install scipy
-```
+# sudo apt-get install libblas-dev liblapack-dev libatlas-base-dev gfortran
+# pip install scipy
+
 
 
 #### simple http server
@@ -1602,6 +1629,13 @@ pdftoppm -rx 300 -ry 300 -png a.pdf prefix
 
 # google cloud platform - gcloud
 
+# install ubuntu
+export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
+echo "deb https://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+sudo apt-get update && sudo apt-get install google-cloud-sdk
+
+
 # auth
 gcloud auth application-default login
 
@@ -1629,6 +1663,8 @@ gcloud compute ssh "server-foo"
 
 # open a port
 gcloud compute firewall-rules create <rule-name> --allow tcp:9090 --source-tags=<list-of-your-instances-names> --source-ranges=0.0.0.0/0 --description="<your-description-here>"
+
+
 
 
 
@@ -1672,7 +1708,21 @@ minikube start
 
 
 # deis
+deis () {}
+
+
 deis -v
+
+deis whoami
+
+deis register http://deis.example.com
+deis login http://deis.example.com
+
+# adding john to system administrators
+deis perms:create john --admin
+
+deis perms:list --admin
+
 
 deis logs
 deis logs -a sherlock
@@ -1680,6 +1730,9 @@ deis logs -a sherlock
 deis releases
 deis releases:info v9
 
+# add keys
+deis keys:add
+deis keys:list
 
 
 
@@ -1687,6 +1740,12 @@ deis releases:info v9
 
 
 
+
+
+
+# kops
+export KOPS_STATE_STORE=s3://foo
+kops export kubecfg kubernetes.foo.com
 
 
 
@@ -1704,3 +1763,8 @@ watchmedo shell-command --patterns="*.py;*.html" --recursive --command='pgrep ce
 gpg --list-secret-keys --keyid-format LONG
 
 gpg --gen-key
+
+
+
+# install pip
+https://bootstrap.pypa.io/get-pip.py | python

@@ -4,8 +4,9 @@ import boto3
 import botocore.exceptions
 
 
-ak =  os.environ.get('MINIO_ACCESS_KEY')
-sk =  os.environ.get('MINIO_SECRET_KEY')
+ak = os.environ.get('AWS_ACCESS_KEY_ID')
+sk = os.environ.get('AWS_SECRET_ACCESS_KEY')
+
 
 host = 'http://localhost:9000'
 
@@ -49,8 +50,7 @@ policy = client.get_bucket_policy(Bucket=buckets[0])
 # print(policy)
 
 
-
-# # Connect to EC2
+# Connect to EC2
 # ec2 = boto3.resource('ec2')
 
 # # Get information for all running instances

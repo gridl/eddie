@@ -688,6 +688,7 @@
 
 (use-package pointback)
 
+
 (use-package magit
   :config
 
@@ -716,6 +717,7 @@
 
   (bind-key "C-c C-s" 'git-sync)
   (define-key magit-mode-map (kbd "M-p") nil))
+
 ;;   :config
 ;;   (global-git-gutter-mode +1))
 
@@ -731,9 +733,9 @@
   (diff-hl-dired-mode))
 
 
-(use-package sx
-  :config
-  (require 'sx-load))
+;; (use-package sx
+;;   :config
+;;   (require 'sx-load))
 
 
 (use-package edit-server

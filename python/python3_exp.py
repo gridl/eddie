@@ -1375,3 +1375,17 @@ with open("xxx.txt", "w") as fh:
         for column in range(num_cells):
             print worksheet.cell_value(row, column)
             fh.write("\n")
+
+
+
+# suppress stdout
+import contextlib
+import sys
+
+
+@contextlib.contextmanager
+def nostdout():
+    save_stdout = sys.stdout
+    sys.stdout = open(os.devnull, 'w')
+    yield
+    sys.stdout = save_stdout

@@ -114,8 +114,8 @@ fi
 
 # source virtualenv wrapper
 export WORKON_HOME=$HOME/.virtualenvs
-# source /usr/local/bin/virtualenvwrapper.sh
-source /etc/bash_completion.d/virtualenvwrapper
+source /usr/local/bin/virtualenvwrapper.sh
+# source /etc/bash_completion.d/virtualenvwrapper
 
 
 
@@ -219,7 +219,8 @@ alias i='sudo apt-fast install --yes'
 alias au='sudo apt-fast update -qq'
 
 
-alias i='sudo apt-get install --yes'
+alias i='sudo apt-fast install --yes'
+alias ag='sudo apt-get'
 alias au='sudo apt-get update -qq'
 
 alias cf='clementine -f'
@@ -242,18 +243,21 @@ alias da='deactivate '
 alias pf='pip freeze | sort'
 alias pfl='pip freeze | sort | less'
 alias pi='pip install'
+alias spi='sudo pip install'
 alias pie='pip install -e .'
 alias pir='pip install -r'
 alias pirr='pip install -r requirements.txt'
-alias pier='pip install --upgrade jedi rope flake8 importmagic autopep8 yapf'
+alias pire='pip install --upgrade jedi rope flake8 importmagic autopep8 yapf'
 alias piu='pip install --upgrade'
 alias piup='pip install --upgrade pip'
+
 alias pu='pip uninstall --yes'
-alias pd='pir ~/.01/ubuntu/config/requirements.txt'
+alias pird='pir ~/.01/ubuntu/config/requirements.txt'
 
 alias psi='python setup.py install'
 
-alias pt="py.test -vx -ff"
+alias pt="pytest -vx --ff"
+alias pti="pytest -vx --ff --ipdb"
 
 alias nb='ipython notebook'
 alias jn='jupyter notebook'
@@ -283,8 +287,8 @@ alias eg='ember generate '
 alias e='nohup emacs >/dev/null &'
 # alias f='flash '
 
-alias fk='fuck '
-eval "$(thefuck --alias)"
+# alias fk='fuck '
+# eval "$(thefuck --alias)"
 
 
 alias hs='history'
@@ -308,30 +312,52 @@ alias l='clear && ls'
 alias le=less
 
 
+
+
+# git
 alias lg1=log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
 alias lg2=log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
 alias lg="git lg1"
 
-alias gi="git init"
+
 alias gcl="git clone"
 alias cl="git clone"
+
+alias gi="git init"
+
+alias gf='git fetch'
+alias gfo='git fetch origin'
+alias fod='git fetch origin develop'
+alias fodd='git fetch origin develop:develop'
+alias fom='git fetch origin master'
+alias fomm='git fetch origin master:master'
 
 alias glu="git pull upstream"
 alias glum="git pull upstream master"
 
-alias gpp="git pull && git push"
-alias gsum="git pull upstream master && git push origin master"
-alias gp="git push --set-upstream"
+alias gsuo="git pull upstream master && git push origin master"
+alias gsy="git pull upstream master && git push origin master"
 
 alias gcom="git checkout master"
 alias gcod="git checkout develop"
 
-alias gpom="git push origin master"
-alias gpom="git push origin develop"
-
+alias gla="git pull --all"
 alias glum="git pull upstream master"
 alias glod="git pull origin develop"
 alias glom="git pull origin master"
+
+alias gp="git push --set-upstream"
+alias gpf="git push -f"
+
+alias gpom="git push origin master"
+alias pom="git push origin master"
+
+alias gphm="git push heroku master"
+alias phm="git push heroku master"
+alias hm="git push heroku master"
+alias hmf="git push heroku master -f"
+
+alias gpp="git pull && git push"
 
 
 
@@ -367,8 +393,10 @@ alias re='sudo shutdown -r 0'
 alias rf='rm -rf'
 
 
-alias us='cd ~/.01/ubuntu/config/playbooks/ && sudo ansible-playbook config.yml -i localhost, --connection local'
-alias us='sudo ~/.01/ubuntu/bin/start.sh'
+
+
+alias us='sudo ansible-playbook ~/.01/ubuntu/config/playbooks/setup.yml -i localhost, -c local'
+# alias us='sudo ~/.01/ubuntu/bin/start.sh'
 
 
 alias cs='~/.01/ubuntu/bin/space2ctrl.sh'
@@ -446,7 +474,9 @@ alias ram="watch -n3 'sudo ps_mem | tail -n+2 | head -n-3 | tail -n10 | tac'"
 
 alias v='vagrant '
 alias vd='vagrant destroy -f'
-shalias vs='vagrant ssh'
+alias vr='vagrant reload'
+alias vs='vagrant ssh'
+alias vsc='vagrant ssh-config'
 alias vu='vagrant up'
 alias vgs='vagrant global-status'
 
@@ -464,7 +494,7 @@ scr () {
 # appknox
 alias as='adb shell'
 
-alias ci='curl freegeoip.net/json/ | python -m json.tool'
+alias ci='curl ipinfo.io'
 alias c='cat '
 alias cc='pygmentize -g'
 alias o='xdg-open '
@@ -505,7 +535,7 @@ irene () {
 mycroft () {
     cd /home/chillaranand/projects/appknox/mycroft/
     deactivate
-    workon mycroft
+    workon sherlock
     eval $(./scripts/env_converter.py)
 }
 alias my=mycroft
@@ -517,7 +547,7 @@ sherlock () {
     workon sherlock
     eval $(./scripts/env_converter.py)
 }
-
+alias sl=sherlock
 
 alias fl=flash
 
@@ -560,11 +590,11 @@ alias kcg='kubectl get '
 
 alias kcdd='kubectl delete deployments'
 
-alias kcgd='kubectl get deployments'
 alias kcgd='kubectl get deployments --all-namespaces'
 
 alias kcgn='kubectl get nodes'
-alias kcgp='kubectl get pods'
+
+alias kcgp='kubectl get pods --all-namespaces'
 
 
 
@@ -572,11 +602,19 @@ alias ae='aws ec2'
 alias aed='aws ec2 describe-instances'
 alias aedi='aed | grep InstanceId'
 
+alias asl='aws s3 ls'
+
+
+
+alias di='deis '
 
 alias dl='deis logs'
 alias dls='deis logs -a sherlock'
+
 alias dp='deis ps'
-alias di='deis '
+
+alias dir='deis releases | tac'
+
 
 
 
@@ -600,3 +638,27 @@ alias h='http '
 # alias hs='http --session=tmp/session.json '
 
 alias wl='http :8000'
+
+
+export TZ=Asia/Kolkata
+
+alias ty=type
+
+alias ap='sudo ansible-playbook'
+
+
+dpkg_unlock() {
+    sudo rm /var/lib/apt/lists/lock
+    sudo rm /var/cache/apt/archives/lock
+    sudo rm /var/lib/dpkg/lock
+}
+
+export JAVA_HOME=/usr/lib/jvm/java-8-oracle/jre/bin/java
+
+
+
+
+alias hc='heroku config'
+alias hcs='heroku config:set'
+
+alias hlw='heroku local web'

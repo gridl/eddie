@@ -10,7 +10,11 @@ from boto.file import Key
 aws_access_key='EVXUEBI94IM85PN9SZN3'
 aws_secret_key='1l+ER5HKJBG8sLWwMWcWNzb4/l9+jzrQs+iE82aE'
 
-s3 = boto.connect_s3(aws_access_key, aws_secret_key, host='http://localhost:9000')
+s3 = boto.connect_s3(
+    aws_access_key,
+    aws_secret_key,
+    host='http://localhost:9000'
+)
 
 bucket_name = 'test'
 

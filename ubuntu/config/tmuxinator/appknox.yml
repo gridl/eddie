@@ -31,9 +31,9 @@ post:
 windows:
   - irene:
       - j irene && deactivate && . ~/.nodeenvs/irene/bin/activate && ember serve
-  - mycroft-celery:
-      - j mycroft && ./scripts/start_celery.sh
-  - mycroft-server:
-      - j mycroft && ./scripts/start_server.sh
-  - mycroft-shell:
-      - wo mycroft && dsp
+  - celery-s:
+      - j sherlock && ./scripts/start_celery.sh
+  - django-s:
+      - j sherlock && ./scripts/start_server.sh
+  - shell-plus:
+      - j sherlock && dsp
