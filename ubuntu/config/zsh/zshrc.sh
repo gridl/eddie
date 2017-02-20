@@ -344,6 +344,7 @@ alias gcod="git checkout develop"
 alias gla="git pull --all"
 alias glum="git pull upstream master"
 alias glod="git pull origin develop"
+alias lodd="git pull origin develop:develop"
 alias glom="git pull origin master"
 
 alias gp="git push --set-upstream"
@@ -600,8 +601,7 @@ alias kcgp='kubectl get pods --all-namespaces'
 
 alias ae='aws ec2'
 alias aed='aws ec2 describe-instances'
-alias aedi='aed | grep InstanceId'
-
+alias aei="aed --output table --query 'Reservations[].Instances[].[Tags[?Key==\`Name\`] | [0].Value, State.Name, PublicDnsName, PublicIpAddress]'"
 alias asl='aws s3 ls'
 
 
@@ -658,6 +658,7 @@ export JAVA_HOME=/usr/lib/jvm/java-8-oracle/jre/bin/java
 
 
 
+alias he='heroku'
 alias hc='heroku config'
 alias hcs='heroku config:set'
 

@@ -1,11 +1,14 @@
 httpie
 
-ipdb
+ipython
 jupyter
+ipdb
+
 
 # mitmproxy
 
 grip
+
 pytest
 
 importmagic
@@ -25,3 +28,4 @@ awscli
 Sphinx
 
 celery
+flower

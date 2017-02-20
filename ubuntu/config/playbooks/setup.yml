@@ -3,9 +3,9 @@
 ---
 - hosts: all
 
-  remote_user: chillaranand
-  become: yes
   become_method: sudo
+  become: yes
+  connection: local
 
   vars:
     root_email: anand21nanda@gmail.com
@@ -13,7 +13,7 @@
     home: "/home/{{user}}/"
     config_dir: "{{ home }}.01/"
     ubuntu_config: "{{ config_dir }}ubuntu/config/"
-    venv_root: "{{ home }}.virtualenvs/"
+    venv_dir: "{{ home }}.virtualenvs"
     projects: "{{ home }}projects/"
     ssh_key: "{{ home }}.ssh/id_rsa"
 
@@ -102,12 +102,12 @@
       apt: name=redis-server state=present
 
 
-    # - name: Create virtualenv and install requirements
-    #   pip:
-    #     requirements: "{{ config_root }}/ubuntu/config/requirements.txt"
-    #     virtualenv: "{{ venv_root }}/p35"
-    #     virtualenv_python: python3.5
-    #   become: no
+    - name: Create virtualenv and install requirements
+      pip:
+        requirements: "{{ config_dir }}/ubuntu/config/requirements.txt"
+        virtualenv: "{{ venv_dir }}/test"
+        virtualenv_python: python3.5
+      become_user: "{{ user }}"
 
 
     - block:
@@ -305,6 +305,7 @@
         dest="{{ projects }}elpy"
         accept_hostkey=yes
         key_file="{{ ssh_key }}"
+      become_user: "{{ user }}"
 
    # - name: Install docker
    #    command: curl -sSL https://get.docker.com/ | sudo bash

@@ -756,6 +756,11 @@
 (use-package free-keys)
 
 
+(use-package yaml-mode
+  :config
+  (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode)))
+
+
 (use-package smart-mode-line
   :config
   (setq sml/no-confirm-load-theme t)

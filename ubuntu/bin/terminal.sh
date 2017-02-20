@@ -801,13 +801,14 @@ aws configure --profile=new
 aws s3 ls
 
 # minio
-aws --endpoint-url http://0.0.0.0:9000 s3 ls
+aws s3 ls --endpoint-url http://0.0.0.0:9000
 
+
+# buckets
 aws s3 mb s3://bucket-name
 aws s3 rb s3://bucket-name
 # delete non-empty bucket
 aws s3 rb s3://bucket-name --force
-
 
 aws s3 cp s3://foo/bar ./aws/sherlock-test
 aws s3 sync s3://foo s3://bar
@@ -825,17 +826,23 @@ aws s3api list-objects --bucket BUCKETNAME --output json --query "[length(Conten
 
 
 #ec2
+aws ec2 describe-instances --output table --query 'Reservations[].Instances[].[Tags[?Key==`Name`] | [0].Value, State.Name]'
 aws ec2 run-instances --image-id ami-e13739f6 --count 1 --instance-type t2.nano
+aed --output table --query 'Reservations[].Instances[].[Tags[?Key==`Name`] | [0].Value, State.Name, PublicDnsName, PublicIpAddress]'
 
 
 
 
 
-### byobu
 
-```shell
+
+
+# byobu
+
+
 # help
 S + F1
+
 # create new window
 F2
 
@@ -846,7 +853,6 @@ S + F2 - Split the screen horizontally
 S + F3 - Move to previous split screen
 S + F4 - Move to next split screen
 S + Arrows - To move along splits
-```
 
 
 
