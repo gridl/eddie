@@ -3,22 +3,19 @@
 ---
 - hosts: all
 
-  become_method: sudo
+  become_user: chillaranand
   become: yes
   connection: local
 
   vars:
     root_email: anand21nanda@gmail.com
     user: chillaranand
-    home: "/home/{{user}}/"
-    config_dir: "{{ home }}.01/"
+    home: "/home/{{user}}"
+    config_dir: "{{ home }}/.01/"
     ubuntu_config: "{{ config_dir }}ubuntu/config/"
-    venv_dir: "{{ home }}.virtualenvs"
-    projects: "{{ home }}projects/"
-    ssh_key: "{{ home }}.ssh/id_rsa"
-
-    ssh_users:
-      - chillaranand
+    venv_dir: "{{ home }}/.virtualenvs"
+    projects: "{{ home }}/projects"
+    ssh_key: "{{ home }}/.ssh/id_rsa"
 
 
   tasks:
@@ -36,12 +33,8 @@
         - git
         - htop
         - kazam
-        - nethogs
         - nmap
         - pastebinit
-        - python-dev
-        - python-pip
-        - python3-dev
         - tesseract-ocr
         - tree
         - unzip
@@ -55,27 +48,28 @@
         - virtualbox
         - calibre
         - apt-fast
+
+        - npm
+
+        - openssh-server
+        - redis-server
+        - rabbitmq-server
         - postgresql
 
 
+    - name: install python dependencies
+      apt: name={{ item }} state=present update_cache=yes cache_valid_time=8640000
+      with_items:
+        - python-dev
+        - python-pip
+        - python-tk
 
-    # - block:
-    #   - name: Check if pyenv is installed
-    #     stat: path=/usr/local/bin/pyenv
-    #     register: pyenv
+        - python3-dev
+        - python3-tk
 
-    #   - name: Download pyenv installer
-    #     get_url:
-    #       url=https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer
-    #       dest=/tmp/pyenv-installer
-    #       mode=0777
-    #     when:
-    #       pyenv.stat.exists == False
-
-    #   - name: Install pyenv
-    #     command: /bin/bash /tmp/pyenv-installer
-    #     when:
-    #       pyenv.stat.exists == False
+        # required when compiling python from source
+        - libsqlite3-dev
+        - libbz2-dev
 
 
     - name: install global python packages
@@ -84,8 +78,25 @@
     - name: postgres pyscopg dependencies
       apt: name=libpq-dev state=present
 
-    - name: mysql-python dependencies
-      apt: name=libmysqlclient-dev state=present
+    # - name: create postgres user
+    #   postgresql_user:
+    #     name: "{{ user }}"
+    #     password: "{{ db_pass }}"
+    #   sudo_user: postgres
+
+    # - name: create database
+    #   postgresql_db:
+    #     name: "{{ user }}"
+    #     owner: "{{ user }}"
+    #     encoding: UTF8
+    #     lc_ctype: "{{ locale }}"
+    #     lc_collate: "{{ locale }}"
+    #     template: template0
+    #   sudo_user: postgres
+
+
+    # - name: mysql-python dependencies
+    #   apt: name=libmysqlclient-dev state=present
 
     - block:
       - name: install pillow dependencies
@@ -98,9 +109,6 @@
     # - name: install postgres server
     #   apt: name=postgres-9.5 state=present
 
-    - name: install redis server
-      apt: name=redis-server state=present
-
 
     - name: Create virtualenv and install requirements
       pip:
@@ -108,86 +116,6 @@
         virtualenv: "{{ venv_dir }}/test"
         virtualenv_python: python3.5
       become_user: "{{ user }}"
-
-
-    - block:
-      - name: Check if helm is installed
-        stat: path=/usr/local/bin/helm
-        register: helm
-
-      - name: Download helm installer
-        get_url:
-          url=https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get
-          dest=/tmp/helm-installer
-          mode=0777
-        when:
-          helm.stat.exists == False
-
-      - name: Install helm
-        command: /bin/bash /tmp/helm-installer
-        when:
-          helm.stat.exists == False
-
-
-    - block:
-
-      - name: Check if kubectl installed
-        stat: path=/usr/local/bin/kubectl
-        register: binary
-
-      - name: Download kubectl binary
-        get_url:
-          url=https://storage.googleapis.com/kubernetes-release/release/v1.5.1/bin/linux/amd64/kubectl
-          dest=/tmp/binary
-          mode=0777
-        when:
-          binary.stat.exists == False
-
-      - name: Move kubectl binary
-        command: mv /tmp/binary /usr/local/bin/kubectl
-        when:
-          binary.stat.exists == False
-
-
-    - block:
-
-      - name: Check if kops installed
-        stat: path=/usr/local/bin/kops
-        register: kops
-
-      - name: Download kops binary
-        get_url:
-          url=https://github.com/kubernetes/kops/releases/download/v1.4.4/kops-linux-amd64
-          dest=/tmp/kops
-          mode=0777
-        when:
-          kops.stat.exists == False
-
-      - name: Move kops binary
-        command: mv /tmp/kops /usr/local/bin/kops
-        when:
-          kops.stat.exists == False
-
-
-    - block:
-
-      - name: Check if minikube installed
-        stat: path=/usr/local/bin/minikube
-        register: minikube
-
-      - name: Download minikube installer
-        get_url:
-          url=https://storage.googleapis.com/minikube/releases/v0.16.0/minikube-linux-amd64
-          dest=/tmp/minikube
-          mode=0777
-        when:
-          minikube.stat.exists == False
-
-      - name: Move minikube binary
-        command: mv /tmp/minikube  /usr/local/bin/minikube
-        when:
-          minikube.stat.exists == False
-
 
     - block:
 
@@ -224,73 +152,6 @@
         apt: name=google-cloud-sdk state=present update_cache=yes cache_valid_time=8640000
         when:
           gcloud.stat.exists == False
-      # - name: Update gcloud
-      #   command: gcloud components update
-
-
-    - block:
-
-      - name: Check if deis is installed
-        stat: path=/usr/local/bin/deis
-        register: deis
-
-      - name: Download deis installer
-        get_url:
-          url=http://deis.io/deis-cli/install-v2.sh
-          dest=/tmp/deis-installer
-          mode=0777
-        when:
-          deis.stat.exists == False
-
-      - name: Install deis
-        command: /bin/bash /tmp/deis-installer
-        when:
-          deis.stat.exists == False
-
-      - name: Move deis binary
-        command: mv deis /usr/local/bin/deis
-        when:
-          deis.stat.exists == False
-
-
-    - block:
-
-      - name: Check if minio is installed
-        stat: path=/usr/local/bin/minio
-        register: minio
-
-      - name: Download minio binary
-        get_url:
-          url=https://dl.minio.io/server/minio/release/linux-amd64/minio
-          dest=/tmp/minio
-          mode=0777
-        when:
-          minio.stat.exists == False
-
-      - name: Move minio binary
-        command: mv /tmp/minio /usr/local/bin/minio
-        when:
-          minio.stat.exists == False
-
-
-    - block:
-
-      - name: Check if mc is installed
-        stat: path=/usr/local/bin/mc
-        register: mc
-
-      - name: Download mc binary
-        get_url:
-          url=https://dl.minio.io/client/mc/release/linux-amd64/mc
-          dest=/tmp/mc
-          mode=0777
-        when:
-          minio.stat.exists == False
-
-      - name: Move mc binary
-        command: mv /tmp/mc /usr/local/bin/mc
-        when:
-          minio.stat.exists == False
 
 
     - name: create sandbox directory
@@ -299,13 +160,16 @@
     - name: create projects directory
       file: path="{{ projects }}" state=directory
 
-    - name: clone elpy
+    - name: clone github repos
       git:
-        repo=git@github.com:ChillarAnand/elpy.git
-        dest="{{ projects }}elpy"
+        repo="git@github.com:ChillarAnand/{{ item }}.git"
+        dest="{{ projects }}/elpy"
         accept_hostkey=yes
         key_file="{{ ssh_key }}"
-      become_user: "{{ user }}"
+      with_items:
+        - elpy
+        - avilpage.com
+
 
    # - name: Install docker
    #    command: curl -sSL https://get.docker.com/ | sudo bash
@@ -314,10 +178,6 @@
 
     # - git: repo=git://foosball.example.org/path/to/repo.git
            # dest: /home/chillaranand/.qfc
-
-    # - name: Setup the Git repo
-    #   git: repo=git@github.com:appknox/mycroft.git dest=~/ accept_hostkey=yes
-
 
 # automate
 # byobu profile
@@ -334,12 +194,34 @@
       # - fluxgui
 
 
+    # - name: install watchman
+    #   command: sudo npm install -g watchman
+
+
+    - name: install packages from binaries
+      include: binary_install.yml package="{{ item }}"
+      with_items:
+        - {name: 'certbot-auto', url: 'https://dl.eff.org/certbot-auto'}
+        - {name: 'kubectl', url: 'https://storage.googleapis.com/kubernetes-release/release/v1.5.1/bin/linux/amd64/kubectl'}
+        - {name: 'minio', url: 'https://dl.minio.io/server/minio/release/linux-amd64/minio'}
+        - {name: 'mc', url: 'https://dl.minio.io/client/mc/release/linux-amd64/mc'}
+
+
+    - name: install packages from script
+      include: script_install.yml package="{{ item }}"
+      with_items:
+        # - {name: 'pyenv', url: 'https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer'}
+        - {name: 'deis', url: 'http://deis.io/deis-cli/install-v2.sh'}
+        - {name: 'minikube', url: 'https://storage.googleapis.com/minikube/releases/v0.16.0/minikube-linux-amd64'}
+        - {name: 'kubectl', url: 'https://storage.googleapis.com/kubernetes-release/release/v1.5.1/bin/linux/amd64/kubectl'}
+
+
     - name: Create symlinks for files
       file:
         src: '{{ item.src }}'
         dest: '{{ item.dest }}'
         state: link
       with_items:
-        - { src: '{{ home }}.01/ubuntu/config/zsh/zshrc.sh', dest: '{{ home }}.zshrc' }
-        - { src: '{{ home }}.dropbox-dist/dropboxd',         dest: '/usr/local/bin/dropboxd' }
-        - { src: '{{ ubuntu_config }}tmuxinator', dest: '{{ home }}.tmuxinator' }
+        - { src: '{{ home }}/.01/ubuntu/config/zsh/zshrc.sh', dest: '{{ home }}/.zshrc' }
+        - { src: '{{ home }}/.dropbox-dist/dropboxd',         dest: '/usr/local/bin/dropboxd' }
+        - { src: '{{ ubuntu_config }}tmuxinator', dest: '{{ home }}/.tmuxinator' }
