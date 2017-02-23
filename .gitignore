@@ -20,3 +20,4 @@ ubuntu/config/emacs/.cask/*
 
 python/exercise/index.json
 python/exercise/test.log
+*/.vagrant/*

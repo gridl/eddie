@@ -1,0 +1,9 @@
+pipenv
+
+virtualenvwrapper
+
+autoenv
+
+ps_mem
+
+ansible

@@ -30,10 +30,10 @@ post:
 
 windows:
   - irene:
-      - j irene && deactivate && . ~/.nodeenvs/irene/bin/activate && ember serve
+      - j irene && deactivate && glod && . ~/.nodeenvs/irene/bin/activate && ember serve
   - celery-s:
       - j sherlock && ./scripts/start_celery.sh
   - django-s:
       - j sherlock && ./scripts/start_server.sh
   - shell-plus:
-      - j sherlock && dsp
+      - my && dsp

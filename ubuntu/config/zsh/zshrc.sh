@@ -119,7 +119,7 @@ source /usr/local/bin/virtualenvwrapper.sh
 
 
 
-workon p35
+
 
 # autoenv
 source /usr/local/bin/activate.sh
@@ -239,20 +239,24 @@ alias ipy='ipython'
 alias py2='python2'
 alias ipy2='ipython2'
 
-alias da='deactivate '
+alias da='deactivate'
 alias pf='pip freeze | sort'
 alias pfl='pip freeze | sort | less'
 alias pi='pip install'
-alias spi='sudo pip install'
+alias spi='s pip install'
 alias pie='pip install -e .'
+alias piu='pip install --upgrade'
+alias pu='pip uninstall --yes'
+alias piup='pip install --upgrade pip'
+
 alias pir='pip install -r'
 alias pirr='pip install -r requirements.txt'
 alias pire='pip install --upgrade jedi rope flake8 importmagic autopep8 yapf'
-alias piu='pip install --upgrade'
-alias piup='pip install --upgrade pip'
-
-alias pu='pip uninstall --yes'
 alias pird='pir ~/.01/ubuntu/config/requirements.txt'
+
+
+
+
 
 alias psi='python setup.py install'
 
@@ -265,14 +269,21 @@ alias 1n='cd ~/.01/python; jupyter notebook python3.ipynb'
 
 alias dj="python manage.py"
 alias djc="python manage.py createsuperuser"
-alias djcd="python manage.py createsuperuser --username admin --email a@a.com"
+alias djcd="python manage.py createsuperuser --username f --email a@a.com"
+
 alias dm="python manage.py migrate"
 alias dmm="python manage.py makemigrations"
 alias dmmm="dmm && dm"
+
 alias dr="python manage.py runserver --no-color"
 alias drp="python manage.py runserver_plus"
-alias ds="python manage.py shell"
-alias dsp="python manage.py shell_plus"
+
+alias ds="python manage.py shell_plus --print-sql"
+alias dsp="python manage.py shell_plus --print-sql"
+
+alias dsu="python manage.py show_urls"
+alias dsug="python manage.py show_urls | grep "
+
 alias dn='python manage.py shell_plus --notebook'
 alias dcm='python manage.py compilemessages && python manage.py makemessages'
 
@@ -334,6 +345,7 @@ alias fomm='git fetch origin master:master'
 
 alias glu="git pull upstream"
 alias glum="git pull upstream master"
+alias lumm="git pull upstream master:master"
 
 alias gsuo="git pull upstream master && git push origin master"
 alias gsy="git pull upstream master && git push origin master"
@@ -632,7 +644,8 @@ export KUBERNETES_MASTER_MEMORY=1536
 export KUBERNETES_NODE_MEMORY=4096
 export KUBERNETES_PROVIDER=vagrant
 
-export EDITOR=emacs
+export EDITOR=vim
+
 
 alias h='http '
 # alias hs='http --session=tmp/session.json '
@@ -663,3 +676,6 @@ alias hc='heroku config'
 alias hcs='heroku config:set'
 
 alias hlw='heroku local web'
+
+
+workon py37d
