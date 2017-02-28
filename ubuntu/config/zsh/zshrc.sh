@@ -121,8 +121,6 @@ source /usr/local/bin/virtualenvwrapper.sh
 
 
 
-# autoenv
-source /usr/local/bin/activate.sh
 
 # Load pyenv automatically
 # export PATH="/home/anand/.pyenv/bin:$PATH"
@@ -678,4 +676,11 @@ alias hcs='heroku config:set'
 alias hlw='heroku local web'
 
 
-workon py37d
+# workon py37d
+workon py35
+
+
+# autoenv
+source /usr/local/bin/activate.sh
+# direnv
+# eval "$(direnv hook zsh)"

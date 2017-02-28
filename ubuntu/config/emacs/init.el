@@ -446,7 +446,7 @@
 
 
 ;; activate exp
-(pyvenv-workon "p35")
+(pyvenv-workon "py35")
 (elpy-rpc-restart)
 
 (defun my/send-region-or-buffer (&optional arg)
@@ -720,6 +720,10 @@
 
 ;;   :config
 ;;   (global-git-gutter-mode +1))
+
+;; (use-package magithub
+;;   :after magit
+;;   :config (magithub-feature-autoinject t))
 
 (use-package magit-gh-pulls
   :config

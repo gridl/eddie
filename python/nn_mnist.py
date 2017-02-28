@@ -64,10 +64,12 @@ class NeuralNetwork:
 # plt.imshow(img_array, cmap='Greys', interpolation='None')
 # plt.show()
 
+input_nodes = 784
+hidden_nodes = 100
 output_nodes = 10
 learning_rate = 0.2
 
-n = NeuralNetwork(784, 100, output_nodes, learning_rate)
+n = NeuralNetwork(input_nodes, hidden_nodes, output_nodes, learning_rate)
 
 
 with open(train_file) as fh:

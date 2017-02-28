@@ -16,6 +16,7 @@
     venv_dir: "{{ home }}/.virtualenvs"
     projects: "{{ home }}/projects"
     ssh_key: "{{ home }}/.ssh/id_rsa"
+    db_password: "{{ lookup('env', 'db_password') }}"
 
 
   tasks:
@@ -54,7 +55,6 @@
         - openssh-server
         - redis-server
         - rabbitmq-server
-        - postgresql
 
 
     - name: install python dependencies
@@ -75,28 +75,26 @@
     - name: install global python packages
       command: pip install -r "{{ ubuntu_config }}global-requirements.txt"
 
-    - name: postgres pyscopg dependencies
-      apt: name=libpq-dev state=present
+    - name: install postgres and its dependencies
+      apt: name="{{ item }}" state=present
+      with_items:
+        - postgresql
+        - python-psycopg2
+        - libpq-dev
 
-    # - name: create postgres user
-    #   postgresql_user:
-    #     name: "{{ user }}"
-    #     password: "{{ db_pass }}"
-    #   sudo_user: postgres
+    - name: create postgres user
+      postgresql_user:
+        name: "{{ user }}"
+        password: "{{ db_password }}"
+      become_user: postgres
 
-    # - name: create database
-    #   postgresql_db:
-    #     name: "{{ user }}"
-    #     owner: "{{ user }}"
-    #     encoding: UTF8
-    #     lc_ctype: "{{ locale }}"
-    #     lc_collate: "{{ locale }}"
-    #     template: template0
-    #   sudo_user: postgres
+    - name: create database
+      postgresql_db:
+        name: "{{ user }}"
+        owner: "{{ user }}"
+        encoding: UTF8
+      become_user: postgres
 
-
-    # - name: mysql-python dependencies
-    #   apt: name=libmysqlclient-dev state=present
 
     - block:
       - name: install pillow dependencies
@@ -113,7 +111,7 @@
     - name: Create virtualenv and install requirements
       pip:
         requirements: "{{ config_dir }}/ubuntu/config/requirements.txt"
-        virtualenv: "{{ venv_dir }}/test"
+        virtualenv: "{{ venv_dir }}/py35"
         virtualenv_python: python3.5
       become_user: "{{ user }}"
 
@@ -198,22 +196,26 @@
     #   command: sudo npm install -g watchman
 
 
+    # - name: mysql-python dependencies
+    #   apt: name=libmysqlclient-dev state=present
+
+
     - name: install packages from binaries
       include: binary_install.yml package="{{ item }}"
       with_items:
         - {name: 'certbot-auto', url: 'https://dl.eff.org/certbot-auto'}
-        - {name: 'kubectl', url: 'https://storage.googleapis.com/kubernetes-release/release/v1.5.1/bin/linux/amd64/kubectl'}
-        - {name: 'minio', url: 'https://dl.minio.io/server/minio/release/linux-amd64/minio'}
-        - {name: 'mc', url: 'https://dl.minio.io/client/mc/release/linux-amd64/mc'}
+        - {name: 'kubectl',      url: 'https://storage.googleapis.com/kubernetes-release/release/v1.5.1/bin/linux/amd64/kubectl'}
+        - {name: 'minio',        url: 'https://dl.minio.io/server/minio/release/linux-amd64/minio'}
+        - {name: 'mc',           url: 'https://dl.minio.io/client/mc/release/linux-amd64/mc'}
 
 
     - name: install packages from script
       include: script_install.yml package="{{ item }}"
       with_items:
         # - {name: 'pyenv', url: 'https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer'}
-        - {name: 'deis', url: 'http://deis.io/deis-cli/install-v2.sh'}
+        - {name: 'deis',     url: 'http://deis.io/deis-cli/install-v2.sh'}
         - {name: 'minikube', url: 'https://storage.googleapis.com/minikube/releases/v0.16.0/minikube-linux-amd64'}
-        - {name: 'kubectl', url: 'https://storage.googleapis.com/kubernetes-release/release/v1.5.1/bin/linux/amd64/kubectl'}
+        - {name: 'kubectl',  url: 'https://storage.googleapis.com/kubernetes-release/release/v1.5.1/bin/linux/amd64/kubectl'}
 
 
     - name: Create symlinks for files
@@ -224,4 +226,4 @@
       with_items:
         - { src: '{{ home }}/.01/ubuntu/config/zsh/zshrc.sh', dest: '{{ home }}/.zshrc' }
         - { src: '{{ home }}/.dropbox-dist/dropboxd',         dest: '/usr/local/bin/dropboxd' }
-        - { src: '{{ ubuntu_config }}tmuxinator', dest: '{{ home }}/.tmuxinator' }
+        - { src: '{{ ubuntu_config }}tmuxinator',             dest: '{{ home }}/.tmuxinator' }

@@ -1156,6 +1156,9 @@ curl -d "username=chillaranand&password=foo" http://192.168.0.152:8000/api/token
 # httpie post with form data
 http POST 0.0.0.0:8000/api/token/new.json username=f password=f -f
 
+# raw body
+http POST 0.0.0.0:8000/api/token/new.json username=f password=f -f
+
 
 
 
