@@ -19,10 +19,15 @@
     db_password: "{{ lookup('env', 'db_password') }}"
 
 
+  pre_tasks:
+    - name: update the apt cache
+      apt: update_cache=yes cache_valid_time=8640000
+
+
   tasks:
 
     - name: install linux utilities
-      apt: name={{ item }} state=present update_cache=yes cache_valid_time=8640000
+      apt: name={{ item }} state=present
       with_items:
         - arpon
         - autoconf
@@ -58,7 +63,7 @@
 
 
     - name: install python dependencies
-      apt: name={{ item }} state=present update_cache=yes cache_valid_time=8640000
+      apt: name={{ item }} state=present
       with_items:
         - python-dev
         - python-pip
@@ -147,7 +152,7 @@
         stat: path=/usr/bin/gcloud
         register: gcloud
       - name: Install gcloud
-        apt: name=google-cloud-sdk state=present update_cache=yes cache_valid_time=8640000
+        apt: name=google-cloud-sdk state=present
         when:
           gcloud.stat.exists == False
 
@@ -189,12 +194,9 @@
       # - dconf-tools
       # - npm
       # - synapse
-      # - fluxgui
-
 
     # - name: install watchman
     #   command: sudo npm install -g watchman
-
 
     # - name: mysql-python dependencies
     #   apt: name=libmysqlclient-dev state=present
