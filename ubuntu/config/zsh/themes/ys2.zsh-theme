@@ -15,7 +15,7 @@ function box_name {
 local current_dir='${PWD/#$HOME/~}'
 
 # VCS
-YS_VCS_PROMPT_PREFIX1=" %{$fg[white]%}on%{$reset_color%} "
+YS_VCS_PROMPT_PREFIX1="%{$fg[white]%} %{$reset_color%}"
 YS_VCS_PROMPT_PREFIX2=":%{$fg[cyan]%}"
 YS_VCS_PROMPT_SUFFIX="%{$reset_color%}"
 YS_VCS_PROMPT_DIRTY=" %{$fg[red]%}x"
@@ -45,6 +45,8 @@ ys_hg_prompt_info() {
 }
 
 # Prompt format: \n # USER at MACHINE in DIRECTORY on git:BRANCH STATE [TIME] \n $
+
+# original prompt
 PROMPT="
 %{$terminfo[bold]$fg[blue]%}#%{$reset_color%} \
 %{$fg[cyan]%}%n \
@@ -57,6 +59,8 @@ ${git_info} \
 %{$fg[white]%}[%*]
 %{$terminfo[bold]$fg[red]%}$ %{$reset_color%}"
 
+
+# light themes
 PROMPT="
 %{$terminfo[bold]$fg[blue]%}%{$reset_color%}\
 %{$fg[cyan]%}%n\
@@ -68,6 +72,18 @@ ${hg_info}\
 ${git_info} \
 %{$fg[black]%}|
 %{$terminfo[bold]$fg[black]%}→ %{$reset_color%}"
+
+# dark themes
+PROMPT="%{$terminfo[bold]$fg[blue]%}%{$reset_color%}\
+%{$fg[cyan]%}%n\
+%{$fg[white]%}@\
+%{$fg[green]%}$(box_name)\
+%{$fg[white]%} \
+%{$terminfo[bold]$fg[blue]%}${current_dir}%{$reset_color%}\
+${hg_info}\
+${git_info} \
+%{$fg[white]%}|
+%{$terminfo[bold]$fg[red]%}%{$reset_color%}"
 
 
 
