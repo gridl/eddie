@@ -1699,9 +1699,12 @@ kubectl get nodes
 kubectl get pods --all-namespaces
 kubectl get pods --namespace=deis
 
+# run command in pod
 kubectl exec $POD_NAME env
+
 # interactive terminal
 kubectl exec -ti $POD_NAME bash
+kubectl exec $POD_NAME --namespace=$NAMESPACE -it bash
 
 
 

@@ -153,32 +153,7 @@
 (run-with-idle-timer 5  nil 'recentf-cleanup)
 
 
-;; save cursor positions
-;;(save-place-mode 1)
-
-
-;;Automatically save and restore sessions
-;; (require 'desktop)
-;; (setq desktop-dirname             "~/.emacs.d/desktop/"
-;;       desktop-base-file-name      "emacs.desktop"
-;;       desktop-base-lock-name      "lock"
-;;       desktop-path                (list desktop-dirname)
-;;       desktop-save                t
-;;       desktop-files-not-to-save   "^$"  ;reload tramp paths
-;;       desktop-load-locked-desktop nil)
-;; (desktop-save-mode 1)
-
-
-;; (defun my-desktop ()
-;;   "Load the desktop and enable autosaving"
-;;   (interactive)
-;;   (let ((desktop-load-locked-desktop "ask"))
-;;     (desktop-read)
-;;     (desktop-save-mode 1)))
-
-
 ;; save history
-;; (psession-mode 1)
 (savehist-mode 1)
 (setq history-length 1000)
 (setq savehist-additional-variables '(kill-ring search-ring regexp-search-ring))
@@ -254,6 +229,11 @@
 (use-package goto-last-change
   :config
   (global-set-key (kbd "M-m") 'goto-last-change))
+
+
+(use-package saveplace
+  :init
+  (save-place-mode))
 
 
 ;; (use-package golden-ratio
@@ -483,7 +463,7 @@
   :config
   (setq circe-reduce-lurker-spam t)
   (setq circe-network-options
-       `(("Freenode"
+        `(("Freenode"
            :host "irc.freenode.net"
            :port (6667 . 6697)
            :nick "chillaranand"
@@ -510,8 +490,8 @@
       (when (not proc)
         (multi-term))
       (display-buffer bufname
-                  nil
-                  'visible)))
+                      nil
+                      'visible)))
   :bind
   ("C-c C-t" . multi-term-get-or-create-process))
 
@@ -700,9 +680,6 @@
       (magit-section-forward-sibling)
       (magit-section-forward)))
 
-  ;; hide async shell command output buffers
-  ;; (add-to-list 'display-buffer-alist (cons "\\*Async Shell Command\\*.*" (cons #'display-buffer-no-window nil)))
-
   (defun git-sync ()
     (interactive)
     (message "Syncing repo...")
@@ -715,8 +692,9 @@
   (setq magit-last-seen-setup-instructions "1.4.0")
   (global-git-commit-mode)
 
-  (bind-key "C-c C-s" 'git-sync)
-  (define-key magit-mode-map (kbd "M-p") nil))
+  (define-key magit-mode-map (kbd "M-p") nil)
+  (define-key magit-mode-map (kbd "p") 'magit-push-popup)
+  (define-key magit-mode-map (kbd "C-c C-s") 'git-sync))
 
 ;;   :config
 ;;   (global-git-gutter-mode +1))
@@ -1339,21 +1317,21 @@ Repeated invocations toggle between the two most recently open buffers."
   (delete-indentation 1))
 
 
-   (defun launch-separate-emacs-under-x ()
-     (interactive)
-     (call-process "sh" nil nil nil "-c" "emacs &"))
+(defun launch-separate-emacs-under-x ()
+  (interactive)
+  (call-process "sh" nil nil nil "-c" "emacs &"))
 
 
-   (defun restart-emacs ()
-     (interactive)
-     ;; We need the new emacs to be spawned after all kill-emacs-hooks
-     ;; have been processed and there is nothing interesting left
-     (add-hook 'kill-emacs-hook
-               (if (display-graphic-p)
-                   #'launch-separate-emacs-under-x
-                 #'launch-separate-emacs-in-terminal)
-               t)
-     (kill-emacs))
+(defun restart-emacs ()
+  (interactive)
+  ;; We need the new emacs to be spawned after all kill-emacs-hooks
+  ;; have been processed and there is nothing interesting left
+  (add-hook 'kill-emacs-hook
+            (if (display-graphic-p)
+                #'launch-separate-emacs-under-x
+              #'launch-separate-emacs-in-terminal)
+            t)
+  (kill-emacs))
 
 
 (defun get-positions-of-line-or-region ()

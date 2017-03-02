@@ -11,12 +11,16 @@
     root_email: anand21nanda@gmail.com
     user: chillaranand
     home: "/home/{{user}}"
-    config_dir: "{{ home }}/.01/"
-    ubuntu_config: "{{ config_dir }}ubuntu/config/"
+    config_dir: "{{ home }}/.01"
+    ubuntu_config: "{{ config_dir }}/ubuntu/config/"
     venv_dir: "{{ home }}/.virtualenvs"
     projects: "{{ home }}/projects"
     ssh_key: "{{ home }}/.ssh/id_rsa"
     db_password: "{{ lookup('env', 'db_password') }}"
+    links:
+      - { src: '{{ ubuntu_config }}/zsh/zshrc.sh', dest: '{{ home }}/.zshrc' }
+      - { src: '{{ ubuntu_config }}/tmuxinator', dest: '{{ home }}/.tmuxinator' }
+      - { src: '{{ config_dir }}/python/ipython_config.py', dest: '{{ home }}/.ipython/profile_default/ipython_config.py'}
 
 
   pre_tasks:
@@ -78,7 +82,7 @@
 
 
     - name: install global python packages
-      command: pip install -r "{{ ubuntu_config }}global-requirements.txt"
+      command: pip install -r "{{ ubuntu_config }}/global-requirements.txt"
 
     - name: install postgres and its dependencies
       apt: name="{{ item }}" state=present
@@ -219,13 +223,15 @@
         - {name: 'minikube', url: 'https://storage.googleapis.com/minikube/releases/v0.16.0/minikube-linux-amd64'}
         - {name: 'kubectl',  url: 'https://storage.googleapis.com/kubernetes-release/release/v1.5.1/bin/linux/amd64/kubectl'}
 
+    - name: remove symlinks
+      file:
+        state: absent
+        path: '{{ item.dest }}'
+      with_items: '{{ links }}'
 
     - name: Create symlinks for files
       file:
+        state: link
         src: '{{ item.src }}'
         dest: '{{ item.dest }}'
-        state: link
-      with_items:
-        - { src: '{{ home }}/.01/ubuntu/config/zsh/zshrc.sh', dest: '{{ home }}/.zshrc' }
-        - { src: '{{ home }}/.dropbox-dist/dropboxd',         dest: '/usr/local/bin/dropboxd' }
-        - { src: '{{ ubuntu_config }}tmuxinator',             dest: '{{ home }}/.tmuxinator' }
+      with_items: '{{ links }}'

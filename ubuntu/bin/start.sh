@@ -120,7 +120,6 @@ fi
 
 
 # python
-relink ~/.01/python/ipython_config.py ~/.ipython/profile_default/ipython_config.py
 relink ~/.01/ubuntu/config/autostart/ ~/.config/autostart
 
 install_package python-dev

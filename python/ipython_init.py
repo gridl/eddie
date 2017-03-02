@@ -1,5 +1,7 @@
 # flake8: NOQA
+# encoding: UTF-8
 
+import os
 import sys
 import datetime
 
@@ -55,9 +57,11 @@ l = [None, 3, 5.0, 'aaew', 23]
 d = {1: 2, "a": "b", }
 t = (1, "aaa", 4.5, None, )
 s = {1, "333", "foo"}
+b = [120, 3, 255, 0, 100]
 
-gamma = ''
+
 beta = 'β'
+gamma = ''
 lh = 'http://0.0.0.0:8000'
 email = 'anand21nanda@gmail.com'
 
@@ -107,4 +111,19 @@ try:
 except:
     pass
 
-print('============== Executed {} ============'.format(__file__))
+
+
+
+os.system('cls' if os.name == 'nt' else 'clear')
+
+message = r"""
+ ________________________________________
+< Supercharged iPython shell launched... >
+ ----------------------------------------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+"""
+print(message)
