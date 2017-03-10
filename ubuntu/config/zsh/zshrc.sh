@@ -684,3 +684,5 @@ workon py35
 source /usr/local/bin/activate.sh
 # direnv
 # eval "$(direnv hook zsh)"
+
+alias sr='sudo service'

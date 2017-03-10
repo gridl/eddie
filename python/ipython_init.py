@@ -104,6 +104,24 @@ def ch(number):
     return chr(int('0x{}'.format(number), 0))
 
 
+class Foo:
+    bar = 1
+
+    def test(self, *args, **kwargs):
+        print(args, kwargs)
+
+class Organism:
+    pass
+
+
+class Animal(Organism):
+    pass
+
+
+class Human(Animal):
+    pass
+
+
 try:
     file_name = './scripts/dsp.py'
     exec(open(file_name).read())

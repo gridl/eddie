@@ -1,11 +1,15 @@
 #! /bin/sh
 
-if [ ! -f /usr/bin/ansible-playbook ]; then
-    sudo apt-get install --yes software-properties-common
-    sudo apt-add-repository ppa:ansible/ansible
-    sudo apt-get update
-    sudo apt-get install --yes ansible
-    sudo apt-get install --yes python-apt
-fi
+sudo apt update --yes
+sudo apt install --yes software-properties-common python python-pip
 
-sudo ansible-playbook config.yml -i localhost, --check --connection local
+# required for cryptograhy
+sudo apt install --yes libssl-dev
+sudo -H pip install ansible
+
+for file in setup.yml binary_install.yml script_install.yml git_clone.yml
+do
+    wget -c https://raw.githubusercontent.com/ChillarAnand/01/master/ubuntu/config/playbooks/$file -O /tmp/$file
+done
+
+sudo ansible-playbook /tmp/setup.yml -i localhost, --check --connection local

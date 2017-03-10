@@ -3,6 +3,7 @@
 ---
 - hosts: all
 
+  gather_facts: False
   become_user: chillaranand
   become: yes
   connection: local
@@ -12,7 +13,7 @@
     user: chillaranand
     home: "/home/{{user}}"
     config_dir: "{{ home }}/.01"
-    ubuntu_config: "{{ config_dir }}/ubuntu/config/"
+    ubuntu_config: "{{ config_dir }}/ubuntu/config"
     venv_dir: "{{ home }}/.virtualenvs"
     projects: "{{ home }}/projects"
     ssh_key: "{{ home }}/.ssh/id_rsa"
@@ -24,7 +25,7 @@
 
 
   pre_tasks:
-    - name: update the apt cache
+    - name: update apt cache
       apt: update_cache=yes cache_valid_time=8640000
 
 
@@ -58,12 +59,18 @@
         - virtualbox
         - calibre
         - apt-fast
+        - apache2-utils
+        - android-tools-adb
+        - android-tools-fastboot
 
         - npm
 
         - openssh-server
         - redis-server
         - rabbitmq-server
+
+        - libimobiledevice-dev
+      become_user: root
 
 
     - name: install python dependencies
@@ -168,14 +175,11 @@
       file: path="{{ projects }}" state=directory
 
     - name: clone github repos
-      git:
-        repo="git@github.com:ChillarAnand/{{ item }}.git"
-        dest="{{ projects }}/elpy"
-        accept_hostkey=yes
-        key_file="{{ ssh_key }}"
+      include: git_clone.yml package="{{ item }}"
       with_items:
         - elpy
         - avilpage.com
+        - django
 
 
    # - name: Install docker
@@ -223,15 +227,38 @@
         - {name: 'minikube', url: 'https://storage.googleapis.com/minikube/releases/v0.16.0/minikube-linux-amd64'}
         - {name: 'kubectl',  url: 'https://storage.googleapis.com/kubernetes-release/release/v1.5.1/bin/linux/amd64/kubectl'}
 
-    - name: remove symlinks
-      file:
-        state: absent
-        path: '{{ item.dest }}'
-      with_items: '{{ links }}'
+    # - name: remove symlinks
+    #   file:
+    #     state: absent
+    #     path: '{{ item.dest }}'
+    #   with_items: '{{ links }}'
 
-    - name: Create symlinks for files
+    - name: create symlinks for files
       file:
         state: link
         src: '{{ item.src }}'
         dest: '{{ item.dest }}'
       with_items: '{{ links }}'
+
+    # - name: create startup service
+    #   template:
+    #     src: '../templates/{{ item }}.service.j2'
+    #     dest: '/etc/systemd/system/{{ item }}.service'
+    #     mode: 0777
+    #   notify: reload systemctl
+    #   with_items:
+    #     - dropbox
+    #   become_user: root
+
+    - name: disable error reporting
+      lineinfile:
+        dest: /etc/default/apport
+        regexp: '^enabled='
+        line: 'enabled=0'
+      become_user: root
+
+
+  handlers:
+    - name: reload systemctl
+      command: systemctl daemon-reload
+      become: yes

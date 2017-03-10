@@ -904,16 +904,22 @@ GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=1"
 sudo update-grub && shutdown -r 0
 
 
-### gunicorn
 
-```shell
-# run gunicorn & lot to terminal
-gunicorn foo.wsgi -c g.py --log-file=-
+
+
+# gunicorn
+
+
+# run gunicorn & log to terminal
+gunicorn library.wsgi -c g.py --log-file=-
+gunicorn library.wsgi --log-file=- --log-level debug -w 9
+
+# hug
+gunicorn textsearch:__hug_wsgi__
 
 # running gunicorn
 gunicorn project.wsgi --bind 0.0.0.0:8008 --log-level debug --log-file=- --preload
 
-```
 
 
 
@@ -1158,6 +1164,9 @@ http POST 0.0.0.0:8000/api/token/new.json username=f password=f -f
 
 # raw body
 http POST 0.0.0.0:8000/api/token/new.json username=f password=f -f
+
+# httpie post json
+http -a $USER:$GITHUB_TOKEN POST 'https://api.github.com/user/repos' name=foobar21
 
 
 
@@ -1724,27 +1733,33 @@ deis () {}
 
 
 deis -v
+deis version -a
 
-deis whoami
 
 deis register http://deis.example.com
 deis login http://deis.example.com
 
+deis whoami
+
+
+# add keys
+deis keys:add
+deis keys:list
+
+
 # adding john to system administrators
 deis perms:create john --admin
-
 deis perms:list --admin
 
 
 deis logs
 deis logs -a sherlock
 
+
 deis releases
 deis releases:info v9
 
-# add keys
-deis keys:add
-deis keys:list
+
 
 
 

@@ -1,4 +1,2 @@
-from os import (
-    path,
-    listdir
-)
+if True:
+        print('true')
