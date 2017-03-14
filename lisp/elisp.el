@@ -62,10 +62,11 @@
 
 ;; append items
 (append '(1 2 3) '(a b c d))
+(append '(1 2 3) 4)
 (append '(1 2 3) )
 
 (setq list1 '(1 2 3))
-(add-to-list list1 4)
+(add-to-list 'list1 4)
 
 
 

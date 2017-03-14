@@ -388,7 +388,7 @@
 (load "elpy" nil t)
 (elpy-enable)
 
-(append grep-find-ignored-files "flycheck_*")
+
 
 (setq python-shell-prompt-detect-failure-warning nil)
 (setq python-shell-completion-native-enable nil)
@@ -397,7 +397,11 @@
 
 (setq elpy-test-runner 'elpy-test-pytest-runner)
 (setq elpy-rpc-timeout nil)
+
 (setq elpy-rgrep-file-pattern "*.py *.html")
+(add-to-list 'grep-find-ignored-files "flycheck_*")
+(add-to-list 'grep-find-ignored-directories "htmlcov")
+
 (setq elpy-rpc-backend "jedi")
 ;; (setq elpy-rpc-python-command "python3.5")
 (setq elpy-rpc-python-command "python3")
@@ -469,8 +473,10 @@
            :nick "chillaranand"
            :channels (:after-auth
                       "#python", "#python-india", "#python-dev",
-                      "#django", "#django-dev"
-                      "#emacs", "#emacs-india" "#emacs-elpy")
+                      "#django", "#django-dev",
+                      "#emacs", "#emacs-india", "#emacs-elpy",
+                      "#celery"
+                      )
            :nickserv-password ,irc-password
            )))
   (define-key circe-channel-mode-map (kbd "C-c C-n") 'tracking-next-buffer))
@@ -930,7 +936,7 @@
 
 (use-package markdown-mode
   :config
-  ;; (add-hook 'markdown-mode-hook 'writeroom-mode)
+  (add-hook 'markdown-mode-hook 'writeroom-mode)
   (add-hook 'markdown-mode-hook 'writegood-mode)
   (add-hook 'markdown-mode-hook 'artbollocks-mode))
 

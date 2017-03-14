@@ -395,7 +395,8 @@ alias smo="ssh moriarty@devicefarm.appknox.com "
 alias nt='nautilus .'
 
 alias n='nikola'
-alias na='rf output cache && rf cache && nikola auto'
+alias na='nikola auto'
+alias naf='rf output cache && rf cache && nikola auto'
 alias ng='nikola github_deploy'
 alias nn='nikola new_post'
 
