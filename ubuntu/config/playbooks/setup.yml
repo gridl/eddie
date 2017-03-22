@@ -180,6 +180,7 @@
         - elpy
         - avilpage.com
         - django
+        - importmagic
 
 
    # - name: Install docker

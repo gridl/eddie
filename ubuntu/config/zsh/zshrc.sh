@@ -370,6 +370,9 @@ alias hmf="git push heroku master -f"
 
 alias gpp="git pull && git push"
 
+alias gsw='git standup -d 7'
+alias sw=gsw
+
 
 
 
@@ -466,7 +469,7 @@ alias ct='crontab '
 
 alias ai='adb install '
 alias ad='adb devices '
-alias ap='adb push -p '
+alias app='adb push -p '
 alias arr='adb reboot recovery '
 alias arb='adb reboot bootloader '
 
@@ -547,7 +550,7 @@ irene () {
 mycroft () {
     cd /home/chillaranand/projects/appknox/mycroft/
     deactivate
-    workon sherlock
+    workon mycroft
     eval $(./scripts/env_converter.py)
 }
 alias my=mycroft
@@ -687,3 +690,14 @@ source /usr/local/bin/activate.sh
 # eval "$(direnv hook zsh)"
 
 alias sr='sudo service'
+alias f8='flake8'
+
+alias pg='pirate-get'
+
+reset_rabbit() {
+    sudo rabbitmqctl stop_app
+    sudo rabbitmqctl reset
+    sudo rabbitmqctl start_app
+}
+
+alias p2='wo py27'

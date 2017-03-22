@@ -9,8 +9,8 @@ div {
 
     opacity: 0.5; /* default: 1 */
 
-
     display: inline-block;     /* default: inline; */
+
 /*
 Inline Elements:
 - Respect left & right margins and padding, but not top & bottom
@@ -50,3 +50,13 @@ body {
 
 /* flush nav bar to bottom */
 <div class="navbar navbar-fixed-bottom"></div>
+
+
+/* change navbar color */
+.navbar-default {
+    background-color: #F8F8F8;
+}
+
+.navbar-inverse {
+    background-color: #F8F8F8;
+}

@@ -25,13 +25,22 @@ except:
 
 # stdlib extra imports
 from collections import *
+
+from datetime import timedelta
+from datetime import datetime as dt
+
+
 from functools import *
-from unicodedata import *
-from pprint import pprint
-pp = pprint
+
 from distutils.version import LooseVersion
 lv = LooseVersion
+
 from packaging.version import Version
+
+from pprint import pprint
+pp = pprint
+
+from unicodedata import *
 
 
 
@@ -41,15 +50,25 @@ try:
     from celery import chain, current_app, group
     from celery.task.control import revoke, inspect, discard_all
 
+    import importmagic
+
     import numpy as np
     import pandas as pd
+
+    from pyflash.core import *
+
 except:
     pass
 
 
 
+
+
+
 # useful variables
 now = datetime.datetime.now()
+index = importmagic.SymbolIndex()
+index.get_or_create_index(name='py35', paths=['.'] + sys.path)
 
 
 # data
@@ -58,12 +77,22 @@ d = {1: 2, "a": "b", }
 t = (1, "aaa", 4.5, None, )
 s = {1, "333", "foo"}
 b = [120, 3, 255, 0, 100]
-
+ty = type
 
 beta = 'β'
 gamma = ''
 lh = 'http://0.0.0.0:8000'
 email = 'anand21nanda@gmail.com'
+
+c1 = """
+import os
+import sys
+
+import sphinx_rtd_theme
+
+
+print(os, sys, sphinx_rtd_theme)
+"""
 
 
 # utilities

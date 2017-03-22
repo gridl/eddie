@@ -1469,6 +1469,8 @@ pip install nikola
 nikola plugin -i import_blogger
 nikola import_blogger ~/Downloads/blog-07-23-2016.xml
 
+
+nikola bootswatch_theme -s cosmos
 nikola theme -i base-jinja
 
 nikola auto

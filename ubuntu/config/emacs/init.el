@@ -402,6 +402,7 @@
 (add-to-list 'grep-find-ignored-files "flycheck_*")
 (add-to-list 'grep-find-ignored-directories "htmlcov")
 
+(setq elpy-rpc-backend "rope")
 (setq elpy-rpc-backend "jedi")
 ;; (setq elpy-rpc-python-command "python3.5")
 (setq elpy-rpc-python-command "python3")
@@ -755,6 +756,9 @@
   (setq rm-whitelist "elpy")
   (sml/setup)
   (sml/apply-theme 'light))
+
+
+;; (use-package zenburn-theme)
 
 ;; (setq mode-line-format
 ;;       '("%e" mode-line-front-space mode-line-mule-info mode-line-client

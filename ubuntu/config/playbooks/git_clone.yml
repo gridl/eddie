@@ -6,8 +6,8 @@
 - name: clone '{{ item }}'
   git:
     repo: 'git@github.com:ChillarAnand/{{ item }}.git'
-    dest: '{{ projects }}/elpy'
+    dest: '{{ projects }}/{{ item }}'
     accept_hostkey: yes
     key_file: '{{ ssh_key }}'
   when:
-    repo.stat.exists == False
+    repo.stat.path.exists == False
