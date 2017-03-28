@@ -1495,6 +1495,7 @@ With a prefix argument N, (un)comment that many sexps."
   "Active space2cctl."
   (interactive)
   (call-process-shell-command  "~/.01/ubuntu/bin/space2ctrl.sh" nil 0))
+(space-to-ctrl-activate)
 
 
 (defun tidy-current-buffer ()

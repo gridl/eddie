@@ -1,11 +1,18 @@
+import time
+
 from celery import Celery
 
 # app = Celery(broker='amqp://guest@localhost//', backend='amqp://')
-app = Celery(broker='amqp://guest@localhost//', backend='rpc')
+# app = Celery(broker='amqp://guest@localhost//', backend='rpc')
+app = Celery(broker='redis://localhost:6379/0')
 
-# app.conf.update({
+app.conf.update({
 #     'CELERY_SEND_EVENTS': False
-# })
+    'CELERYD_LOG_COLOR': False,
+    'CELERY_TASK_SERIALIZER': 'json'
+})
+CELERY_ACCEPT_CONTENT = ['myjson']
+CELERY_RESULT_SERIALIZER = 'myjson'
 
 # app.conf.result_expires = 3600
 
@@ -22,5 +29,11 @@ def sub(x, y):
 
 @app.task
 def mul(x, y):
-    import time; time.sleep(30)
     return x * y
+
+
+@app.task
+def wait(seconds):
+    print('started')
+    time.sleep(seconds)
+    print('done')

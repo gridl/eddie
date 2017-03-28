@@ -389,6 +389,13 @@ import collections
 
 isinstance(dict, collections.Hashable)
 
+from collections import deque
+
+d = deque(range(5))
+d.rotate(1)
+print(d)
+d.rotate(-1)
+print(d)
 
 
 
@@ -898,89 +905,6 @@ import thirdpartylibraries
 
 # py 3.3
 #imp.reload(module)
-
-
-
-
-
-# celery
-import celery
-
-# cli
-
-# celery status
-# celery purge
-
-
-from celery import Celery
-
-app = Celery(broker='amqp://guest@localhost//')
-
-@app.task()
-def hello(name=None):
-    if name:
-        return 'hello world {}'.format(name)
-    else:
-        return 'foo'
-
-from datetime import datetime
-
-r = tasks.add.delay()
-r = tasks.add.apply_async(args=[1, 2], eta=datetime(2014, 6, 12, 0, 0))
-r = tasks.add.apply_async(args=[1, 2], countdown=10)
-r = tasks.add.apply_async(args=[2, 3], queues='email')
-
-
-# inspect
-
-from celery.task.control import revoke, inspect, discard_all
-
-i = inspect()
-i.scheduled()
-i.active()
-i.registered()
-
-# revoke task by id
-revoke(task_id, terminate=True)
-
-r = add.apply_async(args=[1,2])
-r.revoke()
-
-# task result
-
-# run worker from script
-from myapp import app
-argv = ['worker', '--loglevel=DEBUG',]
-app.worker_main(argv)
-
-
-# canvas
-# chain, group, chord
-
-
-# config
-CELERYD_LOG_COLOR = False
-
-# disable prefecthing
-CELERYD_PREFETCH_MULTIPLIER = 1
-CELERYD_CONCURRENCY = 1
-CELERY_ACKS_LATE = True
-
-CELERY_RDB_PORT = 6899
-
-
-# debugging
-rdb.set_trace()
-
-
-
-
-
-
-
-
-
-
 
 
 

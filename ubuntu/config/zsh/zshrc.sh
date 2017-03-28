@@ -128,7 +128,7 @@ source /usr/local/bin/virtualenvwrapper.sh
 
 
 
-# emacs prelude
+# shell escape chars
 export TERM=xterm-256color
 
 export PYTHONDONTWRITEBYTECODE=False
@@ -277,7 +277,8 @@ alias dr="python manage.py runserver --no-color"
 alias drp="python manage.py runserver_plus"
 
 alias ds="python manage.py shell_plus --print-sql"
-alias dsp="python manage.py shell_plus --print-sql"
+alias dsp="python manage.py shell_plus"
+alias dsps="python manage.py shell_plus --print-sql"
 
 alias dsu="python manage.py show_urls"
 alias dsug="python manage.py show_urls | grep "
@@ -385,8 +386,9 @@ alias mj='mux junction'
 
 alias tk='tmux kill-session -t '
 
-alias kcw='ps -ef | grep 'celery worker' | awk '{print $2}' | xargs kill -9'
+alias cwk="ps -ef | grep 'celery worker' | awk '{print $2}' | xargs kill -9"
 alias cia='celery inspect active'
+alias cpf='celery purge --force'
 
 
 # alias ma=man
@@ -681,7 +683,7 @@ alias hlw='heroku local web'
 
 
 # workon py37d
-workon py35
+workon py36
 
 
 # autoenv
@@ -694,7 +696,7 @@ alias f8='flake8'
 
 alias pg='pirate-get'
 
-reset_rabbit() {
+rabbitmq_reset() {
     sudo rabbitmqctl stop_app
     sudo rabbitmqctl reset
     sudo rabbitmqctl start_app

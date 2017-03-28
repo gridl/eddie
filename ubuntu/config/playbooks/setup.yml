@@ -62,6 +62,7 @@
         - apache2-utils
         - android-tools-adb
         - android-tools-fastboot
+        - lynx
 
         - npm
 
@@ -70,6 +71,7 @@
         - rabbitmq-server
 
         - libimobiledevice-dev
+
       become_user: root
 
 

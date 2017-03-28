@@ -1,31 +1,39 @@
+awscli
+
+
+cookiecutter
+
+celery
+flower
+
 httpie
+
+grip
 
 ipython
 jupyter
 ipdb
 
 
-# mitmproxy
-
-grip
-
-pytest
-
 importmagic
 jedi
 rope
 flake8
+pylint
 
-cookiecutter
+
+pytest
+
 
 stdlib_list
 
 pandas
 numpy
 
-awscli
 
 Sphinx
 
-celery
-flower
+
+mitmproxy
+
+Nikola==7.8.3
