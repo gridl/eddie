@@ -1,3 +1,5 @@
+# flake8: noqa
+
 # django
 import django
 
@@ -152,10 +154,19 @@ for each in (template_dir_list + settings.TEMPLATES[0]['DIRS']):
 
 
 # urls
-from django.core.urlresolvers import get_resolver, resolve
-get_resolver(None).reverse_dict.keys()     #All URL Patterns excluding namespaces
-reverse('/')  # get view
-reverse_lazy('/')  # lazy version of reverse
+
+# all URL patterns excluding namespaces
+from django.core.urlresolvers import get_resolver
+get_resolver(None).reverse_dict.keys()
+
+# get view
+reverse('/')
+# lazy version of reverse
+reverse_lazy('/')
+reverse('foo:bar')
+# with query params
+url = '{}?{}'.format(reverse('foo:bar'), 'q=foo')
+
 
 
 # redirect

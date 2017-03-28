@@ -1,4 +1,36 @@
-# Terminal Commands
+# Terminal
+
+
+# SHELL SCRIPTING
+
+
+# exapnsion
+echo {a..z}
+
+
+# for loop
+for i in {1..5}; do echo "Welcome $i times"; done
+
+
+# if cond
+if (( 2 > 0 ))
+then
+    echo 'right';
+else
+    echo 'wrong';
+fi
+
+
+# substring
+$score=9.5
+echo ${score:0:1}
+
+
+
+
+
+
+
 
 
 
@@ -1034,9 +1066,8 @@ rabbitmqadmin -f tsv -q list queues name | while read queue; do rabbitmqadmin -q
 
 
 
-### redis
+# redis
 
-```shell
 # start server
 redis-server
 
@@ -1051,13 +1082,33 @@ redis-cli
 
 # allow remote connections
 # comment `bind` option in `/etc/redis/redis.conf`
-```
+
+# show all keys
+redis-cli --scan --pattern '*'
+
+# cli
+keys *
+type key
+
+
+# sets
+sadd foo bar
+smembers foo
+
+# strings
+set mykey myvalue
+get mykey
+
+# list
+LRANGE list 0 -1
 
 
 
-### salt stack
 
-```shell
+
+
+# salt stack
+
 # install
 sudo apt-get --yes -q install python-software-properties
 
@@ -1075,7 +1126,9 @@ sudo salt-run jobs.active
 sudo salt '*' saltutil.find_job <jid>
 # kill a running job with jid
 sudo salt '*' saltutil.kill_job <jid>
-```
+
+
+
 
 
 ### screen
@@ -1492,29 +1545,16 @@ celery inspect active
 ```
 
 
-### gsetting
 
-```
+# gsetting
+
 # disable auto-opening nautilus window after auto-mount
 gsettings set org.gnome.desktop.media-handling automount-open false
-```
 
 
 
 
 
-
-
-# shell scripting
-
-# exapnsion
-echo {a..z}
-
-
-# for loop
-for i in {1..5}; do echo "Welcome $i times"; done
-
-# if cond
 
 
 

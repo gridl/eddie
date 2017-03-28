@@ -4,11 +4,13 @@
 import os
 import sys
 import datetime
+now = datetime.datetime.now()
 
 
+# import_standard_library
 try:
     from stdlib_list import stdlib_list
-    # import_standard_library
+
     version = sys.version[:3]
     libs = stdlib_list(version)
 
@@ -26,16 +28,15 @@ except:
 # stdlib extra imports
 from collections import *
 
-from datetime import timedelta
-from datetime import datetime as dt
-
+from datetime import *
 
 from functools import *
 
-from distutils.version import LooseVersion
+from distutils.version import *
 lv = LooseVersion
 
-from packaging.version import Version
+from packaging.version import *
+v = Version
 
 from pprint import pprint
 pp = pprint
@@ -51,24 +52,18 @@ try:
     from celery.task.control import revoke, inspect, discard_all
 
     import importmagic
+    index = importmagic.SymbolIndex()
+    index.get_or_create_index(name='py35', paths=['.'] + sys.path)
 
     import numpy as np
     import pandas as pd
 
     from pyflash.core import *
 
-except:
-    pass
-
-
-
-
-
-
-# useful variables
-now = datetime.datetime.now()
-index = importmagic.SymbolIndex()
-index.get_or_create_index(name='py35', paths=['.'] + sys.path)
+    import redis
+    rc = redis.StrictRedis(host='localhost', port=6379, db=0)
+except Exception as e:
+    print(e)
 
 
 # data
@@ -149,15 +144,6 @@ class Animal(Organism):
 
 class Human(Animal):
     pass
-
-
-try:
-    file_name = './scripts/dsp.py'
-    exec(open(file_name).read())
-    print('============== Executed {} ============'.format(file_name))
-except:
-    pass
-
 
 
 
