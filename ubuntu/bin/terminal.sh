@@ -1086,6 +1086,12 @@ redis-cli
 # show all keys
 redis-cli --scan --pattern '*'
 
+# subscribe to all channesl
+redis-cli psubscribe '*'
+
+redis-cli publish channel-foo message-bar
+
+
 # cli
 keys *
 type key

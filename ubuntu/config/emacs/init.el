@@ -548,8 +548,10 @@
 (sh-set-shell "zsh")
 (add-hook 'shell-mode-hook
           'ansi-color-for-comint-mode-on)
-(define-key sh-mode-map (kbd "C-c C-c") 'sh-send-line-or-region-and-step)
+(define-key sh-mode-map (kbd "C-c C-c") 'sh-send-line-or-region)
+(define-key sh-mode-map (kbd "<C-return>") 'sh-send-line-or-region-and-step)
 (define-key sh-mode-map (kbd "C-c C-z") 'sh-switch-to-process-buffer)
+
 
 
 (use-package prodigy

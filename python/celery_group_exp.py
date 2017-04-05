@@ -2,25 +2,7 @@ import functools
 
 from celery import Celery, group
 
-
-app = Celery('avilpage', broker='amqp://guest@localhost//')
-
-
-@app.task
-def add(x, y):
-    return x + y
-
-
-@app.task
-def sub(x, y):
-    return x - y
-
-
-def foo(x, y):
-    return x | y.s(1)
-
-
-tasks = [add, add, add]
+from .t import *
 
 
 chains = [
@@ -34,3 +16,10 @@ g = group(*chains)
 print(g)
 
 res = g.apply_async(args=[1111])
+
+c = group(
+    chain(
+        add.s(4), mult.s(2)
+    ),
+    sub.s(1)
+)(3)

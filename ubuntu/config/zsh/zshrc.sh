@@ -683,7 +683,8 @@ alias hlw='heroku local web'
 
 
 # workon py37d
-workon py36
+# workon py36
+workon py35
 
 
 # autoenv
@@ -703,3 +704,7 @@ rabbitmq_reset() {
 }
 
 alias p2='wo py27'
+
+export PYTHONDONTWRITEBYTECODE=1
+
+alias pd='j py && ipy'

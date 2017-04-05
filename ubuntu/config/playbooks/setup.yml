@@ -41,6 +41,7 @@
         - clementine
         - clipit
         - cowsay
+        - dconf-tools
         - git
         - htop
         - kazam
@@ -176,13 +177,13 @@
     - name: create projects directory
       file: path="{{ projects }}" state=directory
 
-    - name: clone github repos
-      include: git_clone.yml package="{{ item }}"
-      with_items:
-        - elpy
-        - avilpage.com
-        - django
-        - importmagic
+    # - name: clone github repos
+    #   include: git_clone.yml package="{{ item }}"
+    #   with_items:
+    #     - elpy
+    #     - avilpage.com
+    #     - django
+    #     - importmagic
 
 
    # - name: Install docker
@@ -229,6 +230,8 @@
         - {name: 'deis',     url: 'http://deis.io/deis-cli/install-v2.sh'}
         - {name: 'minikube', url: 'https://storage.googleapis.com/minikube/releases/v0.16.0/minikube-linux-amd64'}
         - {name: 'kubectl',  url: 'https://storage.googleapis.com/kubernetes-release/release/v1.5.1/bin/linux/amd64/kubectl'}
+        - {name: 'node',  url: 'https://deb.nodesource.com/setup_7.x'}
+
 
     # - name: remove symlinks
     #   file:

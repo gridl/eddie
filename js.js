@@ -1,44 +1,3 @@
-// js
-
-const x = 1;
-
-
-
-// list the properties of a JavaScript object
-var keys = Object.keys(myObject);
-
-
-// determine the class of an object
-Object.prototype.toString.call(myObject);
-
-
-// JavaScript has function scope;
-// functions get their own scope but other blocks do not.
-if (true){
-    var i = 5;
-}
-i;
-// not undefined as you'd expect in a block-scoped language
-
-
-// closures
-// the inner function has access to all the outer function's variables, even after the outer function exits
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // jQuery
 
 
@@ -98,6 +57,39 @@ $('input#id_tissue').autocomplete({
 
 
 
+
+
+
+// 1 =========================================================================
+function likePost(post, user) {
+     // ajax request..
+     // return promise
+}
+
+
+function submitAction(actionHandler) {
+    var user = getCurrentUser()
+    var promise = actionHandler(user)
+    // handle promise
+}
+
+var post = 1;
+
+submitAction(likePost);
+
+
+// 2 =========================================================================
+function Polygon(height, width) {
+    this.height = height;
+    this.width = width;
+}
+
+
+var square = new Square(10);
+console.log(square.area()); // 100
+
+// 3 =========================================================================
+// My test string -> yM tset gnirts
 
 
 

@@ -47,8 +47,9 @@ from unicodedata import *
 
 # 3rd party libraries
 try:
+
     import celery
-    from celery import chain, current_app, group
+    from celery import current_app, chain, chord, group
     from celery.task.control import revoke, inspect, discard_all
 
     import importmagic
@@ -57,11 +58,15 @@ try:
 
     import numpy as np
     import pandas as pd
+    from pandas import DataFrame as df
 
     from pyflash.core import *
 
     import redis
     rc = redis.StrictRedis(host='localhost', port=6379, db=0)
+
+    from t import *
+
 except Exception as e:
     print(e)
 
@@ -147,7 +152,7 @@ class Human(Animal):
 
 
 
-os.system('cls' if os.name == 'nt' else 'clear')
+# os.system('cls' if os.name == 'nt' else 'clear')
 
 message = r"""
  ________________________________________

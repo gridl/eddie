@@ -2,9 +2,9 @@ import time
 
 from celery import Celery
 
-# app = Celery(broker='amqp://guest@localhost//', backend='amqp://')
+app = Celery(broker='amqp://guest@localhost//', backend='amqp://')
 # app = Celery(broker='amqp://guest@localhost//', backend='rpc')
-app = Celery(broker='redis://localhost:6379/0')
+# app = Celery(broker='redis://localhost:6379/0')
 
 app.conf.update({
 #     'CELERY_SEND_EVENTS': False
@@ -37,3 +37,23 @@ def wait(seconds):
     print('started')
     time.sleep(seconds)
     print('done')
+
+
+@app.task
+def dummy():
+    pass
+
+
+@app.task
+def foo(*args, **kwargs):
+    print(args, kwargs)
+
+
+@app.task
+def bar(*args, **kwargs):
+    print(args, kwargs)
+
+
+@app.task
+def baz(*args, **kwargs):
+    print(args, kwargs)
