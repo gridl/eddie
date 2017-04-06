@@ -1071,17 +1071,14 @@ rabbitmqadmin -f tsv -q list queues name | while read queue; do rabbitmqadmin -q
 # start server
 redis-server
 
+# allow remote connections
+# comment `bind` option in `/etc/redis/redis.conf`
+
 # ping redis
 redis-cli ping
 
 # shutdown
 redis-cli shutdown
-
-# interactive redis
-redis-cli
-
-# allow remote connections
-# comment `bind` option in `/etc/redis/redis.conf`
 
 # show all keys
 redis-cli --scan --pattern '*'
@@ -1092,21 +1089,38 @@ redis-cli psubscribe '*'
 redis-cli publish channel-foo message-bar
 
 
-# cli
-keys *
-type key
 
+# interactive redis
+redis-cli
+
+
+SELECT 0
+KEYS *
+TYPE key
+
+# Removes data from your connection's CURRENT database.
+FLUSHDB
+# removes data from ALL databases.
+FLUSHALL
 
 # sets
-sadd foo bar
-smembers foo
+SADD foo bar
+SMEMBERS foo
 
 # strings
-set mykey myvalue
-get mykey
+SET mykey myvalue
+GET mykey
 
 # list
 LRANGE list 0 -1
+
+
+
+
+
+
+
+
 
 
 

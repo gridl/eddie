@@ -7,6 +7,7 @@ from celery import Celery
 
 
 app = Celery(broker='amqp://guest@localhost//')
+app = Celery(broker='redis://localhost:6379/0')
 
 
 @app.task()

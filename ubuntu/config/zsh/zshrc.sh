@@ -252,6 +252,10 @@ alias pirr='pip install -r requirements.txt'
 alias pire='pip install --upgrade jedi rope flake8 importmagic autopep8 yapf'
 alias pird='pir ~/.01/ubuntu/config/requirements.txt'
 
+pfi () {
+    pip uninstall $1 --yes
+    pip install $1 --no-cache-dir
+}
 
 
 
@@ -592,7 +596,7 @@ pyclean () {
 
 
 alias sc='sudo systemctl '
-alias rc='sudo rabbitmqctl '
+alias rmc='sudo rabbitmqctl '
 
 
 alias kc='kubectl '
@@ -708,3 +712,5 @@ alias p2='wo py27'
 export PYTHONDONTWRITEBYTECODE=1
 
 alias pd='j py && ipy'
+
+alias rc=redis-cli

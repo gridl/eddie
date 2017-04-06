@@ -1,7 +1,8 @@
 -- postgres / psql
 
 
-### install
+
+    ### install
 ```
 # uninstall
 sudo apt-get --purge remove postgresql postgresql-doc postgresql-common
@@ -17,7 +18,11 @@ sudo service postgresql restart
 ```
 
 
-### users
+
+
+
+
+    ### users
 
 ```
 # for password less login
@@ -50,7 +55,8 @@ DROP USER <USER>;
 
 
 
-### databases
+
+    ### databases
 
 # create
 create database <foo>;
@@ -61,6 +67,7 @@ SELECT datname FROM pg_database;
 
 # connect to database
 \c <dbname>
+USE <dbname>
 
 # show all tables in all dbs
 \dt *.*

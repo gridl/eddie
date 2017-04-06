@@ -47,10 +47,28 @@ register(
 )
 
 
-app = Celery(broker='amqp://guest@localhost//', backend='amqp://')
+def loads(s):
+    return s
+
+
+def dumps(s):
+    return s
+
+
+register(
+    'mem_serializer', dumps, loads,
+    content_type='application/x-memory',
+    # content_encoding='utf-8',
+    content_encoding='binary',
+)
+
+
+app = Celery(broker='redis://localhost:6379/0')
 
 serializer = 'myjson'
+serializer = 'mem_serializer'
 # serializer = 'json'
+
 app.conf.update({
     'CELERY_SEND_EVENTS': False,
     'CELERYD_LOG_COLOR': False,
