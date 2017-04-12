@@ -112,9 +112,14 @@ fi
 
 
 
-# source virtualenv wrapper
+# virtualenv wrapper
 export WORKON_HOME=$HOME/.virtualenvs
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
+export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
+export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
 source /usr/local/bin/virtualenvwrapper.sh
+
+
 # source /etc/bash_completion.d/virtualenvwrapper
 
 
@@ -424,7 +429,7 @@ alias cs='~/.01/ubuntu/bin/space2ctrl.sh'
 
 alias s=sudo
 alias si='sudo -i'
-alias sp='sudo du -hs *'
+# alias sp='sudo du -hs *'
 
 alias se='source .env'
 alias sz='source ~/.zshrc'
@@ -511,10 +516,9 @@ scr () {
     systemctl restart $1.service
 }
 
+# alias as='adb shell'
 
 # appknox
-alias as='adb shell'
-
 alias ci='curl ipinfo.io'
 alias c='cat '
 alias cc='pygmentize -g'
@@ -599,30 +603,60 @@ alias sc='sudo systemctl '
 alias rmc='sudo rabbitmqctl '
 
 
+
 alias kc='kubectl '
 
 alias kcp='google-chrome http://127.0.0.1:8001/ui/ && kubectl proxy'
 
-alias kcc='kubectl config'
+
+alias kci='kubectl cluster-info'
+
+# config
+
+alias kcc='kubectl config current-context'
 alias kcv='kubectl config view'
-alias kccv='kubectl config view'
+alias kcu='kubectl config use-context'
+alias kcum='kubectl config use-context minikube'
 
-alias kcg='kubectl get '
 
-alias kcdd='kubectl delete deployments'
+alias kd='kubectl describe'
+alias kdd='kubectl describe deployments'
+alias kdp='kubectl describe pods'
+alias kdpd='kubectl describe pods -n deis'
+alias kdps='kubectl describe pods -n sherlock'
 
-alias kcgd='kubectl get deployments --all-namespaces'
+alias kds='kubectl describe services'
 
-alias kcgn='kubectl get nodes'
 
-alias kcgp='kubectl get pods --all-namespaces'
+alias kg='kubectl get '
+alias kgd='kubectl get deployments --all-namespaces'
+alias kgn='kubectl get nodes'
+alias kgp='kubectl get pods --all-namespaces'
+alias kgs='kubectl get services'
+
+
+alias ksi='kubectl set image'
+
+
+ssh_pod() {
+    kubectl exec $1 -it bash --namespace=sherlock
+}
+alias sp=ssh_pod
+
+
+
+
 
 
 
 alias ae='aws ec2'
 alias aed='aws ec2 describe-instances'
 alias aei="aed --output table --query 'Reservations[].Instances[].[Tags[?Key==\`Name\`] | [0].Value, State.Name, PublicDnsName, PublicIpAddress]'"
+
+alias as='aws s3'
+alias asc='aws s3 cp'
 alias asl='aws s3 ls'
+alias asbs='aws s3 ls --summarize --human-readable --recursive '
 
 
 
@@ -686,9 +720,6 @@ alias hcs='heroku config:set'
 alias hlw='heroku local web'
 
 
-# workon py37d
-# workon py36
-workon py35
 
 
 # autoenv
@@ -707,10 +738,20 @@ rabbitmq_reset() {
     sudo rabbitmqctl start_app
 }
 
+
+
+
+# workon py37d
+workon py36
+# workon py35
+export PYTHONDONTWRITEBYTECODE=1
+alias pd='j py && ipy'
 alias p2='wo py27'
 
-export PYTHONDONTWRITEBYTECODE=1
-
-alias pd='j py && ipy'
 
 alias rc=redis-cli
+
+free_port() {
+    fuser -k $1/tcp
+}
+alias fp=free_port

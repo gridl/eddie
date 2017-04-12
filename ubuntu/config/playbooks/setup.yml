@@ -228,9 +228,10 @@
       with_items:
         # - {name: 'pyenv', url: 'https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer'}
         - {name: 'deis',     url: 'http://deis.io/deis-cli/install-v2.sh'}
-        - {name: 'minikube', url: 'https://storage.googleapis.com/minikube/releases/v0.16.0/minikube-linux-amd64'}
+        - {name: 'minikube', url: 'https://storage.googleapis.com/minikube/releases/v0.18.0/minikube-linux-amd64'}
         - {name: 'kubectl',  url: 'https://storage.googleapis.com/kubernetes-release/release/v1.5.1/bin/linux/amd64/kubectl'}
         - {name: 'node',  url: 'https://deb.nodesource.com/setup_7.x'}
+        - {name: 'helm',  url: 'https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get'}
 
 
     # - name: remove symlinks

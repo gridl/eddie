@@ -1,3 +1,4 @@
+import datetime as dt
 import os
 
 import boto3
@@ -17,19 +18,37 @@ s3_client = session.client(
     service_name='s3',
     aws_access_key_id=ak,
     aws_secret_access_key=sk,
-    endpoint_url=host,
+    # endpoint_url=host,
 )
 
 s3 = boto3.resource(
     service_name='s3',
     aws_access_key_id=ak,
     aws_secret_access_key=sk,
-    endpoint_url=host,
+    # endpoint_url=host,
 )
 
 client = s3_client
 
-bucket = 'test'
+# r = client.list_buckets()
+# buckets = [b['Name'] for b in r['Buckets']]
+# print(buckets)
+
+bucket = 'test-bucket'
+
+
+bucket = s3.Bucket(bucket_name)
+print(bucket)
+
+now = dt.datetime.now(dt.timezone.utc)
+
+last_required_date = now - dt.timedelta(days=4)
+
+for item in bucket.objects.all():
+    if item.last_modified < last_required_date:
+        bucket.delete_objects(Delete={'Objects': [{'Key': item.key}]})
+    else:
+        print(item.key, item.last_modified)
 
 
 try:
@@ -37,17 +56,15 @@ try:
 except botocore.exceptions.ClientError:
     client.create_bucket(Bucket=bucket)
 
-r = client.list_buckets()
-buckets = [b['Name'] for b in r['Buckets']]
-print(buckets)
+policy = client.get_bucket_policy(Bucket=buckets[0])
+print(policy)
+
 
 filename = key = 'test.txt'
 client.upload_file(Filename='test.txt', Bucket=bucket, Key=key)
+
 client.download_file(bucket, key, 'foo.txt')
 
-
-policy = client.get_bucket_policy(Bucket=buckets[0])
-# print(policy)
 
 
 # Connect to EC2

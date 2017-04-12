@@ -381,6 +381,17 @@ print(sys.platform)
 
 
 
+import bisect
+
+
+a = [12, 35, 4, 58, 6, 48, 98]
+a = sorted(a)
+index = bisect.bisect(a, 50)
+
+bisect.insort(a, 50)
+
+
+
 
 
 
@@ -796,6 +807,17 @@ if match:
 
 
 
+
+import shelve
+
+shelve.open()
+
+
+
+
+
+
+
 # shutil
 import shutil
 
@@ -805,7 +827,10 @@ shutil.move('foo.py', '/home/chillaranand/')
 
 
 
-# subprocess
+
+
+
+
 import subprocess
 
 

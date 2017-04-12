@@ -91,7 +91,6 @@ ls | xargs -I {} cat {} -r
 
 
 
-
 # disks
 
 # list block devices
@@ -144,9 +143,9 @@ cat /etc/version
 
 
 
-### files
+# files
 
-```shell
+
 # sort by date/time
 ls -t
 ls -rt  # reverse
@@ -232,7 +231,9 @@ find . -name '*.py' -exec etags -a {} \;
 echo 16384 > /proc/sys/fs/inotify/max_user_watches
 # permanent, add this to /etc/sysctl.conf
 fs.inotify.max_user_watches=16384
-```
+
+
+
 
 
 
@@ -271,8 +272,6 @@ ffmpeg -i foo.wembm adandada.mp3
 
 # split video of 25 seconds
 ffmpeg -i input.mkv -ss 00:01:10 -t 25 output.mkv
-
-
 
 
 
@@ -414,9 +413,8 @@ git rm --cached -r .
 
 
 
-#### logs
+# logs
 
-```shell
 # log stdout stderr to file
 command >> log_file 2>&1
 command >> log_file 2>> err_file
@@ -425,7 +423,6 @@ command >> log_file 2>> err_file
 sudo cat /var/log/syslog
 # check error messages
 sudo cat /var/log/dmesg
-```
 
 
 
@@ -608,7 +605,6 @@ nice -n 19 command
 
 # security
 
-```shell
 # enable automatic security updates
 sudo apt-get install unattended-upgrades
 sudo dpkg-reconfigure -plow unattended-upgrades
@@ -630,13 +626,16 @@ sudo rkhunter -c --rwo
 
 # generate csr for ssl
 openssl req -new -newkey rsa:2048 -nodes -keyout foo.com.key -out foo.com.csr
-```
 
 
 
-#### system info
 
-```shell
+
+
+
+# system info
+
+
 # print distribution specific info
 lsb_release -a
 
@@ -669,7 +668,7 @@ sudo dmidecode -t 16
 
 # change brightness
 echo 100 > /sys/class/backlight/foo/brightness
-```
+
 
 
 
@@ -690,9 +689,9 @@ sudo dpkg-reconfigure tzdata  # set timezone
 
 
 
-#### usb pen drive
+# usb pen drive
 
-```shell
+
 # list block devices
 lsblk
 
@@ -716,12 +715,13 @@ sudo mkfs.vfat /dev/sdb1
 df -Th
 unmout /media/
 dosfsck -a /dev/sdb1
-```
 
 
-#### grep
 
-```shell
+
+# grep
+
+
 # grep for matching lines
 grep 'foo' bar.txt
 # grep for non matching lines
@@ -737,16 +737,11 @@ grep -rl "foo" /path/to/dir/
 
 # grep ps without grep
 ps -ef | grep '[c]elery'
-```
 
 
-#### services
 
-```shell
 sudo service <name> start/stop/status/restart
 
-sudo start/stop/status/restart <service>
-```
 
 
 
@@ -1752,7 +1747,9 @@ gcloud compute firewall-rules create <rule-name> --allow tcp:9090 --source-tags=
 
 
 
-# kubectl
+
+kubectl () {}
+
 
 # show merged kubeconfig settings - all clusters
 kubectl config view
@@ -1766,9 +1763,17 @@ kubectl config current-context
 
 # get cluster info
 kubectl cluster-info
-kubectl get nodes
-kubectl get pods --all-namespaces
-kubectl get pods --namespace=deis
+
+
+# edit controller config
+kubectl edit deployment/deis-controller -n deis
+
+
+kubectl describe
+
+kubectl describe pods name
+kubectl describe po name
+
 
 # run command in pod
 kubectl exec $POD_NAME env
@@ -1778,13 +1783,52 @@ kubectl exec -ti $POD_NAME bash
 kubectl exec $POD_NAME --namespace=$NAMESPACE -it bash
 
 
+kubectl get nodes
+kubectl get pods --all-namespaces
+kubectl get pods --namespace=deis
 
 
 
-# minikube - setup kubernetes locally
+
+
+
+
+
+
+minikube () {}
+# setup kubernetes locally
+
 minikube version
 
 minikube start
+minikube start --disk-size=60g --memory=4096
+
+minikube status
+
+minikube stop
+
+minikube delete
+
+
+minikube addons enable registry-creds
+
+
+
+
+
+
+
+helm () {}
+
+helm init
+
+helm version
+
+helm repo add deis https://charts.deis.com/workflow
+
+helm install deis/workflow --namespace deis --set router.host_port.enabled=true
+
+
 
 
 
@@ -1830,8 +1874,6 @@ deis releases:info v9
 
 
 
-
-
 # kops
 export KOPS_STATE_STORE=s3://foo
 kops export kubecfg kubernetes.foo.com
@@ -1857,3 +1899,39 @@ gpg --gen-key
 
 # install pip
 https://bootstrap.pypa.io/get-pip.py | python
+
+
+
+# postgres
+
+
+# databases
+
+# create db
+createdb db_name
+
+# list databases
+psql -l
+
+
+
+
+# backup
+pg_dump database_name > db.sql
+
+# compressed binary format
+pg_dump -Fc db_name > db.bak
+# tarball
+pg_dump -Ft db_name > db.tar
+
+
+# restore from plain text
+cat db.sql | psql db_name
+psql -d db_name -f db.sql
+
+# restore from compressed files
+pg_restore -Fc database.bak
+pg_restore -Ft database.tar
+
+# create db & restore
+pg_restore -Fc -C database.bak

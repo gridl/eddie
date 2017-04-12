@@ -71,13 +71,20 @@ except Exception as e:
     print(e)
 
 
+# aliases
+ty = type
+
+
 # data
+a = [12, 45, 78, 35, 98, 44, 65]
+sa = [12, 35, 44, 45, 65, 78, 98]
+
 l = [None, 3, 5.0, 'aaew', 23]
 d = {1: 2, "a": "b", }
 t = (1, "aaa", 4.5, None, )
 s = {1, "333", "foo"}
 b = [120, 3, 255, 0, 100]
-ty = type
+
 
 beta = 'β'
 gamma = ''
