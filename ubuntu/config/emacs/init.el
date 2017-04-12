@@ -366,6 +366,10 @@
 
 
 ;; python mode
+(setq python-shell-prompt-detect-failure-warning nil)
+(setq python-shell-completion-native-enable nil)
+(setq python-indent-offset 4)
+(setq python-indent-guess-indent-offset nil)
 
 (use-package pyvenv)
 (use-package highlight-indentation)
@@ -384,35 +388,21 @@
   (define-key company-active-map (kbd "C-p") #'company-select-previous))
 
 (use-package elpy)
-(add-to-list 'load-path "~/projects/python/elpy")
+(add-to-list 'load-path "~/projects/elpy")
 (load "elpy" nil t)
 (elpy-enable)
 
-
-
-(setq python-shell-prompt-detect-failure-warning nil)
-(setq python-shell-completion-native-enable nil)
-(setq python-indent-offset 4)
-(setq python-indent-guess-indent-offset nil)
-
 (setq elpy-test-runner 'elpy-test-pytest-runner)
 (setq elpy-rpc-timeout nil)
-
 (setq elpy-rgrep-file-pattern "*.py *.html")
+(setq elpy-rpc-backend "jedi")
+(setq elpy-rpc-python-command "python3")
+(pyvenv-workon "py36")
+(elpy-rpc-restart)
+
 (add-to-list 'grep-find-ignored-files "flycheck_*")
 (add-to-list 'grep-find-ignored-directories "htmlcov")
 
-(setq elpy-rpc-backend "rope")
-(setq elpy-rpc-backend "jedi")
-;; (setq elpy-rpc-python-command "python3.5")
-(setq elpy-rpc-python-command "python3")
-;; (elpy-use-ipython)
-
-(defun elpy-install-requirements ()
-  (interactive)
-  (async-shell-command "sudo pip install rope jedi flake8 importmagic autopep8 yapf --upgrade"))
-
-(require 's)
 
 (defun elpy-goto-definition-or-template ()
   (interactive)
@@ -429,10 +419,6 @@
                       (return f)))
                 (projectile-project-root)))))
 
-
-;; activate exp
-(pyvenv-workon "py35")
-(elpy-rpc-restart)
 
 (defun my/send-region-or-buffer (&optional arg)
   (interactive "P")
@@ -458,6 +444,7 @@
              'company-complete-common
              'company-yasnippet-or-completion
              company-active-map)))
+
 
 ;; (use-package pony-mode)
 
