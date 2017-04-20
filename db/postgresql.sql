@@ -1,65 +1,30 @@
--- postgres / psql
-
-
-
-    ### install
-```
-# uninstall
-sudo apt-get --purge remove postgresql postgresql-doc postgresql-common
-
-# install
-sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list'
-wget -q https://www.postgresql.org/media/keys/ACCC4CF8.asc -O - | sudo apt-key add -
-sudo apt-get update
-sudo apt-get install postgresql postgresql-contrib
-
-# restart
-sudo service postgresql restart
-```
+-- check connection
+\conninfo
 
 
 
 
+-- users
 
-
-    ### users
-
-```
-# for password less login
-sudo -u user_name psql db_name
-
-# change to "postgres" Linux user
-sudo su - postgres
-
-# start the psql shell
-psql
-
-# check connection
-postgres-# \conninfo
-
-# create user
+-- create user
 CREATE USER mycroft WITH PASSWORD 'mycroft';
 
-# to reset the password if you have forgotten
+-- to reset the password if you have forgotten
 ALTER USER "user_name" WITH PASSWORD 'new_password';
 
-# give permissions to createdb
-sudo -u postgres psql -c 'alter user kuser with createdb' postgres
-
-#upgrade a user to be a superuser
+-- upgrade a user to be a superuser
 ALTER USER myuser WITH SUPERUSER;
 
-# delete user
+-- delete user
 DROP USER <USER>;
-```
 
 
 
 
-    ### databases
+-- databases
 
-# create
-create database <foo>;
+# CREATE
+create database testdb;
 
 # show databases
 \l
@@ -99,14 +64,22 @@ WHERE
 ```
 
 
+
+
+
+
+
+
 -- sync primary keys - django
 
 -- check last value
-    \d tablename_id_seq
+    \d testdb_id_seq;
 
-SELECT MAX(id) FROM tablename
+SELECT MAX(id) FROM testdb;
 
-SELECT setval('tablename_id_seq', (SELECT MAX(id) FROM tablename)+1)
+SELECT setval('testdb_id_seq', (SELECT MAX(id) FROM testdb)+1);
+
+
 
 
 

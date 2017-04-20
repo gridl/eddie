@@ -450,10 +450,11 @@ alias lh='http://127.0.0.1:8000'
 
 
 
+
 # appknox cli
 alias akh='appknox --help'
 
-alias ak='appknox --username f --password f --host 127.0.0.1:8000 --no-secure'
+alias ak='appknox --username $AK_USER --password $AK_PASS --host 127.0.0.1:8000 --no-secure'
 
 alias aks='ak submit_url "https://play.google.com/store/apps/details?id=com.wFinalZen"'
 
@@ -560,7 +561,7 @@ irene () {
 mycroft () {
     cd /home/chillaranand/projects/appknox/mycroft/
     deactivate
-    workon mycroft
+    workon sherlock
     eval $(./scripts/env_converter.py)
 }
 alias my=mycroft

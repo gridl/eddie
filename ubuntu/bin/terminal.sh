@@ -312,7 +312,7 @@ sudo usermod -s /sbin/nologin <user>
 
 
 
-# git
+git () {}
 
 # update git
 sudo apt-add-repository ppa:git-core/ppa
@@ -1902,17 +1902,53 @@ https://bootstrap.pypa.io/get-pip.py | python
 
 
 
-# postgres
+
+
+
+
+
+
+
+
+postgres() {}
+
+# uninstall
+sudo apt-get --purge remove postgresql postgresql-doc postgresql-common
+
+# install
+sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list'
+wget -q https://www.postgresql.org/media/keys/ACCC4CF8.asc -O - | sudo apt-key add -
+sudo apt-get update
+sudo apt-get install postgresql postgresql-contrib
+
+# restart
+sudo service postgresql restart
+
+
+# for password less login
+sudo psql -u user_name db_name
+
+psql -U postgres -h <ip_addr> <database_name> << EOF
+SELECT * FROM xyz_table;
+SELECT * FROM abc_table;
+EOF
+
+# change to "postgres" Linux user
+sudo su - postgres
+
+
+# run queries from cli
+psql -c '\c testdb;'
+sudo psql -u postgres -c 'alter user kuser with createdb' postgres
 
 
 # databases
 
-# create db
-createdb db_name
-
 # list databases
 psql -l
 
+# create db
+createdb db_name
 
 
 

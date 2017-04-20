@@ -120,6 +120,18 @@ def codepoint(x):
     return cp.upper()
 
 
+def bd(number):
+    return int('0x{}'.format(number), 0)
+
+
+def ch(number):
+    return chr(int('0x{}'.format(number), 0))
+
+
+def dh(number):
+    return int('0x{}'.format(number), 0)
+
+
 def hb(number):
     return bin(int('0x{}'.format(number), 0))
 
@@ -128,16 +140,7 @@ def hd(number):
     return int('0x{}'.format(number), 0)
 
 
-def dh(number):
-    return int('0x{}'.format(number), 0)
 
-
-def bd(number):
-    return int('0x{}'.format(number), 0)
-
-
-def ch(number):
-    return chr(int('0x{}'.format(number), 0))
 
 
 class Foo:
