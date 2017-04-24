@@ -1005,6 +1005,7 @@
 
 
 (use-package paradox)
+;; (use-package sqlplus)
 
 
 ;; sql config
@@ -1026,18 +1027,26 @@
 (setq sql-port 3306)
 (setq sql-connection-alist
       '(
-        (pool-server
+        (mysql-server
          (sql-server sql-server-address)
          (sql-user sql-server-user)
          (sql-password sql-server-password)
          (sql-database sql-server-database)
          (sql-port sql-port))
-        (pool-local
+        (mysql-local
          (sql-server sql-local-server)
          (sql-user sql-local-user)
          (sql-password sql-local-password)
          (sql-database sql-local-database)
-         (sql-port sql-port))))
+         (sql-port sql-port))
+
+        (psql-local
+         (sql-server psql-local-server)
+         (sql-user psql-local-user)
+         (sql-password psql-local-password)
+         (sql-database psql-local-database)
+         (sql-port psql-port))
+        ))
 
 (defun sql-connect-preset (name)
   "Connect to a predefined SQL connection listed in `sql-connection-alist'"
@@ -1045,11 +1054,11 @@
            (flet ((sql-get-login (&rest what)))
              (sql-product-interactive sql-product)))))
 
-(defun sql-pool-server ()
+(defun sql-mysql-server ()
   (interactive)
   (sql-connect-preset 'pool-server))
 
-(defun sql-pool-local ()
+(defun sql-mysql-local ()
   (interactive)
   (sql-connect-preset 'pool-local))
 

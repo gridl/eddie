@@ -1928,10 +1928,6 @@ sudo service postgresql restart
 # for password less login
 sudo psql -u user_name db_name
 
-psql -U postgres -h <ip_addr> <database_name> << EOF
-SELECT * FROM xyz_table;
-SELECT * FROM abc_table;
-EOF
 
 # change to "postgres" Linux user
 sudo su - postgres
@@ -1939,17 +1935,18 @@ sudo su - postgres
 
 # run queries from cli
 psql -c '\c testdb;'
-sudo psql -u postgres -c 'alter user kuser with createdb' postgres
+psql << EOF
+SELECT * FROM xyz_table;
+SELECT * FROM abc_table;
+EOF
+psql -c 'alter user kuser with createdb'
 
-
-# databases
 
 # list databases
 psql -l
 
-# create db
+# create database
 createdb db_name
-
 
 
 # backup
@@ -1971,3 +1968,19 @@ pg_restore -Ft database.tar
 
 # create db & restore
 pg_restore -Fc -C database.bak
+
+
+
+
+
+
+
+
+
+mysql() {}
+
+# backup & restore
+mysqldump -u root -p database > database.sql
+mysqldump -u root -p database < database.sql
+
+mysqldump -u root -p database table > table.sql

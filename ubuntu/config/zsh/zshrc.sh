@@ -734,6 +734,7 @@ alias f8='flake8'
 alias pg='pirate-get'
 
 rabbitmq_reset() {
+    celery purge -f
     sudo rabbitmqctl stop_app
     sudo rabbitmqctl reset
     sudo rabbitmqctl start_app
@@ -742,8 +743,8 @@ rabbitmq_reset() {
 
 
 
-# workon py37d
-workon py36
+workon py37d
+# workon py36
 # workon py35
 export PYTHONDONTWRITEBYTECODE=1
 alias pd='j py && ipy'
