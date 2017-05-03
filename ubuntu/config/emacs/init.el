@@ -741,6 +741,10 @@
   (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode)))
 
 
+
+
+;; theme
+
 (use-package smart-mode-line
   :config
   (setq sml/no-confirm-load-theme t)
@@ -751,6 +755,13 @@
 
 ;; (use-package zenburn-theme)
 
+
+;; (use-package solarized-theme)
+;; (deftheme solarized-dark "The dark variant of the Solarized colour theme")
+;; (create-solarized-theme 'dark 'solarized-dark)
+;; (provide-theme 'solarized-dark)
+
+
 ;; (setq mode-line-format
 ;;       '("%e" mode-line-front-space mode-line-mule-info mode-line-client
 ;;         mode-line-modified mode-line-remote mode-line-frame-identification
@@ -758,6 +769,8 @@
 ;;         (vc-mode vc-mode)
 ;;         sml/pre-modes-separator mode-line-modes
 ;;         sml/pos-id-separator mode-line-position))
+
+
 
 (use-package impatient-mode)
 

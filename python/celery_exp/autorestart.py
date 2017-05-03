@@ -1,16 +1,43 @@
+import os
+import shlex
 import subprocess
+import time
+
+from watchdog.events import PatternMatchingEventHandler
+from watchdog.observers import Observer
+
+directory = os.getcwd()
+command = 'celery worker -A t -l INFO'
 
 
-def restart_celery():
-    pid = None
-    if pid:
-    cmd = 'pgrep celery | xargs kill -9'
-    subprocess.call(cmd, shell=True,
-                    stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    cmd = 'pgrep celery | xargs kill -9'
-    subprocess.call(cmd, shell=True,
-                    stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+class PyHandler(PatternMatchingEventHandler):
+
+    def process(self, event):
+        cmd = 'pkill celery'
+        subprocess.call(shlex.split(cmd))
+        print('Killed old worker')
+        run_worker()
+
+    def on_modified(self, event):
+        self.process(event)
+
+def run_worker():
+    print("Starting worker: {} ".format(command))
+    subprocess.Popen(shlex.split(command))
 
 
+if __name__ == "__main__":
 
-autoreload.main(restart_celery)
+    run_worker()
+
+    event_handler = PyHandler(patterns=["*.py"])
+    observer = Observer()
+    observer.schedule(event_handler, directory, recursive=True)
+    observer.start()
+
+    try:
+        while True:
+            time.sleep(1)
+    except KeyboardInterrupt:
+        observer.stop()
+    observer.join()

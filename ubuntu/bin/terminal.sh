@@ -2,6 +2,7 @@
 
 
 # SHELL SCRIPTING
+shell_scripting() {}
 
 
 # exapnsion
@@ -26,6 +27,9 @@ $score=9.5
 echo ${score:0:1}
 
 
+if [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+    echo 'linux machine'
+fi
 
 
 
@@ -433,7 +437,7 @@ sudo cat /var/log/dmesg
 
 
 
-# networking
+networking() {}
 
 
 # show ip, mac address
@@ -1227,6 +1231,7 @@ pastebinit foo.txt
 # curl post with form data
 curl -d "username=chillaranand&password=foo" http://192.168.0.152:8000/api/token/new.json
 
+
 # httpie post with form data
 http POST 0.0.0.0:8000/api/token/new.json username=f password=f -f
 
@@ -1236,6 +1241,11 @@ http POST 0.0.0.0:8000/api/token/new.json username=f password=f -f
 # httpie post json
 http -a $USER:$GITHUB_TOKEN POST 'https://api.github.com/user/repos' name=foobar21
 
+# httpie headers
+http httpbin.org/user-agent  User-Agent:Bacon/1.0
+http :8000/user-agent  User-Agent:Bacon/1.0
+
+http httpbin.org/etag/foo If-None-Match:foo
 
 
 
@@ -1834,7 +1844,7 @@ helm install deis/workflow --namespace deis --set router.host_port.enabled=true
 
 
 
-# deis
+
 deis () {}
 
 
@@ -1861,6 +1871,9 @@ deis perms:list --admin
 deis logs
 deis logs -a sherlock
 
+deis ps
+
+deis info
 
 deis releases
 deis releases:info v9
@@ -1933,6 +1946,17 @@ sudo psql -u user_name db_name
 sudo su - postgres
 
 
+# list databases
+psql -l
+
+# create database
+createdb db_name
+
+# drop database
+dropdb db_name
+
+
+
 # run queries from cli
 psql -c '\c testdb;'
 psql << EOF
@@ -1942,11 +1966,7 @@ EOF
 psql -c 'alter user kuser with createdb'
 
 
-# list databases
-psql -l
 
-# create database
-createdb db_name
 
 
 # backup

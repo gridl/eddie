@@ -368,7 +368,6 @@ alias lodd="git pull origin develop:develop"
 alias glom="git pull origin master"
 
 alias gp="git push --set-upstream"
-alias gpf="git push -f"
 
 alias gpom="git push origin master"
 alias pom="git push origin master"
@@ -379,6 +378,8 @@ alias hm="git push heroku master"
 alias hmf="git push heroku master -f"
 
 alias gpp="git pull && git push"
+
+alias gsm="git pull upstream master && git push origin master"
 
 alias gsw='git standup -d 7'
 alias sw=gsw
@@ -454,15 +455,19 @@ alias lh='http://127.0.0.1:8000'
 # appknox cli
 alias akh='appknox --help'
 
-alias ak='appknox --username $AK_USER --password $AK_PASS --host 127.0.0.1:8000 --no-secure'
+alias ak='appknox --username f --password f --host 127.0.0.1:8000 --no-secure'
+alias aks='appknox --username $AK_USER --password $AK_PASS --host api.appknox.io'
 
-alias aks='ak submit_url "https://play.google.com/store/apps/details?id=com.wFinalZen"'
+# alias aks='ak submit_url "https://play.google.com/store/apps/details?id=com.wFinalZen"'
 
 alias akn='appknox --username g --password g --host 127.0.0.1:8000 --no-secure'
 
 alias akp='appknox --username $AK_USER --password $AK_PASS '
 alias akpv='appknox --username $AK_USER --password $AK_PASS validate '
 alias akpu='appknox --username $AK_USER --password $AK_PASS upload ~/Downloads/apps/test_zen_stories.apk '
+
+alias akua='appknox --username f --password f --host 127.0.0.1:8000 --no-secure upload ~/Downloads/android.apk'
+alias akui='appknox --username f --password f --host 127.0.0.1:8000 --no-secure upload ~/Downloads/ios.ipa'
 
 
 alias ct='crontab '
@@ -551,12 +556,16 @@ ifs () {
 }
 
 
+
+
+
 irene () {
     cd /home/chillaranand/projects/appknox/irene
     deactivate
     source ~/.nodeenvs/irene/bin/activate
     ember serve
 }
+alias ir=irene
 
 mycroft () {
     cd /home/chillaranand/projects/appknox/mycroft/
@@ -575,8 +584,11 @@ sherlock () {
 }
 alias sl=sherlock
 
-alias fl=flash
 
+
+
+
+alias fl=flash
 alias tv=tvol
 
 
@@ -632,7 +644,10 @@ alias kds='kubectl describe services'
 alias kg='kubectl get '
 alias kgd='kubectl get deployments --all-namespaces'
 alias kgn='kubectl get nodes'
-alias kgp='kubectl get pods --all-namespaces'
+alias kgp='kubectl get pods'
+alias kgpa='kubectl get pods --all-namespaces'
+alias kgpd='kubectl get pods --namespace=database'
+alias kgps='kubectl get pods --namespace=sherlock'
 alias kgs='kubectl get services'
 
 
@@ -662,6 +677,7 @@ alias asbs='aws s3 ls --summarize --human-readable --recursive '
 
 
 alias di='deis '
+alias dii='deis info'
 
 alias dl='deis logs'
 alias dls='deis logs -a sherlock'
@@ -757,3 +773,10 @@ free_port() {
     fuser -k $1/tcp
 }
 alias fp=free_port
+
+
+alias mo='ssh -t moriarty@devicefarm.appknox.com '
+
+alias hip='http ipinfo.io'
+
+alias ni='npm install '

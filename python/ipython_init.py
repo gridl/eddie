@@ -154,6 +154,12 @@ def dsu():
     u.save()
 
 
+def dsua():
+    dsu()
+    u = User.objects.get(username='f')
+    u.any_namespace = True
+    u.save()
+
 
 class Foo:
     bar = 1

@@ -2,7 +2,14 @@ import time
 
 from celery import Celery
 
-app = Celery(broker='amqp://guest@localhost//', backend='amqp://')
+app = Celery(
+    broker='amqp://guest@localhost//',
+    backend='amqp://',
+    task_serializer='json',
+    result_serializer='json',
+    accept_content = ['application/json']
+)
+
 # app = Celery(broker='amqp://guest@localhost//', backend='rpc')
 # app = Celery(broker='redis://localhost:6379/0')
 

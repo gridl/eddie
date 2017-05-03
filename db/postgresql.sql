@@ -22,46 +22,41 @@ DROP USER <USER>;
 
 
 -- databases
-
-# CREATE
 create database testdb;
+drop database testdb;
 
-# show databases
+-- show databases
 \l
 SELECT datname FROM pg_database;
 
-# connect to database
-\c <dbname>
-USE <dbname>
+-- connect to database
+\c db_name
+USE db_name
 
-# show all tables in all dbs
+-- show all tables in all dbs
 \dt *.*
 
-# show all tables in current db
+-- show all tables in current db
 \dt
 
-# describe table
-\d+ <tablename>
-
-# drop database
-drop database <foo>;
 
 
 
 
-### tables
 
-```
+-- TABLES
+
+-- describe table
+\d <tablename>
+
+
 # show all rows
 SELECT * FROM <table>;
 
-# update rows
-UPDATE table
-SET column1 = value1,
-    column2 = value2
-WHERE
- condition;
-```
+# update ROWS
+UPDATE core_user set is_superuser='t';
+UPDATE core_user set is_superuser='t' WHERE username='foo';
+
 
 
 

@@ -31,9 +31,7 @@ post:
 windows:
   - irene:
       - j irene && deactivate && glod && . ~/.nodeenvs/irene/bin/activate && ember serve
-  - celery-s:
-      - j sherlock && ./scripts/start_celery.sh
-  - django-s:
-      - j sherlock && ./scripts/start_server.sh
+  - sherlock:
+      - sl && honcho start -f Procfile.dev
   - shell-plus:
-      - my && dsp
+      - sl && dsp
