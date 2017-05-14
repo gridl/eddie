@@ -20,7 +20,7 @@ ubuntu/config/emacs/.cask/*
 
 python/exercise/index.json
 python/exercise/test.log
-*/.vagrant/*
+*.vagrant*
 *.retry
 /ubuntu/config/emacs/bookmarks
 /ubuntu/config/emacs/tramp

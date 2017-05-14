@@ -297,3 +297,8 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         self.stdout('This command auto reloads. No need to restart...')
         autoreload.main(do_something, args=None, kwargs=None)
+
+
+
+
+# translations

@@ -55,6 +55,7 @@ SELECT * FROM <table>;
 
 # update ROWS
 UPDATE core_user set is_superuser='t';
+UPDATE core_user set is_superuser='t' WHERE username='chillaranand';
 UPDATE core_user set is_superuser='t' WHERE username='foo';
 
 

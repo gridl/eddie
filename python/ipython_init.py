@@ -52,9 +52,6 @@ try:
     from celery import current_app, chain, chord, group
     from celery.task.control import revoke, inspect, discard_all
 
-    import importmagic
-    index = importmagic.SymbolIndex()
-    index.get_or_create_index(name='py35', paths=['.'] + sys.path)
 
     import numpy as np
     import pandas as pd
@@ -66,6 +63,10 @@ try:
     rc = redis.StrictRedis(host='localhost', port=6379, db=0)
 
     from t import *
+
+    import importmagic
+    index = importmagic.SymbolIndex()
+    index.get_or_create_index(name='py35', paths=['.'] + sys.path)
 
 except Exception as e:
     print(e)
@@ -147,10 +148,17 @@ def dsu():
     try:
         u = User.objects.get(username='f')
     except:
-        u = User.objects.create(username='f')
+        u = User.objects.create(username='f', email='f@f.f')
+        u.set_password('f')
+    u.is_staff = True
+    u.is_superuser = True
+    u.save()
 
-    u.set_password('f')
-    u.is_staff = u.is_superuser = True
+    try:
+        u = User.objects.get(username='k')
+    except:
+        u = User.objects.create(username='k', email='k@k.k')
+    u.set_password('k')
     u.save()
 
 

@@ -237,7 +237,7 @@ alias pgi='ps -ef | grep -i'
 
 
 # python aliases
-alias py='python'
+alias py='ipython'
 alias ipy='ipython'
 alias py2='python2'
 alias ipy2='ipython2'
@@ -396,9 +396,9 @@ alias mj='mux junction'
 
 alias tk='tmux kill-session -t '
 
-alias cwk="ps -ef | grep 'celery worker' | awk '{print $2}' | xargs kill -9"
 alias cia='celery inspect active'
 alias cpf='celery purge --force'
+alias pkc='pkill -f celery'
 
 
 # alias ma=man
@@ -641,6 +641,9 @@ alias kdps='kubectl describe pods -n sherlock'
 alias kds='kubectl describe services'
 
 
+alias kce='kubectl exec'
+
+
 alias kg='kubectl get '
 alias kgd='kubectl get deployments --all-namespaces'
 alias kgn='kubectl get nodes'
@@ -780,3 +783,8 @@ alias mo='ssh -t moriarty@devicefarm.appknox.com '
 alias hip='http ipinfo.io'
 
 alias ni='npm install '
+
+
+alias clb='for remote in `git branch -r | grep -v /HEAD`; do git checkout --track $remote ; done'
+
+source ~/projects/vendor/zsh-autosuggestions/zsh-autosuggestions.zsh

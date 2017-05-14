@@ -34,6 +34,8 @@ fi
 
 
 
+while true; do ls; sleep 1; done
+
 
 
 
@@ -157,6 +159,12 @@ ls -rt  # reverse
 # replacing spaces in the file names with _
 rename "s/ /_/g" * -n  # dry run
 rename "s/ /_/g" *
+
+# remove prefix
+rename -v 's/a//' *
+
+# add prefix
+rename -v 's/^/pre/' *
 
 # Lowercase all *.JPG filenames:
 prename tr/A-Z/a-z/ *.JPG
@@ -305,10 +313,6 @@ sudo apt-get install vsftpd -y
 # update config
 sudo vim /etc/vsftpd.conf
 
-# create new user
-sudo adduser <user>
-sudo usermod -d /home/<user> <user>
-sudo usermod -s /sbin/nologin <user>
 
 
 
@@ -749,11 +753,17 @@ sudo service <name> start/stop/status/restart
 
 
 
-#### users
 
-```shell
+
+
+
+users () {}
+
 # create new user
-sudo adduser <foo>
+sudo adduser <user>
+sudo usermod -d /home/<user> <user>
+sudo usermod -s /sbin/nologin <user>
+
 
 # add user to sudo
 sudo adduser <username> sudo
@@ -779,7 +789,11 @@ sudo visudo
 
 # show who is logged on and what they are doing
 w
-```
+
+
+
+
+
 
 #### zip
 
@@ -1018,7 +1032,7 @@ notedown python.md > python.ipynb
 
 
 
-# rabbitmq
+rabbitmq() {}
 sudo apt-get install rabbitmq-server
 
 
@@ -1775,14 +1789,15 @@ kubectl config current-context
 kubectl cluster-info
 
 
-# edit controller config
-kubectl edit deployment/deis-controller -n deis
-
 
 kubectl describe
 
 kubectl describe pods name
 kubectl describe po name
+
+
+# edit controller config
+kubectl edit deployment/deis-controller -n deis
 
 
 # run command in pod
@@ -1798,7 +1813,13 @@ kubectl get pods --all-namespaces
 kubectl get pods --namespace=deis
 
 
+kubectl logs pod_name
+kubectl logs pod_name -n namespace
 
+
+kubectl patch deployment deis-controller -n deis -p '{"spec":{"containers":{"env":[{"name":"TZ","value":"Asia/Kolkata"}]}}}'
+
+kubectl patch deployment deis-controller -n deis -p '{"spec":{"containers":{"env":[{"name":"DEIS_DEPLOY_HOOK_URLS","value":"foo"}]}}}'
 
 
 
@@ -2004,3 +2025,17 @@ mysqldump -u root -p database > database.sql
 mysqldump -u root -p database < database.sql
 
 mysqldump -u root -p database table > table.sql
+
+
+
+
+
+
+
+node() {}
+
+# update node
+sudo npm cache clean -f
+sudo npm install -g n
+sudo n stable
+sudo ln -sf /usr/local/n/versions/node/<VERSION>/bin/node /usr/bin/node

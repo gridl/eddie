@@ -32,6 +32,8 @@ windows:
   - irene:
       - j irene && deactivate && glod && . ~/.nodeenvs/irene/bin/activate && ember serve
   - sherlock:
-      - sl && honcho start -f Procfile.dev
+      - sl && flash proc -f Procfile.dev
+  - termo:
+      - sl
   - shell-plus:
       - sl && dsp

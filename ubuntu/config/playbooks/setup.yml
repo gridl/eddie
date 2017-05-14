@@ -25,6 +25,14 @@
 
 
   pre_tasks:
+
+    # - name: Add third party PPAs
+    #   apt_repository: repo={{ item }} state=present
+    #   with_items:
+    #     - ppa:synapse-core/ppa
+    #     - ppa:nathan-renniewaldock/flux
+    #     - ppa:fossfreedom/indicator-sysmonitor
+
     - name: update apt cache
       apt: update_cache=yes cache_valid_time=8640000
 
@@ -65,8 +73,6 @@
         - android-tools-fastboot
         - lynx
 
-        - npm
-
         - openssh-server
         - redis-server
         - rabbitmq-server
@@ -75,6 +81,10 @@
 
       become_user: root
 
+    - name: install packages from ppa
+      apt: name={{ item }} state=present
+      with_items:
+        - indicator-sysmonitor
 
     - name: install python dependencies
       apt: name={{ item }} state=present

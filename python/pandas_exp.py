@@ -4,6 +4,12 @@ import pandas as pd
 
 df = pd.DataFrame([['a', 2], ['c', 4], ['b', 5]], columns=['x', 'y'])
 
+
+# iterrows is a generator which yield both index and row
+for index, row in df.iterrows():
+    print(row['c1'], row['c2'])
+
+
 # plot pie chart
 # get_ipython().magic('matplotlib inline')
 df['y'].plot(kind='pie', title='Population distribution',

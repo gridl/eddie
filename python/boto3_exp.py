@@ -34,7 +34,7 @@ client = s3_client
 # buckets = [b['Name'] for b in r['Buckets']]
 # print(buckets)
 
-bucket = 'test-bucket'
+bucket_name = 'test-bucket'
 
 
 bucket = s3.Bucket(bucket_name)
@@ -74,3 +74,27 @@ client.download_file(bucket, key, 'foo.txt')
 # running_instances = ec2.instances.filter(Filters=[{
 #     'Name': 'instance-state-name',
 #     'Values': ['running']}])
+
+import boto.ec2
+conn = boto.ec2.connect_to_region("us-east-1")
+statuses = conn.get_all_instance_status()
+print(statuses)
+
+
+import boto3
+import botocore
+
+s3 = boto3.resource('s3')
+exists = False
+
+try:
+    s3.Object('my-bucket', 'dootdoot.jpg').load()
+except botocore.exceptions.ClientError as e:
+    if e.response['Error']['Code'] == "404":
+        exists = False
+    else:
+        raise
+else:
+    exists = True
+
+print(exists)
