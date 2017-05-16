@@ -44,7 +44,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # HIST_STAMPS="mm/dd/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
-ZSH_CUSTOM=~/.01/ubuntu/config/zsh
+ZSH_CUSTOM=~/projects/01/ubuntu/config/zsh
 
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
@@ -218,7 +218,7 @@ alias j1='j 01'
 
 alias b='byobu'
 alias af='sudo apt-fast'
-alias i='sudo apt-fast install --yes'
+alias i='sudo apt install --yes'
 alias au='sudo apt-fast update -qq'
 
 
@@ -386,7 +386,7 @@ alias sw=gsw
 
 
 
-
+alias mux=tmuxinator
 alias m=mux
 alias ml='mux list'
 
@@ -420,13 +420,11 @@ alias re='sudo shutdown -r 0'
 alias rf='rm -rf'
 
 
+BASE_DIR=$HOME'/projects/01'
+alias cs=$BASE_DIR'/ubuntu/bin/space2ctrl.sh'
+alias bs=$BASE_DIR'/ubuntu/bin/bootstrap.sh'
+alias us="sudo ansible-playbook $BASE_DIR'/ubuntu/config/playbooks/ubuntu.yml' -i localhost, -c local"
 
-
-alias us='sudo ansible-playbook ~/.01/ubuntu/config/playbooks/setup.yml -i localhost, -c local'
-# alias us='sudo ~/.01/ubuntu/bin/start.sh'
-
-
-alias cs='~/.01/ubuntu/bin/space2ctrl.sh'
 
 alias s=sudo
 alias si='sudo -i'
@@ -498,6 +496,7 @@ alias fd='sudo fastboot devices'
 
 
 alias wifi='nmcli dev wifi '
+alias wf=wifi
 wco () {
     nmcli dev wifi connect $1 password $2
 }
@@ -568,7 +567,7 @@ irene () {
 alias ir=irene
 
 mycroft () {
-    cd /home/chillaranand/projects/appknox/mycroft/
+    cd ~/projects/appknox/mycroft/
     deactivate
     workon sherlock
     eval $(./scripts/env_converter.py)
@@ -577,7 +576,7 @@ alias my=mycroft
 
 
 sherlock () {
-    cd /home/chillaranand/projects/appknox/sherlock/
+    cd ~/projects/appknox/sherlock/
     deactivate
     workon sherlock
     eval $(./scripts/env_converter.py)
@@ -762,9 +761,10 @@ rabbitmq_reset() {
 
 
 
-workon py37d
+# workon py37d
 # workon py36
-# workon py35
+workon py35
+
 export PYTHONDONTWRITEBYTECODE=1
 alias pd='j py && ipy'
 alias p2='wo py27'
@@ -787,4 +787,4 @@ alias ni='npm install '
 
 alias clb='for remote in `git branch -r | grep -v /HEAD`; do git checkout --track $remote ; done'
 
-source ~/projects/vendor/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/projects/zsh-autosuggestions/zsh-autosuggestions.zsh

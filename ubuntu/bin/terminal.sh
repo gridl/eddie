@@ -1,8 +1,15 @@
 # Terminal
 
 
-# SHELL SCRIPTING
 shell_scripting() {}
+
+set -e
+
+set -u
+
+set -x
+# prints each command in a script to stderr before running it
+# trace all commands
 
 
 # exapnsion
@@ -1946,14 +1953,15 @@ https://bootstrap.pypa.io/get-pip.py | python
 
 postgres() {}
 
-# uninstall
-sudo apt-get --purge remove postgresql postgresql-doc postgresql-common
 
 # install
 sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list'
 wget -q https://www.postgresql.org/media/keys/ACCC4CF8.asc -O - | sudo apt-key add -
 sudo apt-get update
 sudo apt-get install postgresql postgresql-contrib
+
+# uninstall
+sudo apt-get --purge remove postgresql postgresql-doc postgresql-common
 
 # restart
 sudo service postgresql restart

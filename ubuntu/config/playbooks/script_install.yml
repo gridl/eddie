@@ -19,5 +19,6 @@
 
 
 - name: move  binary
-  command: mv '/tmp/{{ package.name}}' /usr/local/bin/kops
+  command: mv '/tmp/{{ package.name}}' '/usr/local/bin/{{ package.name }}'
   when: package_installed | failed
+  become_user: root

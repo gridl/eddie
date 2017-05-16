@@ -13,7 +13,7 @@
 
 ;; load custom variables
 (setq custom-file "~/.emacs.d/custom.el")
-(load custom-file)
+(load custom-file t)
 
 ;; dont truncate log messages
 (setq message-log-max t)
@@ -26,7 +26,7 @@
 (setq recent-files-dir (expand-file-name "recentf" root-dir))
 
 ;; load secret variables
-(load-file "~/Dropbox/tech/private.el")
+(load-file "~/Dropbox/tech/private.el" t)
 
 ;; Always load newest byte code
 ;; (setq load-prefer-newer t)
@@ -346,7 +346,7 @@
   (yas-global-mode 1))
 
 
-(use-package paredit)
+;; (use-package paredit)
 
 
 ;; (use-package smartparens
@@ -397,7 +397,7 @@
 (setq elpy-rgrep-file-pattern "*.py *.html")
 (setq elpy-rpc-backend "jedi")
 (setq elpy-rpc-python-command "python3")
-(pyvenv-workon "py36")
+(pyvenv-workon "py35")
 (elpy-rpc-restart)
 
 (add-to-list 'grep-find-ignored-files "flycheck_*")

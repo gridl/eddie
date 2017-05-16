@@ -7,3 +7,5 @@ autoenv
 ps_mem
 
 ansible
+
+ipython

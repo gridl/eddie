@@ -1,15 +1,34 @@
 #! /bin/sh
 
-sudo apt update --yes
-sudo apt install --yes software-properties-common python python-pip
+set -x
 
-# required for cryptograhy
-sudo apt install --yes libssl-dev
-sudo -H pip install ansible
+sudo apt-get install --yes -qq git
 
-for file in setup.yml binary_install.yml script_install.yml git_clone.yml
-do
-    wget -c https://raw.githubusercontent.com/ChillarAnand/01/master/ubuntu/config/playbooks/$file -O /tmp/$file
-done
+cd
+mkdir projects
+git clone https://github.com/chillaranand/01 projects/01
 
-sudo ansible-playbook /tmp/setup.yml -i localhost, --check --connection local
+sudo apt-get install --yes -qq zsh
+if [ ! -f ~/.oh-my-zsh/README.md ]; then
+    sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
+fi
+BASE_DIR=$HOME'/projects/01'
+CONFIG_DIR=$BASE_DIR'/ubuntu/config'
+
+rm ~/.zshrc
+ln -s $CONFIG_DIR'/zsh/zshrc.sh' ~/.zshrc
+
+
+if [ ! -f /usr/bin/google-chrome ]; then
+    wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+    sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list'
+    sudo apt-get install --yes -qq google-chrome-stable
+    echo "chrome is installed"
+fi
+
+
+sudo apt-get install --yes -qq software-properties-common python python-pip
+
+sudo -H pip install ansible -q
+
+sudo ansible-playbook $CONFIG_DIR'/playbooks/ubuntu.yml' -i localhost, --connection local
