@@ -12,4 +12,4 @@ c.InteractiveShellApp.exec_lines = ['%autoreload 2', '%autocall	1']
 
 c.TerminalInteractiveShell.confirm_exit = False
 
-c.InteractiveShellApp.exec_files = [os.path.join(home, '.01/python/ipython_init.py')]
+c.InteractiveShellApp.exec_files = [os.path.join(home, 'projects/01/python/ipython_init.py')]

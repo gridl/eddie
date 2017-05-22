@@ -3,9 +3,12 @@
 
 shell_scripting() {}
 
+
 set -e
+# fail on error
 
 set -u
+# fail on unset variables
 
 set -x
 # prints each command in a script to stderr before running it

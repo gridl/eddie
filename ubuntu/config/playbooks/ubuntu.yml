@@ -66,6 +66,7 @@
         - tesseract-ocr
         - tmuxinator
         - tree
+        - ubuntu-make
         - unzip
         - vagrant
         - vagrant
@@ -222,11 +223,11 @@
       become_user: root
 
 
-    - name: remove symlinks
-      file:
-        state: absent
-        path: '{{ item.dest }}'
-      with_items: '{{ links }}'
+    # - name: remove symlinks
+    #   file:
+    #     state: absent
+    #     path: '{{ item.dest }}'
+    #   with_items: '{{ links }}'
 
     - name: create symlinks for files
       file:

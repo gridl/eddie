@@ -1,3 +1,8 @@
+#! /bin/sh
+
+set -x
+
+
 setxkbmap -layout us
 pkill xcape
 

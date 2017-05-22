@@ -217,14 +217,20 @@ alias j1='j 01'
 
 
 alias b='byobu'
-alias af='sudo apt-fast'
+
 alias i='sudo apt install --yes'
-alias au='sudo apt-fast update -qq'
-
-
-alias i='sudo apt-fast install --yes'
 alias ag='sudo apt-get'
 alias au='sudo apt-get update -qq'
+alias sap='sudo apt purge '
+
+alias sdi='sudo dpkg -i'
+
+
+apt_clean () {
+    sudo rm /var/lib/apt/lists/lock
+    sudo rm /var/cache/apt/archives/lock
+    sudo rm /var/lib/dpkg/lock
+}
 
 alias cf='clementine -f'
 alias ch='nohup google-chrome > /dev/null &'
@@ -618,6 +624,7 @@ alias rmc='sudo rabbitmqctl '
 
 alias kc='kubectl '
 
+
 alias kcp='google-chrome http://127.0.0.1:8001/ui/ && kubectl proxy'
 
 
@@ -630,6 +637,9 @@ alias kcv='kubectl config view'
 alias kcu='kubectl config use-context'
 alias kcum='kubectl config use-context minikube'
 
+
+alias kd='kubectl --namespce=deis'
+alias knd='kubectl --namespce=deis'
 
 alias kd='kubectl describe'
 alias kdd='kubectl describe deployments'

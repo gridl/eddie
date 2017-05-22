@@ -12,8 +12,9 @@
 ;;; basic config
 
 ;; load custom variables
-(setq custom-file "~/.emacs.d/custom.el")
-(load custom-file t)
+(load "~/.emacs.d/custom.el")
+(load-file "~/Dropbox/tech/private.el")
+
 
 ;; dont truncate log messages
 (setq message-log-max t)
@@ -25,8 +26,6 @@
 (setq package-vendor-dir (expand-file-name "vendor" root-dir))
 (setq recent-files-dir (expand-file-name "recentf" root-dir))
 
-;; load secret variables
-(load-file "~/Dropbox/tech/private.el" t)
 
 ;; Always load newest byte code
 ;; (setq load-prefer-newer t)
