@@ -12,6 +12,7 @@ sudo apt-get install --yes -qq zsh
 if [ ! -f ~/.oh-my-zsh/README.md ]; then
     sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
 fi
+
 BASE_DIR=$HOME'/projects/01'
 CONFIG_DIR=$BASE_DIR'/ubuntu/config'
 

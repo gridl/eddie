@@ -31,6 +31,10 @@ else
     echo 'wrong';
 fi
 
+if [ ! -f ~/.oh-my-zsh/README.md ]; then
+    echo 'no file';
+fi
+
 
 # substring
 $score=9.5
@@ -1442,7 +1446,10 @@ mitmproxy
 
 
 
-# adb
+
+
+
+adb() {}
 
 adb devices
 adb install test.apk
@@ -1643,7 +1650,6 @@ vagrant global-status
 
 
 
-# ansible
 ansible() {}
 
 ansible all -i inventory/vagrant.ini -m ping
