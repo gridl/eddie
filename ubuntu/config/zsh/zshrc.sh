@@ -798,3 +798,9 @@ alias ni='npm install '
 alias clb='for remote in `git branch -r | grep -v /HEAD`; do git checkout --track $remote ; done'
 
 source ~/projects/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+
+reset_dns_resolver() {
+    echo 'nameserver 8.8.8.8' | sudo tee /etc/resolv.conf > /dev/null
+}
+alias rdr=reset_dns_resolver
