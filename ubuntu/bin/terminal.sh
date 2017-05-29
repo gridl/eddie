@@ -919,7 +919,7 @@ S + Arrows - To move along splits
 
 
 
-#  docker
+
 docker () {}
 
 docker images
@@ -1825,8 +1825,12 @@ kubectl exec $POD_NAME --namespace=$NAMESPACE -it bash
 
 
 kubectl get nodes
+
 kubectl get pods --all-namespaces
+kubectl get pods -o wide
 kubectl get pods --namespace=deis
+
+kubectl get services
 
 
 kubectl logs pod_name
@@ -1904,6 +1908,7 @@ deis keys:list
 deis perms:create john --admin
 deis perms:list --admin
 
+deis apps
 
 deis logs
 deis logs -a sherlock
@@ -1924,9 +1929,9 @@ deis releases:info v9
 
 
 
-# kops
-export KOPS_STATE_STORE=s3://foo
-kops export kubecfg kubernetes.foo.com
+kops() {}
+export KOPS_STATE_STORE=s3://kube.avil.com
+kops export kubecfg kube.avil.com
 
 
 

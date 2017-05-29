@@ -329,7 +329,7 @@ alias jobs='jobs -l'
 alias k='kill -9'
 alias pk='pkill'
 alias ka='killall '
-alias ke='killall emacs'
+# alias ke='killall emacs'
 alias kb="pgi byobu | awk '{print $2}' | xargs kill -9 "
 
 alias l='clear && ls'
@@ -429,6 +429,8 @@ alias rf='rm -rf'
 BASE_DIR=$HOME'/projects/01'
 alias cs=$BASE_DIR'/ubuntu/bin/space2ctrl.sh'
 alias bs=$BASE_DIR'/ubuntu/bin/bootstrap.sh'
+alias spd=$BASE_DIR'/ubuntu/bin/proc.sh'
+
 alias us="sudo ansible-playbook $BASE_DIR'/ubuntu/config/playbooks/ubuntu.yml' -i localhost, -c local"
 
 
@@ -546,6 +548,8 @@ function ne() {
 
 alias enhance=ne
 
+alias dk=docker
+
 alias rs='./scripts/start_server.sh'
 alias sss='./scripts/start_server.sh'
 alias ssc='./scripts/start_celery.sh'
@@ -605,11 +609,6 @@ alias sub='subliminal download -s -l en '
 alias subs='subliminal download -s -l en '
 
 
-vagrant_kube () {
-    export KUBERNETES_PROVIDER=vagrant
-    export KUBERNETES_MASTER_MEMORY=1536
-    export KUBERNETES_NODE_MEMORY=4096
-}
 
 pyclean () {
         find . -type f -name "*.py[co]" -delete
@@ -622,15 +621,24 @@ alias rmc='sudo rabbitmqctl '
 
 
 
-alias kc='kubectl '
 
+# kubectl
+
+vagrant_kube () {
+    export KUBE_ENABLE_INSECURE_REGISTRY=true
+    export KUBERNETES_PROVIDER=vagrant
+    export KUBERNETES_MASTER_MEMORY=1536
+    export KUBERNETES_NODE_MEMORY=4096
+}
+
+
+alias kc='kubectl '
 
 alias kcp='google-chrome http://127.0.0.1:8001/ui/ && kubectl proxy'
 
 
 alias kci='kubectl cluster-info'
 
-# config
 
 alias kcc='kubectl config current-context'
 alias kcv='kubectl config view'
@@ -638,11 +646,10 @@ alias kcu='kubectl config use-context'
 alias kcum='kubectl config use-context minikube'
 
 
-alias kd='kubectl --namespce=deis'
-alias knd='kubectl --namespce=deis'
-
 alias kd='kubectl describe'
+
 alias kdd='kubectl describe deployments'
+
 alias kdp='kubectl describe pods'
 alias kdpd='kubectl describe pods -n deis'
 alias kdps='kubectl describe pods -n sherlock'
@@ -650,20 +657,33 @@ alias kdps='kubectl describe pods -n sherlock'
 alias kds='kubectl describe services'
 
 
-alias kce='kubectl exec'
+alias ke='kubectl exec'
+alias ked='kubectl exec -n deis'
 
 
 alias kg='kubectl get '
-alias kgd='kubectl get deployments --all-namespaces'
+
+alias kgd='kubectl get deployments'
+alias kgda='kubectl get deployments --all-namespaces'
+
 alias kgn='kubectl get nodes'
+
 alias kgp='kubectl get pods'
-alias kgpa='kubectl get pods --all-namespaces'
-alias kgpd='kubectl get pods --namespace=database'
+alias kgpa='kubectl get pods --all-namespaces -o wide'
+alias kgpd='kubectl get pods --namespace=deis'
 alias kgps='kubectl get pods --namespace=sherlock'
+
 alias kgs='kubectl get services'
 
 
+alias kl='kubectl logs'
+alias kld='kubectl logs --namespace=deis'
+
+
 alias ksi='kubectl set image'
+
+alias kts='kubetail sherlock -n sherlock'
+alias ktd='kubetail deis -n deis'
 
 
 ssh_pod() {
@@ -671,6 +691,18 @@ ssh_pod() {
 }
 alias sp=ssh_pod
 
+
+
+# deis
+alias di='deis '
+alias dii='deis info'
+
+alias dl='deis logs'
+alias dls='deis logs -a sherlock'
+
+alias dp='deis ps'
+
+alias dir='deis releases | tac'
 
 
 
@@ -688,19 +720,6 @@ alias asbs='aws s3 ls --summarize --human-readable --recursive '
 
 
 
-alias di='deis '
-alias dii='deis info'
-
-alias dl='deis logs'
-alias dls='deis logs -a sherlock'
-
-alias dp='deis ps'
-
-alias dir='deis releases | tac'
-
-
-
-
 
 
 # make aliases work with sudo
@@ -710,10 +729,6 @@ alias mk='minikube '
 alias mks='minikube start'
 
 
-export KUBE_ENABLE_INSECURE_REGISTRY=true
-export KUBERNETES_MASTER_MEMORY=1536
-export KUBERNETES_NODE_MEMORY=4096
-export KUBERNETES_PROVIDER=vagrant
 
 export EDITOR=vim
 

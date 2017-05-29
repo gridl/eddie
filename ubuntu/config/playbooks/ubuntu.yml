@@ -9,7 +9,7 @@
   connection: local
 
   vars:
-    user: chillar
+    user: chillaranand
     home: "/home/{{user}}"
     config_dir: "{{ home }}/projects/01"
     ubuntu_config: "{{ config_dir }}/ubuntu/config"
@@ -78,6 +78,19 @@
 
       become_user: root
 
+
+    - name: install packages from binaries
+      include: binary_install.yml package="{{ item }}"
+      with_items:
+        - {name: 'certbot-auto', url: 'https://dl.eff.org/certbot-auto'}
+        - {name: 'kubectl',      url: 'https://storage.googleapis.com/kubernetes-release/release/v1.5.1/bin/linux/amd64/kubectl'}
+        - {name: 'minio',        url: 'https://dl.minio.io/server/minio/release/linux-amd64/minio'}
+        - {name: 'mc',           url: 'https://dl.minio.io/client/mc/release/linux-amd64/mc'}
+        - {name: 'minikube',     url: 'https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64'}
+        - {name: 'kubetail',     url: 'https://raw.githubusercontent.com/johanhaleby/kubetail/master/kubetail'}
+      become_user: root
+
+
     - name: install python dependencies
       apt: name={{ item }} state=present
       with_items:
@@ -131,7 +144,7 @@
         requirements: "{{ config_dir }}/ubuntu/config/requirements.txt"
         virtualenv: "{{ venv_dir }}/py35"
         virtualenv_python: python3.5
-      become_user: "{{ user }}"
+      become_user: root
 
     # - block:
 
@@ -211,16 +224,6 @@
     # - name: mysql-python dependencies
     #   apt: name=libmysqlclient-dev state=present
 
-
-    - name: install packages from binaries
-      include: binary_install.yml package="{{ item }}"
-      with_items:
-        - {name: 'certbot-auto', url: 'https://dl.eff.org/certbot-auto'}
-        - {name: 'kubectl',      url: 'https://storage.googleapis.com/kubernetes-release/release/v1.5.1/bin/linux/amd64/kubectl'}
-        - {name: 'minio',        url: 'https://dl.minio.io/server/minio/release/linux-amd64/minio'}
-        - {name: 'mc',           url: 'https://dl.minio.io/client/mc/release/linux-amd64/mc'}
-        - {name: 'minikube',     url: 'https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64'}
-      become_user: root
 
 
     # - name: remove symlinks
