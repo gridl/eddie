@@ -71,6 +71,11 @@ try:
 except Exception as e:
     print(e)
 
+try:
+    exec(open('./scripts/django_shell_plus_init.py').read())
+except:
+    pass
+
 
 # aliases
 ty = type

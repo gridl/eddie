@@ -1888,6 +1888,11 @@ helm install deis/workflow --namespace deis --set router.host_port.enabled=true
 
 deis () {}
 
+# install helm client and run helm init to start server
+helm init
+helm repo add deis https://charts.deis.com/workflow
+helm install deis/workflow --namespace deis --set router.host_port.enabled=true
+
 
 deis -v
 deis version -a

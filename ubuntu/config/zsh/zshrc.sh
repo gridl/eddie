@@ -568,35 +568,6 @@ ifs () {
 
 
 
-irene () {
-    cd /home/chillaranand/projects/appknox/irene
-    deactivate
-    source ~/.nodeenvs/irene/bin/activate
-    ember serve
-}
-alias ir=irene
-
-mycroft () {
-    cd ~/projects/appknox/mycroft/
-    deactivate
-    workon sherlock
-    eval $(./scripts/env_converter.py)
-}
-alias my=mycroft
-
-
-sherlock () {
-    cd ~/projects/appknox/sherlock/
-    deactivate
-    workon sherlock
-    eval $(./scripts/env_converter.py)
-}
-alias sl=sherlock
-
-
-
-
-
 alias fl=flash
 alias tv=tvol
 
@@ -622,6 +593,14 @@ alias rmc='sudo rabbitmqctl '
 
 
 
+minikubea() {}
+
+alias mk='minikube '
+alias mks='minikube start'
+alias mkt='minikube status'
+alias mko='minikube stop'
+
+
 # kubectl
 
 vagrant_kube () {
@@ -640,7 +619,13 @@ alias kcp='google-chrome http://127.0.0.1:8001/ui/ && kubectl proxy'
 alias kci='kubectl cluster-info'
 
 
-alias kcc='kubectl config current-context'
+alias kcc='kubectl create'
+
+
+alias kcd='kubectl delete'
+
+
+alias kccc='kubectl config current-context'
 alias kcv='kubectl config view'
 alias kcu='kubectl config use-context'
 alias kcum='kubectl config use-context minikube'
@@ -724,9 +709,6 @@ alias asbs='aws s3 ls --summarize --human-readable --recursive '
 
 # make aliases work with sudo
 alias sudo='sudo '
-
-alias mk='minikube '
-alias mks='minikube start'
 
 
 
@@ -819,3 +801,36 @@ reset_dns_resolver() {
     echo 'nameserver 8.8.8.8' | sudo tee /etc/resolv.conf > /dev/null
 }
 alias rdr=reset_dns_resolver
+
+alias watch='watch '
+alias wt='watch -n1 '
+
+
+
+
+# appknox
+export AK_VENV=appknox
+
+irene () {
+    cd /home/chillaranand/projects/appknox/irene
+    deactivate
+    source ~/.nodeenvs/irene/bin/activate
+    ember serve
+}
+alias ir=irene
+
+mycroft () {
+    cd ~/projects/appknox/mycroft/
+    deactivate
+    workon $AK_VENV
+    eval $(./scripts/env_converter.py)
+}
+alias my=mycroft
+
+sherlock () {
+    cd ~/projects/appknox/sherlock/
+    deactivate
+    workon sherlock
+    workon $AK_VENV
+}
+alias sl=sherlock
