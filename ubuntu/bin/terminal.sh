@@ -257,9 +257,9 @@ find . -name '*.py' -exec etags -a {} \;
 echo 16384 > /proc/sys/fs/inotify/max_user_watches
 # permanent, add this to /etc/sysctl.conf
 fs.inotify.max_user_watches=16384
-
-
-
+echo 999999 | sudo tee -a /proc/sys/fs/inotify/max_user_watches
+echo 999999 | sudo tee -a /proc/sys/fs/inotify/max_queued_events
+echo 999999 | sudo tee -a /proc/sys/fs/inotify/max_user_instances
 
 
 

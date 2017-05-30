@@ -5,7 +5,7 @@ from celery import Celery
 app = Celery(
     'tasks',
     broker='amqp://guest@localhost//',
-    backend='amqp://',
+    backend='rpc://',
     task_serializer='json',
     result_serializer='json',
     accept_content=['application/json'],
