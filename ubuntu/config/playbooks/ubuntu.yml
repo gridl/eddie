@@ -4,7 +4,7 @@
 - hosts: all
 
   gather_facts: False
-  become_user: chillar
+  become_user: chillaranand
   become: yes
   connection: local
 
@@ -21,6 +21,7 @@
       - { src: '{{ ubuntu_config }}/zsh/zshrc.sh', dest: '{{ home }}/.zshrc' }
       - { src: '{{ ubuntu_config }}/tmuxinator', dest: '{{ home }}/.tmuxinator' }
       - { src: '{{ config_dir }}/python/ipython_config.py', dest: '{{ home }}/.ipython/profile_default/ipython_config.py'}
+      - { src: '{{ home }}/.dropbox-dist/dropboxd', dest: '/usr/local/bin/dropboxd'}
 
 
   pre_tasks:

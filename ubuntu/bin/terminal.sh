@@ -15,6 +15,13 @@ set -x
 # trace all commands
 
 
+# hash table
+declare -A foo=(
+    ["chrome"]="google-chrome"
+    ["emacs"]="/usr/bin/emacs"
+)
+
+
 # exapnsion
 echo {a..z}
 

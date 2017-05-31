@@ -3,28 +3,18 @@
 set -x
 
 
-pidof chrome >/dev/null
-if [[ $? -ne 0 ]] ; then
-    echo "Starting chrome"
-    google-chrome &
-else
-    echo 'chrome already started'
-fi
+declare -A processes=(
+    ["chrome"]="google-chrome"
+    ["emacs"]="emacs"
+    ["xcape"]="xcape.sh"
+    ["dropbox"]="dropboxd"
+)
 
 
-pidof emacs >/dev/null
-if [[ $? -ne 0 ]] ; then
-    echo "Starting emacs"
-    emacs &
-else
-    echo 'emacs already started'
-fi
-
-
-pidof xcape >/dev/null
-if [[ $? -ne 0 ]] ; then
-    echo "Starting xcape"
-    space2ctrl.sh
-else
-    echo 'xcape is running'
-fi
+for process in "${!processes[@]}";
+do
+    pidof $process >/dev/null
+    if [[ $? -ne 0 ]] ; then
+        ${processes[$process]} &
+    fi
+done

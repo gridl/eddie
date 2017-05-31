@@ -375,6 +375,9 @@ alias glom="git pull origin master"
 
 alias gp="git push --set-upstream"
 
+alias gpdm="git push deis master"
+alias pdm=gpdm
+
 alias gpom="git push origin master"
 alias pom="git push origin master"
 
@@ -430,6 +433,7 @@ BASE_DIR=$HOME'/projects/01'
 alias cs=$BASE_DIR'/ubuntu/bin/space2ctrl.sh'
 alias bs=$BASE_DIR'/ubuntu/bin/bootstrap.sh'
 alias spd=$BASE_DIR'/ubuntu/bin/proc.sh'
+spd
 
 alias us="sudo ansible-playbook $BASE_DIR'/ubuntu/config/playbooks/ubuntu.yml' -i localhost, -c local"
 
@@ -601,7 +605,9 @@ alias mkt='minikube status'
 alias mko='minikube stop'
 
 
-# kubectl
+
+
+kubectla() {}
 
 vagrant_kube () {
     export KUBE_ENABLE_INSECURE_REGISTRY=true
@@ -622,9 +628,6 @@ alias kci='kubectl cluster-info'
 alias kcc='kubectl create'
 
 
-alias kcd='kubectl delete'
-
-
 alias kccc='kubectl config current-context'
 alias kcv='kubectl config view'
 alias kcu='kubectl config use-context'
@@ -632,12 +635,19 @@ alias kcum='kubectl config use-context minikube'
 
 
 alias kd='kubectl describe'
+alias kddp='kubectl --namespace=deis describe pod '
 
 alias kdd='kubectl describe deployments'
 
+
+alias kx='kubectl delete'
+alias kxp='kubectl delete pod'
+alias kdxp='kubectl -n deis delete pod'
+
+
 alias kdp='kubectl describe pods'
-alias kdpd='kubectl describe pods -n deis'
-alias kdps='kubectl describe pods -n sherlock'
+alias kddp='kubectl describe pods -n deis'
+alias ksdp='kubectl describe pods -n sherlock'
 
 alias kds='kubectl describe services'
 
@@ -656,6 +666,7 @@ alias kgn='kubectl get nodes'
 alias kgp='kubectl get pods'
 alias kgpa='kubectl get pods --all-namespaces -o wide'
 alias kgpd='kubectl get pods --namespace=deis'
+alias kgpk='kubectl get pods --namespace=kube-system'
 alias kgps='kubectl get pods --namespace=sherlock'
 
 alias kgs='kubectl get services'
@@ -665,10 +676,18 @@ alias kl='kubectl logs'
 alias kld='kubectl logs --namespace=deis'
 
 
+alias knd='kubectl --namespace=deis'
+
+alias kdsd='kubectl --namespace=deis describe svc deis-router'
+
+
+alias kk='kubectl --namespace=kube-system'
+
 alias ksi='kubectl set image'
 
 alias kts='kubetail sherlock -n sherlock'
 alias ktd='kubetail deis -n deis'
+
 
 
 ssh_pod() {
@@ -678,21 +697,32 @@ alias sp=ssh_pod
 
 
 
-# deis
+
+
+deisa() {}
+
 alias di='deis '
+
+alias dad='deis apps:destroy -a'
+alias dal='deis apps:list'
+
+alias dka='deis keys:add'
+alias dkl='deis keys:list'
+
 alias dii='deis info'
 
 alias dl='deis logs'
-alias dls='deis logs -a sherlock'
 
 alias dp='deis ps'
 
-alias dir='deis releases | tac'
+alias drr='deis releases | tac'
 
 
 
 
 
+
+aws() {}
 
 alias ae='aws ec2'
 alias aed='aws ec2 describe-instances'
