@@ -665,7 +665,9 @@ alias kgn='kubectl get nodes'
 
 alias kgp='kubectl get pods'
 alias kgpa='kubectl get pods --all-namespaces -o wide'
+
 alias kgpd='kubectl get pods --namespace=deis'
+alias kdgp='kubectl --namespace=deis get pod'
 alias kgpk='kubectl get pods --namespace=kube-system'
 alias kgps='kubectl get pods --namespace=sherlock'
 
