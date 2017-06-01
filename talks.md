@@ -1,39 +1,49 @@
 ------------------------------------------------------------------------------
 
-#### How To Teach Unicode To Your Grandma?
+#### Supercharge Your Shell For Python Development
 
-**Event:** RFC's We Love
+**Event:** [BangPypers Meetup](http://bangalore.python.org.in/blog/2017/02/18/feb-short-talks/)
 
-**Duration:** 30 Minutes
+**Duration:** 10 Minutes
 
-**Content:** [Slides](http://chillaranand.github.io/unicode/), [Video](https://www.youtube.com/watch?v=nQVMljKldvo)
+**Links:** [Content](http://avilpage.com/2017/03/super-charge-your-shell-for-python-development.html), [Video](https://www.youtube.com/watch?v=nQVMljKldvo)
 
 ------------------------------------------------------------------------------
 
-#### Getting Started With Pandas
+#### How To Teach Unicode To Your Grandma?
 
-**Event:** BangPypers October Meetup (24-10-2015)
+**Event:** [RFC's We Love](https://github.com/rfcswelove/rfcs_we_love/issues/1)
 
 **Duration:** 30 Minutes
 
-**Content:** [Slides](http://chillaranand.github.io/pandas-101/),
+**Links:** [Slides](http://chillaranand.github.io/unicode/), [Video](https://www.youtube.com/watch?v=nQVMljKldvo)
+
+------------------------------------------------------------------------------
+
+#### Getting Started With Python Pandas
+
+**Event:** [BangPypers Meetup]()
+
+**Duration:** 30 Minutes
+
+**Links:** [Slides](http://chillaranand.github.io/pandas-101/),
 [Code](https://github.com/ChillarAnand/pandas-101/tree/master/code)
 
 ------------------------------------------------------------------------------
 
 #### Python Traceback For Humans!
 
-**Event:** PyCon India (04-10-2015)
+**Event:** [PyCon India]()
 
 **Duration:** 45 Minutes
 
-**Content:** [Slides](http://chillaranand.github.io/py-trace/), [Code](https://github.com/ChillarAnand/py-trace/tree/gh-pages/code), [Video](https://www.youtube.com/watch?v=EGhG8VEatBE)
+**Links:** [Slides](http://chillaranand.github.io/py-trace/), [Code](https://github.com/ChillarAnand/py-trace/tree/gh-pages/code), [Video](https://www.youtube.com/watch?v=EGhG8VEatBE)
 
 ------------------------------------------------------------------------------
 
 #### Emacs As Python IDE!
 
-**Event:** PyCon India Open Space (04-10-2015)
+**Event:** PyCon India Open Space
 
 **Duration:** ~20 Minutes
 
@@ -41,32 +51,32 @@
 
 #### Django Gotchas!
 
-**Event:** Bangalore Django User Group June Meetup (06-06-2015)
+**Event:** Bangalore Django User Group Meetup
 
 **Duration:** 30 Minutes
 
-**Content:** [Slides](http://chillaranand.github.io/django-gotcha/)
+**Links:** [Slides](http://chillaranand.github.io/django-gotcha/)
 
 ------------------------------------------------------------------------------
 
 #### Enough iPython For Everyday Programming!
 
-**Event:** BangPypers April Meetup (25-04-2015)
+**Event:** BangPypers Meetup
 
 **Duration:** 30 minutes
 
-**Content:** [Slides](http://chillaranand.github.io/everyday-ipython/)
+**Links:** [Slides](http://chillaranand.github.io/everyday-ipython/)
 
 -------------------------------------------------------------------------
 
 
 #### What Made Emacs Different?
 
-**Event:** Barcamp Bangalore Spring (19-04-2015)
+**Event:** Barcamp Bangalore Spring
 
 **Duration:** 45 minutes
 
-**Content:** [Slides](http://chillaranand.github.io/emacs-different/)
+**Links:** [Slides](http://chillaranand.github.io/emacs-different/)
 
 ------------------------------------------------------------------------------
 
@@ -74,22 +84,22 @@
 
 #### Python For BioInformatics!
 
-**Event:** BioInformatics Workshop at PESIT College (08-03-2015)
+**Event:** BioInformatics Workshop at PESIT College
 
 **Duration:** 2 hours
 
-**Content:** [Slides](http://chillaranand.github.io/py-bio/)
+**Links:** [Slides](http://chillaranand.github.io/py-bio/)
 
 ------------------------------------------------------------------------------
 
 
 #### Just Queue It - Queue Everything & Delight Everyone!
 
-**Event:** PyBelgaum 2015 (01-03-2015)
+**Event:** PyBelgaum
 
 **Duration:** 45 minutes
 
-**Content:** [Slides](http://chillaranand.github.io/just-queue-it/)
+**Links:** [Slides](http://chillaranand.github.io/just-queue-it/)
 
 ------------------------------------------------------------------------------
 
@@ -97,20 +107,20 @@
 
 #### Emacs as Python IDE!
 
-**Event:** BangPypers February Meetup (21-02-2015)
+**Event:** BangPypers Meetup
 
 **Duration:** 30 minutes
 
-**Content:** [Slides](http://chillaranand.github.io/emacs-py-ide/)
+**Links:** [Slides](http://chillaranand.github.io/emacs-py-ide/)
 
 ------------------------------------------------------------------------------
 
 #### Getting Started With Django!
 
-**Event:** Bangalore Django User Group February Meetup (14-02-2015)
+**Event:** Bangalore Django User Group Meetup
 
 **Duration:** 3 hours
 
-**Content:** [Slides](http://chillaranand.github.io/django-bookmarks/)
+**Links:** [Slides](http://chillaranand.github.io/django-bookmarks/)
 
 ------------------------------------------------------------------------------
