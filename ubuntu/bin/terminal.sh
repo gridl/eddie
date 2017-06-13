@@ -349,6 +349,9 @@ sudo apt-get update
 sudo apt-get install --yes git
 
 # configuration
+git config --list
+git config --list --global
+
 git config --global user.name "username"
 git config --local user.email "your.email@gmail.com"
 
@@ -356,7 +359,9 @@ git config --global color.ui true
 git config --global color.status auto
 git config --global color.branch auto
 git config --global core.editor vim
-git config --list
+git config --global push.default=current
+
+
 # store git credentials
 git config credential.helper store
 

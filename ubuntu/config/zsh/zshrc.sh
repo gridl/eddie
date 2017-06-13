@@ -243,7 +243,7 @@ alias pgi='ps -ef | grep -i'
 
 
 # python aliases
-alias py='ipython'
+alias py='python'
 alias ipy='ipython'
 alias py2='python2'
 alias ipy2='ipython2'
@@ -368,7 +368,10 @@ alias gcom="git checkout master"
 alias gcod="git checkout develop"
 
 alias gla="git pull --all"
+
 alias glum="git pull upstream master"
+alias lum=glum
+
 alias glod="git pull origin develop"
 alias lodd="git pull origin develop:develop"
 alias glom="git pull origin master"
@@ -724,7 +727,7 @@ alias drr='deis releases | tac'
 
 
 
-aws() {}
+awsa() {}
 
 alias ae='aws ec2'
 alias aed='aws ec2 describe-instances'
@@ -851,18 +854,5 @@ irene () {
 }
 alias ir=irene
 
-mycroft () {
-    cd ~/projects/appknox/mycroft/
-    deactivate
-    workon $AK_VENV
-    eval $(./scripts/env_converter.py)
-}
-alias my=mycroft
 
-sherlock () {
-    cd ~/projects/appknox/sherlock/
-    deactivate
-    workon sherlock
-    workon $AK_VENV
-}
-alias sl=sherlock
+alias my='j mycroft'

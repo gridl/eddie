@@ -77,37 +77,6 @@ except:
     pass
 
 
-# aliases
-ty = type
-
-
-# data
-a = [12, 45, 78, 35, 98, 44, 65]
-sa = [12, 35, 44, 45, 65, 78, 98]
-
-l = [None, 3, 5.0, 'aaew', 23]
-d = {1: 2, "a": "b", }
-t = (1, "aaa", 4.5, None, )
-s = {1, "333", "foo"}
-b = [120, 3, 255, 0, 100]
-
-
-beta = 'β'
-gamma = ''
-lh = 'http://0.0.0.0:8000'
-email = 'anand21nanda@gmail.com'
-
-c1 = """
-import os
-import sys
-
-import sphinx_rtd_theme
-
-
-print(os, sys, sphinx_rtd_theme)
-"""
-
-
 # utilities
 
 def f(*args, **kwargs):
@@ -148,6 +117,7 @@ def hb(number):
 
 def hd(number):
     return int('0x{}'.format(number), 0)
+
 
 def dsu():
     try:
@@ -190,6 +160,50 @@ class Animal(Organism):
 
 class Human(Animal):
     pass
+
+
+def img2na(image):
+    image = expanduser(image)
+    img = Image.open(image)
+    img = img.convert("L")
+    img.thumbnail(MNIST_IMAGE_DIMENSIONS, Image.ANTIALIAS)
+    data = np.asarray(img.getdata()).reshape(1, 784)
+    return data
+
+
+# aliases
+ty = type
+
+
+# data
+a = [12, 45, 78, 35, 98, 44, 65]
+sa = [12, 35, 44, 45, 65, 78, 98]
+
+l = [None, 3, 5.0, 'aaew', 23]
+d = {1: 2, "a": "b", }
+t = (1, "aaa", 4.5, None, )
+s = {1, "333", "foo"}
+b = [120, 3, 255, 0, 100]
+
+
+beta = 'β'
+gamma = ''
+lh = 'http://0.0.0.0:8000'
+email = 'anand21nanda@gmail.com'
+
+c1 = """
+import os
+import sys
+
+import sphinx_rtd_theme
+
+
+print(os, sys, sphinx_rtd_theme)
+"""
+
+telugu = [chr(i) for i in range(hd('0c00'), hd('0c7f'))]
+te = telugu
+
 
 
 
