@@ -4,7 +4,7 @@ set -x
 
 
 setxkbmap -layout us
-pkill xcape
+pkill -x xcape
 
 
 # use space as space/ctrl

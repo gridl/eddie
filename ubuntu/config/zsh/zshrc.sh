@@ -433,7 +433,7 @@ alias rf='rm -rf'
 
 
 BASE_DIR=$HOME'/projects/01'
-alias cs=$BASE_DIR'/ubuntu/bin/space2ctrl.sh'
+alias cs=$BASE_DIR'/ubuntu/bin/xcape.sh'
 alias bs=$BASE_DIR'/ubuntu/bin/bootstrap.sh'
 alias spd=$BASE_DIR'/ubuntu/bin/proc.sh'
 spd
