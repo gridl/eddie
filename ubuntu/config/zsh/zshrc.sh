@@ -96,9 +96,12 @@ export SSH_KEY_PATH="~/.ssh/dsa_id"
 # user config
 
 # set utf8
-export LC_ALL=en_US.UTF-8
-export LANG=en_US.UTF-8
-export LANGUAGE=en_US.UTF-8
+LANG="en_US.UTF-8"
+# LANG="te_IN.UTF-8"
+export LC_ALL=$LANG
+export LANG=$LANG
+export LANGUAGE=$LANG
+
 
 # source /etc/profile.d
 if [ -d /etc/profile.d ]; then
@@ -171,8 +174,9 @@ if [[ $TERM = dumb ]]; then
   unset zle_bracketed_paste
 fi
 
-# pyenv
+# path
 export PATH="/home/chillaranand/.pyenv/bin:$PATH"
+export PATH="/home/chillaranand/projects/01/ubuntu/bin:$PATH"
 
 
 # vagrant
