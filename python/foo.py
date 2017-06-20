@@ -1,26 +1,8 @@
-import time
-import random
+import sys
 
 
-def dec(func):
-    def _wrapper(*args, **kwargs):
-        return func(*args, **kwargs)
-    return _wrapper
+def foo():
+    return
 
 
-@dec
-def bar(x):
-    time.sleep(10)
-    return True
-    random.choice([True, False])
-
-
-def baz():
-    x = 12
-
-    y = bar(x)
-
-    if y:
-        return True
-    else:
-        return False
+print(sys.path)

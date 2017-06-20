@@ -177,6 +177,7 @@ fi
 # path
 export PATH="/home/chillaranand/.pyenv/bin:$PATH"
 export PATH="/home/chillaranand/projects/01/ubuntu/bin:$PATH"
+export PATH="/home/chillaranand/sandbox/arduino-1.8.3:$PATH"
 
 
 # vagrant
@@ -474,14 +475,13 @@ alias akh='appknox --help'
 
 alias ak='appknox --username f --password f --host 127.0.0.1:8000 --no-secure'
 alias aks='appknox --username $AK_USER --password $AK_PASS --host api.appknox.io'
+alias akp='appknox --username $AK_USER --password $AKP_PASS --host api.appknox.com'
+alias akn='appknox --username g --password g --host 127.0.0.1:8000 --no-secure'
 
 # alias aks='ak submit_url "https://play.google.com/store/apps/details?id=com.wFinalZen"'
 
-alias akn='appknox --username g --password g --host 127.0.0.1:8000 --no-secure'
-
-alias akp='appknox --username $AK_USER --password $AK_PASS '
-alias akpv='appknox --username $AK_USER --password $AK_PASS validate '
-alias akpu='appknox --username $AK_USER --password $AK_PASS upload ~/Downloads/apps/test_zen_stories.apk '
+alias akpv='akp validate'
+alias akpua='appknox --username $AK_USER --password $AK_PASS upload ~/Downloads/apps/android.apk'
 
 alias akua='appknox --username f --password f --host 127.0.0.1:8000 --no-secure upload ~/Downloads/android.apk'
 alias akui='appknox --username f --password f --host 127.0.0.1:8000 --no-secure upload ~/Downloads/ios.ipa'

@@ -2,7 +2,7 @@ import pika
 
 
 def callback(ch, method, properties, body):
-    print(body)
+    print(ch, method, properties, body)
     ch.basic_ack(delivery_tag=method.delivery_tag)
 
 

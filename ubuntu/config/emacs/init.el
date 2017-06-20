@@ -333,6 +333,10 @@
   (add-hook 'markdown-mode-hook #'vimish-fold-mode))
 
 
+(use-package arduino-mode
+  :config
+  (setq auto-mode-alist (cons '("\\.\\(pde\\|ino\\)$" . arduino-mode) auto-mode-alist))
+  (autoload 'arduino-mode "arduino-mode" "Arduino editing mode." t))
 
 
 (use-package real-auto-save
@@ -1664,3 +1668,19 @@ With a prefix argument N, (un)comment that many sexps."
 (provide 'init)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(flycheck-display-errors-function (function flycheck-pos-tip-error-messages))
+ '(magit-commit-arguments (quote ("--verbose" "--gpg-sign=808E7188DB0167AD")))
+ '(package-selected-packages
+   (quote
+    (arduino-mode solarized-theme solarized-emacs solarized format-sql sqlplus zenburn-theme magithub engine-mode coffee-mode restclient ob-translate ox-reveal sql-indent sqlup-mode paradox lispy flycheck-pos-tip bm expand-region which-key key-chord keyfreq auto-capitalize artbollocks-mode writeroom-mode writegood-mode benchmark-init sotlisp ace-link google-translate helm-flx helm-swoop helm-github-stars helm-dired-recent-dirs helm-ag helm-projectile helm-descbinds helm-chrome easy-kill openwith comment-dwim-2 highlight-symbol impatient-mode use-package))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

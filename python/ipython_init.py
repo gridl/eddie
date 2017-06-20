@@ -171,6 +171,12 @@ def img2na(image):
     return data
 
 
+def loop(iterator):
+    x = [i for i in iterator]
+    print(x)
+    return x
+
+
 # aliases
 ty = type
 
