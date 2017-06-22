@@ -73,6 +73,8 @@ print(l.index('bar'))
 # reverse a list with index also
 list(reversed(list(enumerate(l))))
 
+
+
 # list comprehension doesn't leak variable
 x = 2
 y = [x for x in l]
@@ -100,6 +102,7 @@ os.path.realpath(__file__)
 test_file = './foo.txt'
 print(sum(1 for line in open(test_file)))
 print(len(open(test_file).read().splitlines()))
+
 
 # read file into string
 data = open(test_file).read()
@@ -142,10 +145,10 @@ a.fullname
 
 
 # vars
+
 # with argument returs __dict__ of object
 def foo():
     pass
-
 vars(foo)
 
 # without arguments, it acts like locals
@@ -176,15 +179,21 @@ a, b = 3, 3
 print(1 if a > b else -1 if a < b else 0)
 
 
+
+
 # list of subclasses
-# vars()['foo_class'].__subclasses__()
+class Foo:
+    pass
 
 
-def chunker(iterator, size):
-    return (iterator[pos:pos+size] for pos in range(0, len(iterator), size))
+class Bar(Foo):
+    pass
 
-for chunk in chunker('foobar', size=2):
-    print(chunk)
+
+Bar.__subclasses__()
+
+
+
 
 
 x, y = 3, 31
@@ -567,6 +576,13 @@ print(list(itertools.chain(*n)))
 a, b = [1, 2], [3, 4]
 list(itertools.product(a, b))
 
+
+
+def chunker(iterator, size):
+    return (iterator[pos:pos+size] for pos in range(0, len(iterator), size))
+
+for chunk in chunker('foobar', size=2):
+    print(chunk)
 
 
 

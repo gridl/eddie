@@ -96,9 +96,12 @@ export SSH_KEY_PATH="~/.ssh/dsa_id"
 # user config
 
 # set utf8
-export LC_ALL=en_US.UTF-8
-export LANG=en_US.UTF-8
-export LANGUAGE=en_US.UTF-8
+LANG="en_US.UTF-8"
+# LANG="te_IN.UTF-8"
+export LC_ALL=$LANG
+export LANG=$LANG
+export LANGUAGE=$LANG
+
 
 # source /etc/profile.d
 if [ -d /etc/profile.d ]; then
@@ -171,8 +174,10 @@ if [[ $TERM = dumb ]]; then
   unset zle_bracketed_paste
 fi
 
-# pyenv
+# path
 export PATH="/home/chillaranand/.pyenv/bin:$PATH"
+export PATH="/home/chillaranand/projects/01/ubuntu/bin:$PATH"
+export PATH="/home/chillaranand/sandbox/arduino-1.8.3:$PATH"
 
 
 # vagrant
@@ -243,7 +248,7 @@ alias pgi='ps -ef | grep -i'
 
 
 # python aliases
-alias py='ipython'
+alias py='python'
 alias ipy='ipython'
 alias py2='python2'
 alias ipy2='ipython2'
@@ -368,7 +373,10 @@ alias gcom="git checkout master"
 alias gcod="git checkout develop"
 
 alias gla="git pull --all"
+
 alias glum="git pull upstream master"
+alias lum=glum
+
 alias glod="git pull origin develop"
 alias lodd="git pull origin develop:develop"
 alias glom="git pull origin master"
@@ -430,7 +438,7 @@ alias rf='rm -rf'
 
 
 BASE_DIR=$HOME'/projects/01'
-alias cs=$BASE_DIR'/ubuntu/bin/space2ctrl.sh'
+alias cs=$BASE_DIR'/ubuntu/bin/xcape.sh'
 alias bs=$BASE_DIR'/ubuntu/bin/bootstrap.sh'
 alias spd=$BASE_DIR'/ubuntu/bin/proc.sh'
 spd
@@ -467,14 +475,13 @@ alias akh='appknox --help'
 
 alias ak='appknox --username f --password f --host 127.0.0.1:8000 --no-secure'
 alias aks='appknox --username $AK_USER --password $AK_PASS --host api.appknox.io'
+alias akp='appknox --username $AK_USER --password $AKP_PASS --host api.appknox.com'
+alias akn='appknox --username g --password g --host 127.0.0.1:8000 --no-secure'
 
 # alias aks='ak submit_url "https://play.google.com/store/apps/details?id=com.wFinalZen"'
 
-alias akn='appknox --username g --password g --host 127.0.0.1:8000 --no-secure'
-
-alias akp='appknox --username $AK_USER --password $AK_PASS '
-alias akpv='appknox --username $AK_USER --password $AK_PASS validate '
-alias akpu='appknox --username $AK_USER --password $AK_PASS upload ~/Downloads/apps/test_zen_stories.apk '
+alias akpv='akp validate'
+alias akpua='appknox --username $AK_USER --password $AK_PASS upload ~/Downloads/apps/android.apk'
 
 alias akua='appknox --username f --password f --host 127.0.0.1:8000 --no-secure upload ~/Downloads/android.apk'
 alias akui='appknox --username f --password f --host 127.0.0.1:8000 --no-secure upload ~/Downloads/ios.ipa'
@@ -665,7 +672,9 @@ alias kgn='kubectl get nodes'
 
 alias kgp='kubectl get pods'
 alias kgpa='kubectl get pods --all-namespaces -o wide'
+
 alias kgpd='kubectl get pods --namespace=deis'
+alias kdgp='kubectl --namespace=deis get pod'
 alias kgpk='kubectl get pods --namespace=kube-system'
 alias kgps='kubectl get pods --namespace=sherlock'
 
@@ -722,7 +731,7 @@ alias drr='deis releases | tac'
 
 
 
-aws() {}
+awsa() {}
 
 alias ae='aws ec2'
 alias aed='aws ec2 describe-instances'
@@ -849,18 +858,5 @@ irene () {
 }
 alias ir=irene
 
-mycroft () {
-    cd ~/projects/appknox/mycroft/
-    deactivate
-    workon $AK_VENV
-    eval $(./scripts/env_converter.py)
-}
-alias my=mycroft
 
-sherlock () {
-    cd ~/projects/appknox/sherlock/
-    deactivate
-    workon sherlock
-    workon $AK_VENV
-}
-alias sl=sherlock
+alias my='j mycroft'

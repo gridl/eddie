@@ -349,6 +349,9 @@ sudo apt-get update
 sudo apt-get install --yes git
 
 # configuration
+git config --list
+git config --list --global
+
 git config --global user.name "username"
 git config --local user.email "your.email@gmail.com"
 
@@ -356,7 +359,9 @@ git config --global color.ui true
 git config --global color.status auto
 git config --global color.branch auto
 git config --global core.editor vim
-git config --list
+git config --global push.default=current
+
+
 # store git credentials
 git config credential.helper store
 
@@ -490,6 +495,8 @@ cat .ssh/id_rsa.pub | ssh user@host 'cat >> .ssh/authorized_keys'
 ssh-copy-id user@host
 
 ssh user@host
+ssh user@host -p 2222
+
 
 
 # copy files
@@ -1659,14 +1666,15 @@ vagrant global-status
 
 ansible() {}
 
+ansible all -i 192.168.0.47, -m ping -vvvv --user root
 ansible all -i inventory/vagrant.ini -m ping
 
 ansible all -i inventory/vagrant.ini -m yum -a "name=ntp state=present" --sudo
 
 ansible all -i vagrant.ini -m shell -a "pwd"
 
-ansible-playbook -i inventory/vagrant.ini ntpd-init.yml
 
+ansible-playbook -i inventory/vagrant.ini ntpd-init.yml
 
 ansible-playbook playbook.yml -i inventory.ini --user=username --extra-vars "ansible_sudo_pass=yourPassword"
 
@@ -1734,6 +1742,9 @@ convert foo.png foo.jpg
 
 # pdf to png
 convert -density 300 input.pdf -quality 90 prefix
+
+# png to pdf
+convert *.png foo.pdf
 
 pdftoppm -rx 300 -ry 300 -png a.pdf prefix
 
