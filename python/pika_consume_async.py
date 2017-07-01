@@ -15,9 +15,12 @@ def on_channel_open(channel):
     channel.basic_consume(callback, queue='queue2')
 
 
-parameters = pika.URLParameters('amqp://guest:guest@localhost:5672/%2F')
-connection = pika.SelectConnection(parameters=parameters,
-                                   on_open_callback=on_open)
+url = 'amqp://guest:guest@localhost:5672/%2F'
+parameters = pika.URLParameters(url)
+connection = pika.SelectConnection(
+    parameters=parameters,
+    on_open_callback=on_open
+)
 
 try:
     connection.ioloop.start()

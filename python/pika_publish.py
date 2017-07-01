@@ -4,7 +4,12 @@ import random
 import pika
 
 
-connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+url = 'amqp://guest:guest@localhost:5672/%2F'
+params = pika.URLParameters(url)
+params.socket_timeout = 5
+
+connection = pika.BlockingConnection(params)
+
 channel = connection.channel()
 
 
@@ -18,8 +23,10 @@ while True:
 
     channel.queue_declare(queue=queue)
     channel.basic_publish(
-        exchange='', routing_key=queue, body=message)
+        exchange='', routing_key=queue, body=message,
+    )
     print("{}:{}".format(queue, message))
-    time.sleep(2)
+    time.sleep(1)
+
 
 connection.close()

@@ -11,6 +11,9 @@ print(x)
 print(x+1)
 
 
+round(2.333, 2)
+
+
 
 
 
@@ -426,6 +429,29 @@ print(d)
 
 
 
+import configparser
+
+
+config = configparser.ConfigParser()
+CONFIG_FILE = os.path.expanduser('~/.config/foo.ini')
+config.read(CONFIG_FILE)
+
+try:
+    section = config[name]
+except KeyError:
+    section = None
+
+config['data'] = {'path': '/tmp/foo'}
+
+config.remove_section('data')
+
+with open(CONFIG_FILE, 'w') as fh:
+    config.write(fh)
+
+
+
+
+
 
 
 # contextlib
@@ -505,6 +531,14 @@ class Shape(IntEnum):
 
 print(Shape.circle.name)
 print(Shape.circle.value)
+
+class CommandsEnum(IntEnum):
+    forward = 1
+    reverse = 2
+
+    @classmethod
+    def choices(cls):
+        return [i for i in cls._value2member_map_]
 
 
 
@@ -652,6 +686,22 @@ for key in logging.Logger.manager.loggerDict:
     print(key)
 
 
+
+FORMAT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+formatter = logging.Formatter(FORMAT)
+
+
+def get_logger(name):
+    logger = logging.getLogger(name)
+    logger.setLevel(logging.INFO)
+
+    sh = logging.StreamHandler()
+    sh.setLevel(logging.INFO)
+    sh.setFormatter(formatter)
+
+    logger.addHandler(sh)
+
+    return logger
 
 
 

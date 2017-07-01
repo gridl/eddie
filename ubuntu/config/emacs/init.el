@@ -339,6 +339,13 @@
   (autoload 'arduino-mode "arduino-mode" "Arduino editing mode." t))
 
 
+(use-package ivy-dired-history
+  :config
+  (with-eval-after-load 'dired
+    (define-key dired-mode-map "," 'dired))
+  (add-to-list 'savehist-additional-variables 'ivy-dired-history-variable))
+
+
 (use-package real-auto-save
   :config
   (add-hook 'prog-mode-hook 'real-auto-save-mode)

@@ -29,6 +29,18 @@ echo {a..z}
 # for loop
 for i in {1..5}; do echo "Welcome $i times"; done
 
+## declare an array variable
+declare -a arr=("element1" "element2" "element3")
+
+## now loop through the above array
+for i in "${arr[@]}"
+do
+   echo "$i"
+   # or do whatever with individual element of the array
+done
+
+
+
 
 # if cond
 if (( 2 > 0 ))
@@ -73,6 +85,15 @@ alias ls='ls -a'
 
 
 # cron
+ +---------------- minute (0 - 59)
+ |  +------------- hour (0 - 23)
+ |  |  +---------- day of month (1 - 31)
+ |  |  |  +------- month (1 - 12)
+ |  |  |  |  +---- day of week (0 - 6) (Sunday=0 or 7)
+ |  |  |  |  |
+ *  *  *  *  *  command to be executed
+
+ 0 16 * * 5
 
 # run job every minute
 */1 * * * * foo
@@ -205,6 +226,10 @@ sed '100q;d' <file>
 # find and replace text in files recursively
 find /home/anand -name \*.py -exec sed -i "s/foo/bar/g" {} \;
 
+sed -i "s/django==.*/django==${version}/" requirements.txt
+sed -i '/pypi/c\"--extra-index-url https://blah.com/foo/bar/"' requirements.txt
+
+
 # show foo.txt without last line
 head -n -1 foo.txt
 
@@ -295,7 +320,7 @@ sudo ufw logging [on/off]
 
 
 
-# ffmpeg
+ffmpeg() {}
 
 # extract audio from video
 ffmpeg -i foo.mp4 adandada.mp3
@@ -306,8 +331,33 @@ ffmpeg -i foo.wembm adandada.mp3
 # split video of 25 seconds
 ffmpeg -i input.mkv -ss 00:01:10 -t 25 output.mkv
 
+# transcode live rtmp to live rtmp
+ffmpeg -i rtmp://server/live/originalStream -c:a copy -c:v libx264 -vpre slow -f flv rtmp://server/live/h264Stream
+
+# capture webcam
+ffmpeg -f v4l2 -framerate 25 -video_size 640x480 -i /dev/video0 w.mkv
+ffmpeg -f v4l2 -r 25 -s 640x480 -i /dev/video0 w.mkv -y
+ffmpeg -f v4l2 -r 30 -s 320x240 -i /dev/video0 -y f.mkv
+ffmpeg -f v4l2 -r 60 -s 1440x1080 -i /dev/video0 -y f.mkv
 
 
+# capture audio
+ffmpeg -f alsa -ac 2 -ar 44100 -i hw:0 out.wav -y
+ffmpeg -f alsa -ac 2 -ar 256 -i hw:0 -y f.wav
+
+
+# capture both
+ffmpeg  -f v4l2 -r 25 -s 320x240 -i /dev/video0   -f alsa -ac 2 -ar 22050  -i hw:0 f.mkv -y
+
+ffmpeg \
+    -thread_queue_size 8192 -f v4l2 -s 320x240 -i /dev/video0 \
+    -force_key_frames 00:00:00.000 -thread_queue_size 8192 -f alsa -ac 2 -ar 256 -i hw:0 \
+    f.mkv -y
+
+ffmpeg \
+    -thread_queue_size 8192 -f alsa -ac 2 -i hw:0,0 -f v4l2 -i /dev/video0 -r 25 \
+    -b:a 128k -pix_fmt yuv420p -vcodec libx264 -strict -2 \
+    -y f.mp4
 
 
 
@@ -477,38 +527,17 @@ ifconfig
 avahi-browse -tl _workstation._tcp
 avahi-browse -attr
 
+
+# set hostname
+hostnamectl set-hostname localhost
+
+
 # show ip, mac of all devices in network
 sudo apt-get install arp-scan
 sudo arp-scan -I wlan0 -l
 sudo arp-scan --interface=eth0 --localnet
 sudo arp-scan --interface=wlan0 --localnet | grep 192 | sort -V
 
-
-# ssh using keys
-ssh-keygen -t rsa
-
-chmod 700 .ssh
-chmod 644 authorized_keys
-
-cat .ssh/id_rsa.pub | ssh user@host 'cat >> .ssh/authorized_keys'
-
-ssh-copy-id user@host
-
-ssh user@host
-ssh user@host -p 2222
-
-
-
-# copy files
-rsync -raz --progress user@host:/path/to/dir /path/to/target
-
-
-# show status of wireless devices
-rfkill list
-
-
-# kill process running on a port 12345
-fuser -k 12345/tcp
 
 
 # check port 8000
@@ -543,6 +572,41 @@ nmcli dev wifi connect 'foo bar' password 'baz' name 'wifi1'
 
 # connect to previous network
 nmcli con up id 'wifi1'
+
+
+
+# iptables
+iptables -A INPUT -s 58.218.199.250 -j DROP
+
+
+
+# ssh using keys
+ssh-keygen -t rsa
+
+chmod 700 .ssh
+chmod 644 authorized_keys
+
+cat .ssh/id_rsa.pub | ssh user@host 'cat >> .ssh/authorized_keys'
+
+ssh-copy-id user@host
+
+ssh user@host
+ssh user@host -p 2222
+
+
+
+# copy files
+rsync -raz --progress user@host:/path/to/dir /path/to/target
+
+
+# show status of wireless devices
+rfkill list
+
+
+# kill process running on a port 12345
+fuser -k 12345/tcp
+
+
 
 
 
@@ -710,17 +774,33 @@ echo 100 > /sys/class/backlight/foo/brightness
 
 
 
+journalctl -u nginx.service
+journalctl -u nginx
+journalctl -u nginx -n 100
+journalctl -u nginx -f
 
-# time/date
+journalctl /usr/bin/bash
 
-# show time/date
+
+datetime() {}
+
+# show date time
 date
 
 # set time/date
 sudo date --set "25 Sep 2013 15:00:00"  # set date
 
+
+# systemd uses timedatectl
+timedatectl status
+timedatectl list-timezones
+sudo timedatectl set-timezone Asia/Kolkata
+
 # set timezone
 sudo dpkg-reconfigure tzdata  # set timezone
+
+
+
 
 
 
@@ -1060,7 +1140,7 @@ notedown python.md > python.ipynb
 
 
 
-rabbitmq() {}
+rabbitmqa() {}
 sudo apt-get install rabbitmq-server
 
 
@@ -1668,14 +1748,13 @@ ansible() {}
 
 ansible all -i 192.168.0.47, -m ping -vvvv --user root
 ansible all -i inventory/vagrant.ini -m ping
+ansible all -m ping -vvvv --user root -e 'ansible_python_interpreter=/data/data/org.qpython.qpy/files/bin/qpython-android5.sh' -i 192.168.0.16,
 
 ansible all -i inventory/vagrant.ini -m yum -a "name=ntp state=present" --sudo
-
 ansible all -i vagrant.ini -m shell -a "pwd"
 
 
 ansible-playbook -i inventory/vagrant.ini ntpd-init.yml
-
 ansible-playbook playbook.yml -i inventory.ini --user=username --extra-vars "ansible_sudo_pass=yourPassword"
 
 
@@ -1683,11 +1762,13 @@ ansible-playbook playbook.yml -i inventory.ini --user=username --extra-vars "ans
 
 
 
-
-# ios
+ios () {}
 
 # restart ios device
 idevicediagnostics restart
+idevice_id -l
+ideviceinstaller -l
+ideviceinfo --domain com.apple.mobile.battery
 
 
 

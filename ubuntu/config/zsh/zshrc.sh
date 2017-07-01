@@ -422,7 +422,6 @@ alias pkc='pkill -f celery'
 
 alias me='chmod +x '
 
-alias smo="ssh moriarty@devicefarm.appknox.com "
 
 alias nt='nautilus .'
 
@@ -470,7 +469,7 @@ alias lh='http://127.0.0.1:8000'
 
 
 
-# appknox cli
+# appknox
 alias akh='appknox --help'
 
 alias ak='appknox --username f --password f --host 127.0.0.1:8000 --no-secure'
@@ -485,6 +484,26 @@ alias akpua='appknox --username $AK_USER --password $AK_PASS upload ~/Downloads/
 
 alias akua='appknox --username f --password f --host 127.0.0.1:8000 --no-secure upload ~/Downloads/android.apk'
 alias akui='appknox --username f --password f --host 127.0.0.1:8000 --no-secure upload ~/Downloads/ios.ipa'
+
+
+export AK_VENV=appknox
+
+irene () {
+    cd /home/chillaranand/projects/appknox/irene
+    deactivate
+    source ~/.nodeenvs/irene/bin/activate
+    ember serve
+}
+alias ir=irene
+alias my='j mycroft'
+alias sl='j sherlock'
+alias mol='j moriaarty'
+alias df="ssh moriarty@devicefarm.appknox.com"
+alias sm=df
+alias smo=df
+
+
+
 
 
 alias ct='crontab '
@@ -503,7 +522,10 @@ alias ct='crontab '
 
 alias ai='adb install '
 alias ad='adb devices '
+alias at='adb shell '
+
 alias app='adb push -p '
+
 alias arr='adb reboot recovery '
 alias arb='adb reboot bootloader '
 
@@ -824,8 +846,6 @@ free_port() {
 alias fp=free_port
 
 
-alias mo='ssh -t moriarty@devicefarm.appknox.com '
-
 alias hip='http ipinfo.io'
 
 alias ni='npm install '
@@ -843,20 +863,3 @@ alias rdr=reset_dns_resolver
 
 alias watch='watch '
 alias wt='watch -n1 '
-
-
-
-
-# appknox
-export AK_VENV=appknox
-
-irene () {
-    cd /home/chillaranand/projects/appknox/irene
-    deactivate
-    source ~/.nodeenvs/irene/bin/activate
-    ember serve
-}
-alias ir=irene
-
-
-alias my='j mycroft'

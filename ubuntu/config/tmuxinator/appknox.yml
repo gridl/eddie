@@ -37,3 +37,5 @@ windows:
       - j sherlock
   - shell-plus:
       - j sherlock && dsp
+  - socket:
+      - j stupid-sockets && deactivate && glom && . ~/.nodeenvs/irene/bin/activate && node index.js
