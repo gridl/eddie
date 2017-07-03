@@ -471,19 +471,7 @@ alias lh='http://127.0.0.1:8000'
 
 # appknox
 alias akh='appknox --help'
-
-alias ak='appknox --username f --password f --host 127.0.0.1:8000 --no-secure'
-alias aks='appknox --username $AK_USER --password $AK_PASS --host api.appknox.io'
-alias akp='appknox --username $AK_USER --password $AKP_PASS --host api.appknox.com'
-alias akn='appknox --username g --password g --host 127.0.0.1:8000 --no-secure'
-
-# alias aks='ak submit_url "https://play.google.com/store/apps/details?id=com.wFinalZen"'
-
-alias akpv='akp validate'
-alias akpua='appknox --username $AK_USER --password $AK_PASS upload ~/Downloads/apps/android.apk'
-
-alias akua='appknox --username f --password f --host 127.0.0.1:8000 --no-secure upload ~/Downloads/android.apk'
-alias akui='appknox --username f --password f --host 127.0.0.1:8000 --no-secure upload ~/Downloads/ios.ipa'
+alias ak='appknox'
 
 
 export AK_VENV=appknox
@@ -592,6 +580,7 @@ alias st='./scripts/test.sh'
 ifs () {
     rm -rf test_build
     mkdir test_build
+    ./autogen.sh
     ./configure --prefix=$(pwd)/test_build
     make
     make install
