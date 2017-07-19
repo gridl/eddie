@@ -4,6 +4,7 @@ import pickle
 import numpy as np
 from scipy.special import expit
 # from matplotlib import pyplot as plt
+import matplotlib.pyplot as plt
 
 
 test_file, train_file = 'mnist_test_10.csv', 'mnist_train_100.csv'
@@ -18,26 +19,36 @@ class NeuralNetwork:
         self.h_nodes = hidden_nodes
         self.o_nodes = output_nodes
         self.lr = learning_rate
+        self.is_trained = False
 
         if os.path.exists('mnist.pkl'):
             with open(network_file, 'rb') as fh:
                 network = pickle.load(fh)
             self.wih, self.who = network['wih'], network['who']
+            self.is_trained = True
         else:
-            self.wih = np.random.normal(0, pow(self.h_nodes, -0.5), (self.h_nodes, self.i_nodes))
-            self.who = np.random.normal(0, pow(self.o_nodes, -0.5), (self.o_nodes, self.h_nodes))
+            self.wih = np.random.normal(
+                0, pow(self.h_nodes, -0.5), (self.h_nodes, self.i_nodes)
+            )
+            self.who = np.random.normal(
+                0, pow(self.o_nodes, -0.5), (self.o_nodes, self.h_nodes)
+            )
 
         self.activation_func = lambda x: expit(x)
 
     def query(self, inputs):
+        plt.show(inputs)
         inputs = np.array(inputs, ndmin=2).T
 
+        print(inputs)
         h_inputs = np.dot(self.wih, inputs)
+        print(h_inputs)
         h_outputs = self.activation_func(h_inputs)
-
+        print(h_outputs)
         o_inputs = np.dot(self.who, h_outputs)
+        print(o_inputs)
         o_outputs = self.activation_func(o_inputs)
-
+        print(o_outputs)
         return o_outputs
 
     def train(self, inputs, targets):
@@ -67,27 +78,36 @@ class NeuralNetwork:
 input_nodes = 784
 hidden_nodes = 100
 output_nodes = 10
-learning_rate = 0.2
+learning_rate = 0.001
+
 
 n = NeuralNetwork(input_nodes, hidden_nodes, output_nodes, learning_rate)
 
 
 with open(train_file) as fh:
-    data = fh.readlines()
-
-for record in data:
-    item = record.split(',')
-    label = item[0]
-    inputs = (np.asfarray(item[1:]) / 255.0 * 0.99) + 0.01
-    targets = np.zeros(output_nodes) + 0.01
-    targets[int(label)] = 0.99
-    n.train(inputs, targets)
-    # print(n.wih, n.who)
+    train_data = fh.readlines()
 
 with open(test_file) as fh:
     test_data = fh.readlines()
 
-    scorecard = []
+
+def train(network):
+    print('Training network...')
+    for record in train_data:
+        item = record.split(',')
+        label = item[0]
+        inputs = (np.asfarray(item[1:]) / 255.0 * 0.99) + 0.01
+        targets = np.zeros(output_nodes) + 0.01
+        targets[int(label)] = 0.99
+        network.train(inputs, targets)
+        # print(n.wih, n.who)
+
+
+if not n.is_trained:
+    train(n)
+
+
+scorecard = []
 
 for record in test_data:
     item = record.split(',')
@@ -97,7 +117,7 @@ for record in test_data:
 
     outputs = n.query(inputs)
     label = np.argmax(outputs)
-
+    e
     if label == correct_label:
         scorecard.append(1)
     else:

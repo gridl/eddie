@@ -6,6 +6,7 @@ import serial
 
 
 port = '/dev/ttyACM0'
+port = '/dev/ttyUSB0'
 
 
 arduino = serial.Serial(port, 9600, timeout=5)

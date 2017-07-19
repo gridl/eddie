@@ -3,7 +3,6 @@
 const x = 1;
 
 
-
 // list the properties of a JavaScript object
 var myObject = 'foo';
 var keys = Object.keys(myObject);
@@ -24,3 +23,13 @@ i;
 
 // closures
 // the inner function has access to all the outer function's variables, even after the outer function exits
+
+
+"This is a string".charAt(0);
+
+
+"Hello world".substring(0, 5);
+
+
+"Hello".length;
+console.log("Hello".length);

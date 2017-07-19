@@ -63,6 +63,11 @@ from django.db import models
 User.objects.filter(pk__lt=5)
 User.objects.filter(pk__lte=6)
 
+# all users starting with joh
+User.objects.filter(username__icontains='joh')
+# users in
+User.objects.filter(pk__in=[1, 4, 7])
+
 
 # print raw sql query
 print(Mymodel.objects.all().query)

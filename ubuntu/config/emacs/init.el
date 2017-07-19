@@ -339,6 +339,18 @@
   (autoload 'arduino-mode "arduino-mode" "Arduino editing mode." t))
 
 
+(use-package indium
+  :config
+  (add-hook 'js-mode-hook #'indium-interaction-mode))
+
+
+(use-package js-comint
+  :config
+  (defun inferior-js-mode-hook-setup ()
+    (add-hook 'comint-output-filter-functions 'js-comint-process-output))
+  (add-hook 'inferior-js-mode-hook 'inferior-js-mode-hook-setup t))
+
+
 (use-package ivy-dired-history
   :config
   (with-eval-after-load 'dired
@@ -1062,7 +1074,6 @@
          (sql-password sql-local-password)
          (sql-database sql-local-database)
          (sql-port sql-port))
-
         (psql-local
          (sql-server psql-local-server)
          (sql-user psql-local-user)
@@ -1684,7 +1695,7 @@ With a prefix argument N, (un)comment that many sexps."
  '(magit-commit-arguments (quote ("--verbose" "--gpg-sign=808E7188DB0167AD")))
  '(package-selected-packages
    (quote
-    (arduino-mode solarized-theme solarized-emacs solarized format-sql sqlplus zenburn-theme magithub engine-mode coffee-mode restclient ob-translate ox-reveal sql-indent sqlup-mode paradox lispy flycheck-pos-tip bm expand-region which-key key-chord keyfreq auto-capitalize artbollocks-mode writeroom-mode writegood-mode benchmark-init sotlisp ace-link google-translate helm-flx helm-swoop helm-github-stars helm-dired-recent-dirs helm-ag helm-projectile helm-descbinds helm-chrome easy-kill openwith comment-dwim-2 highlight-symbol impatient-mode use-package))))
+    (js-comint js3-mode indium arduino-mode solarized-theme solarized-emacs solarized format-sql sqlplus zenburn-theme magithub engine-mode coffee-mode restclient ob-translate ox-reveal sql-indent sqlup-mode paradox lispy flycheck-pos-tip bm expand-region which-key key-chord keyfreq auto-capitalize artbollocks-mode writeroom-mode writegood-mode benchmark-init sotlisp ace-link google-translate helm-flx helm-swoop helm-github-stars helm-dired-recent-dirs helm-ag helm-projectile helm-descbinds helm-chrome easy-kill openwith comment-dwim-2 highlight-symbol impatient-mode use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

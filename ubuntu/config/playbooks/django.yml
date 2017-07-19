@@ -1,0 +1,26 @@
+---
+- hosts: all
+  remote_user: chillaranand
+  become_method: sudo
+  become: yes
+
+  vars:
+    home: /home/chillaranand
+    app_root: "{{ home }}/avilpage"
+
+    server_name: avilpage.com
+
+
+  tasks:
+    - name: create virtualenv and install requirements
+      pip:
+        requirements: "{{ app_root }}/requirements.txt"
+        virtualenv: "{{ home }}.virtualenvs"
+        virtualenv_python: python3.5
+
+
+  handlers:
+
+    - name: restart nginx
+      service: name=nginx state=restarted
+      become: yes

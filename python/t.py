@@ -1,19 +1,6 @@
 import time
 
-from celery import Celery, Task, current_app, current_task, shared_task
-from kombu import Exchange, Queue, binding
-from celery.schedules import crontab
-from kombu.common import Broadcast
-
-
-app = Celery(
-    'tasks',
-    broker='amqp://guest@localhost//',
-    backend='rpc://',
-    task_serializer='json',
-    result_serializer='json',
-    accept_content=['application/json'],
-)
+from celery import Celery, states
 
 app = Celery(broker='amqp://guest@localhost//', backend='rpc')
 # app = Celery(broker='redis://localhost:6379/0')
@@ -26,6 +13,16 @@ app.conf.update({
 @app.task
 def add(x, y):
     return x + y
+
+
+@app.task(bind=True)
+def fail(self):
+    self.update_state(
+        task_id=self.request.id,
+        state=states.FAILURE,
+        meta="result is None"
+    )
+    raise Ignore()
 
 
 @app.task

@@ -3,8 +3,6 @@
 
 import os
 import sys
-import datetime
-now = datetime.datetime.now()
 
 
 # import_standard_library
@@ -29,6 +27,8 @@ except:
 from collections import *
 
 from datetime import *
+from datetime import datetime as dt
+now = dt.now()
 
 from functools import *
 
@@ -175,6 +175,13 @@ def loop(iterator):
     x = [i for i in iterator]
     print(x)
     return x
+
+
+def iterate(iterator):
+    for i in iterator:
+        from pprint import pprint; pprint(i)
+
+i = iterate
 
 
 # aliases

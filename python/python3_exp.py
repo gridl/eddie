@@ -393,6 +393,14 @@ print(sys.platform)
 
 
 
+
+import argparse
+# boolean
+parser.add_argument('-a', action="store_true", default=False)
+
+
+
+
 import bisect
 
 
@@ -412,13 +420,16 @@ import collections
 
 isinstance(dict, collections.Hashable)
 
-from collections import deque
 
-d = deque(range(5))
+d = collections.deque(range(5))
 d.rotate(1)
 print(d)
 d.rotate(-1)
 print(d)
+
+
+c = collections.Counter('aaaaadeeeetadf')
+
 
 
 
@@ -1032,25 +1043,6 @@ r = repo.create_issue(title="aa", body="bb")
 
 # jira
 
-
-
-
-
-
-
-# line_profiler
-import line_profiler
-
-# add @profile to profile
-@profile
-def slow_function(a, b, c):
-    pass
-
-# run script
-# kernprof -l script_to_profile.py
-
-# see results
-# python -m line_profiler script_to_profile.py.lprof
 
 
 

@@ -7,7 +7,7 @@
 -- users
 
 -- create user
-CREATE USER mycroft WITH PASSWORD 'mycroft';
+CREATE USER foo WITH PASSWORD 'foo';
 
 -- to reset the password if you have forgotten
 ALTER USER "user_name" WITH PASSWORD 'new_password';
@@ -56,10 +56,10 @@ ORDER BY n_live_tup
 \d <tablename>
 
 
-# show all rows
-SELECT * FROM <table>;
+--queuries
+SELECT * FROM foo_table;
 
-# update ROWS
+-- update ROWS
 UPDATE core_user set is_superuser='t';
 UPDATE core_user set is_superuser='t' WHERE username='chillaranand';
 UPDATE core_user set is_superuser='t' WHERE username='foo';

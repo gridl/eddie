@@ -338,6 +338,7 @@ alias ka='killall '
 alias kb="pgi byobu | awk '{print $2}' | xargs kill -9 "
 
 alias l='clear && ls'
+alias l='ll'
 
 alias le=less
 
@@ -472,6 +473,11 @@ alias lh='http://127.0.0.1:8000'
 # appknox
 alias akh='appknox --help'
 alias ak='appknox'
+alias akn='appknox -n development'
+alias adua='appknox -n development upload ~/Downloads/android.apk'
+alias asua='appknox -n staging upload ~/Downloads/android.apk'
+alias apua='appknox -n production upload ~/Downloads/android.apk'
+
 
 
 export AK_VENV=appknox
@@ -739,6 +745,9 @@ alias drr='deis releases | tac'
 
 
 
+helma() {}
+alias hla='helm ls --all'
+
 
 
 
@@ -805,8 +814,6 @@ source /usr/local/bin/activate.sh
 
 alias sr='sudo service'
 alias f8='flake8'
-
-alias pg='pirate-get'
 
 rabbitmq_reset() {
     celery purge -f

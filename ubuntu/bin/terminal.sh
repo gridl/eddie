@@ -255,6 +255,10 @@ sed -i '$ d' foo.txt
 # delete from foo to bar in 1 and store in 2
 sed '/foo/,/bar/d' 1 > 2
 
+# find & replace in file
+sed -i 's/original/new/g' file.txt
+sed 's/[A-Za-z]/ /g' -i tewiki.txt
+
 
 # generate 1mb random file
 base64 /dev/urandom | head -c 10000000 > random4.txt
@@ -262,9 +266,6 @@ base64 /dev/urandom | head -c 10000000 > random4.txt
 # generate random password
 head /dev/urandom | tr -dc A-Za-z0-9 | head -c 16
 
-
-# find & replace in file
-sed -i 's/original/new/g' file.txt
 
 # split file
 split -b 1024 big_file small_file_prefix
@@ -366,6 +367,7 @@ ffmpeg \
 
 
 
+
 # ftp
 
 
@@ -443,6 +445,7 @@ git format-patch -1 HEAD
 # apply patch
 patch -p1 < file.patch
 
+We don't support Python 2, in the best interest of future generations.
 
 # show all remotes
 git remote -v
@@ -583,8 +586,8 @@ iptables -A INPUT -s 58.218.199.250 -j DROP
 # ssh using keys
 ssh-keygen -t rsa
 
-chmod 700 .ssh
-chmod 644 authorized_keys
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/authorized_keys
 
 cat .ssh/id_rsa.pub | ssh user@host 'cat >> .ssh/authorized_keys'
 
@@ -939,6 +942,7 @@ x <any zipped file>
 
 
 
+aws() {}
 # aws cli
 
 # install
@@ -946,6 +950,7 @@ pip install awscli
 
 # configure
 aws configure
+aws configure list
 aws configure --profile=new
 
 
@@ -1797,8 +1802,10 @@ purge =
 
 # pandoc
 pandoc -o test.html test.md
-
-
+pandoc --toc --highlight-style pygments -o f.pdf celery.md --listings -H header.tex
+pandoc --toc --highlight-style pygments -o f.pdf celery.md -V papersize:a5 -V fontsize=12pt
+pandoc -o f.pdf celery.md --highlight-style pygments
+pandoc -f markdown -t epub --epub-cover-image=cover.jpg -o final.epub --smart --toc --epub-stylesheet=epub.css inputfile.txt
 
 
 
@@ -1904,7 +1911,11 @@ kubectl config current-context
 kubectl cluster-info
 
 
+# delete namespace and all components
+kubectl delete namespace deis
 
+
+# describe
 kubectl describe
 
 kubectl describe pods name
@@ -1974,10 +1985,15 @@ helm init
 
 helm version
 
+helm ls --all
+
 helm repo add deis https://charts.deis.com/workflow
+helm repo update
 
 helm install deis/workflow --namespace deis --set router.host_port.enabled=true
+helm install deis/workflow --namespace $NAMESPACE_DEIS --name $NAMESPACE_DEIS -f deis-workflow.yaml
 
+helm delete deis --purge
 
 
 
@@ -2165,3 +2181,58 @@ sudo npm cache clean -f
 sudo npm install -g n
 sudo n stable
 sudo ln -sf /usr/local/n/versions/node/<VERSION>/bin/node /usr/bin/node
+
+
+
+
+
+
+# embedded systems
+
+# connect to device via serial port
+sudo minicom -s
+
+# boot menu
+U-Boot>
+md 0x4006E000 1
+mw 0x4006E000 0x1000
+
+
+
+# devices
+
+# mouse
+sudo cat /dev/input/mice
+
+
+# character serial devices
+ls -ll /dev/input/mice
+crw-rw---- 1 root input 13, 63 Jul 15 07:32 /dev/input/mice
+
+
+# block devices
+l /dev/sr0
+brw-rw----+ 1 root cdrom 11, 0 Jul 15 07:32 /dev/sr0
+
+
+stty -F /dev/ttyUSB0 115200
+
+
+# i2c
+apt install i2c-tools
+
+i2cdetect -y 1
+i2cdetect -y 0
+
+parted
+
+
+
+# gpio
+
+# reserve a pin
+echo 65 > /sys/class/gpio/export
+
+echo out > /sys/class/gpio/gpio65/direction
+
+echo 1 > /sys/class/gpio/gpio65/value
