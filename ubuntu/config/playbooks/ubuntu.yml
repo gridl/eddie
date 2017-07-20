@@ -9,13 +9,11 @@
   connection: local
 
   vars:
-    user: chillaranand
-    home: "/home/{{user}}"
-    config_dir: "{{ home }}/projects/01"
-    ubuntu_config: "{{ config_dir }}/ubuntu/config"
-    venv_dir: "{{ home }}/.virtualenvs"
-    projects: "{{ home }}/projects"
-    ssh_key: "{{ home }}/.ssh/id_rsa"
+    user:  "{{ lookup('env', 'USER') }}"
+    home:  "{{ lookup('env', 'HOME') }}"
+    config_dir: "{{ lookup('env', 'CONFIG_DIR') }}"
+    ubuntu_config:  "{{ lookup('env', 'UBUNTU_CONFIG') }}"
+    venv_dir: "{{ lookup('env', 'WORKON_HOME') }}"
     db_password: "{{ lookup('env', 'db_password') }}"
     links:
       - { src: '{{ ubuntu_config }}/zsh/zshrc.sh', dest: '{{ home }}/.zshrc' }
@@ -140,12 +138,11 @@
         become_user: root
 
 
-    - name: create virtualenv and install requirements
-      pip:
-        requirements: "{{ config_dir }}/ubuntu/config/requirements.txt"
-        virtualenv: "{{ venv_dir }}/py35"
-        virtualenv_python: python3.5
-      become_user: root
+    # - name: create virtualenv and install requirements
+    #   pip:
+    #     requirements: "{{ config_dir }}/ubuntu/config/requirements.txt"
+    #     virtualenv: "{{ venv_dir }}/py35"
+    #     virtualenv_python: python3.5
 
     # - block:
 
@@ -182,13 +179,6 @@
     #     apt: name=google-cloud-sdk state=present
     #     when:
     #       gcloud.stat.exists == False
-
-
-    - name: create sandbox directory
-      file: path="{{ home }}/sandbox" state=directory
-
-    - name: create projects directory
-      file: path="{{ projects }}" state=directory
 
     # - name: clone github repos
     #   include: git_clone.yml package="{{ item }}"
