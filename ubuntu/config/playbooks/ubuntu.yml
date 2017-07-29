@@ -4,7 +4,7 @@
 - hosts: all
 
   gather_facts: False
-  become_user: chillaranand
+  become_user: chillar
   become: yes
   connection: local
 
@@ -12,8 +12,8 @@
     user:  "{{ lookup('env', 'USER') }}"
     home:  "{{ lookup('env', 'HOME') }}"
     config_dir: "{{ lookup('env', 'CONFIG_DIR') }}"
-    ubuntu_config:  "{{ lookup('env', 'UBUNTU_CONFIG') }}"
-    venv_dir: "{{ lookup('env', 'WORKON_HOME') }}"
+    config_dir: "{{ home }}/projects/eddie"
+    ubuntu_config:  '{{ config_dir }}/ubuntu/config'
     db_password: "{{ lookup('env', 'db_password') }}"
     links:
       - { src: '{{ ubuntu_config }}/zsh/zshrc.sh', dest: '{{ home }}/.zshrc' }
@@ -74,6 +74,17 @@
         - virtualbox
         - vlc
         - xcape
+
+      become_user: root
+
+
+    - name: setup pandoc
+      apt: name={{ item }} state=present
+      with_items:
+        - pandoc
+        - texlive-latex-base
+        - texlive-latex-recommended
+        - texlive-fonts-recommended
 
       become_user: root
 
@@ -217,11 +228,11 @@
 
 
 
-    # - name: remove symlinks
-    #   file:
-    #     state: absent
-    #     path: '{{ item.dest }}'
-    #   with_items: '{{ links }}'
+    - name: remove symlinks
+      file:
+        state: absent
+        path: '{{ item.dest }}'
+      with_items: '{{ links }}'
 
     - name: create symlinks for files
       file:

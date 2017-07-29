@@ -1423,22 +1423,25 @@ sudo apt-get install screenkey
 
 
 
-
-### JOBS & PRIORITY
-
-
-    renice -20(priority) 7448(jobid) # Change priority of jobs
+# jobs & priority
+# change priority of jobs
+renice -20(priority) 7448(jobid)
 
 
-### IDENTIFY BOTTLENECK
-    mpstat
-    sar
-    vmstat -s
-    vmstat -m | head -5
-    vmstat -f
-    vmstat
-    iotop
-    htop
+
+# monitor, bottleneck, performance
+mpstat
+sar
+vmstat -s
+vmstat -m | head -5
+vmstat -f
+
+iotop
+htop
+
+ionice -c 3 command-name
+
+
 
 
 ### create new user
@@ -1836,7 +1839,9 @@ convert *.png foo.pdf
 
 pdftoppm -rx 300 -ry 300 -png a.pdf prefix
 
-
+# pdf compress
+gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sOutputFile=outputa.pdf book.pdf
+gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/screen -dNOPAUSE -dQUIET -dBATCH -sOutputFile=outputa.pdf book.pdf
 
 
 

@@ -1,6 +1,6 @@
 #! /bin/sh
 
-set -x
+set -ex
 
 sudo apt-get install --yes -qq git
 

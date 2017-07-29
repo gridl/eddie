@@ -33,3 +33,6 @@ i;
 
 "Hello".length;
 console.log("Hello".length);
+
+// auto scroll to bottom
+var interval = setInterval(function() {window.scrollTo(0,document.body.scrollHeight); }, 1000);

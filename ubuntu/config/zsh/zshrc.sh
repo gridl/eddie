@@ -45,6 +45,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # Would you like to use another custom folder than $ZSH/custom?
 ZSH_CUSTOM=~/projects/01/ubuntu/config/zsh
+ZSH_CUSTOM=~/projects/eddie/ubuntu/config/zsh
 
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
@@ -437,7 +438,7 @@ alias re='sudo shutdown -r 0'
 alias rf='rm -rf'
 
 
-BASE_DIR=$HOME'/projects/01'
+BASE_DIR=$HOME'/projects/eddie'
 alias cs=$BASE_DIR'/ubuntu/bin/xcape.sh'
 alias bs=$BASE_DIR'/ubuntu/bin/bootstrap.sh'
 alias spd=$BASE_DIR'/ubuntu/bin/proc.sh'
@@ -473,8 +474,9 @@ alias lh='http://127.0.0.1:8000'
 # appknox
 alias akh='appknox --help'
 alias ak='appknox'
-alias akn='appknox -n development'
-alias adua='appknox -n development upload ~/Downloads/android.apk'
+alias akd='appknox -n development'
+alias akdu='appknox -n development upload ~/Downloads/android.apk'
+alias akdua='appknox -n development upload ~/Downloads/android.apk'
 alias asua='appknox -n staging upload ~/Downloads/android.apk'
 alias apua='appknox -n production upload ~/Downloads/android.apk'
 
