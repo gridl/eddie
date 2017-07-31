@@ -149,23 +149,6 @@ source $ZSH_CUSTOM/aliases.sh
 
 
 
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
-
-export PATH="$HOME/.cask/bin:$PATH"
-
-# all shell scripts
-export PATH="$HOME/.os/bin:$PATH"
-
-
-
-export NODEENV_HOME=$HOME/.nodeenvs
-
-export NIKOLA_MONO=true
-
-export PATH="/home/chillaranand/.cask/bin:$PATH"
-export PATH="/home/chillaranand/Downloads/android-ndk-r12b-linux-x86_64/android-ndk-r12b:$PATH"
-
 
 
 # secrets
@@ -176,9 +159,10 @@ if [[ $TERM = dumb ]]; then
 fi
 
 # path
-export PATH="/home/chillaranand/.pyenv/bin:$PATH"
-export PATH="/home/chillaranand/projects/01/ubuntu/bin:$PATH"
-export PATH="/home/chillaranand/sandbox/arduino-1.8.3:$PATH"
+export PATH="~/.pyenv/bin:$PATH"
+export PATH="~/projects/eddie/ubuntu/bin:$PATH"
+export PATH="~/projects/vendor/arduino:$PATH"
+export PATH="/home/chillar/projects/vendor/arduino:$PATH"
 
 
 # vagrant
@@ -861,3 +845,22 @@ alias rdr=reset_dns_resolver
 
 alias watch='watch '
 alias wt='watch -n1 '
+
+
+
+# Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
+
+export PATH="$HOME/.cask/bin:$PATH"
+
+# all shell scripts
+export PATH="$HOME/.os/bin:$PATH"
+
+
+
+export NODEENV_HOME=$HOME/.nodeenvs
+
+export NIKOLA_MONO=true
+
+export PATH="/home/chillaranand/.cask/bin:$PATH"
+export PATH="/home/chillaranand/Downloads/android-ndk-r12b-linux-x86_64/android-ndk-r12b:$PATH"

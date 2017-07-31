@@ -1,32 +1,22 @@
-import time
+import random
 
 from celery import Celery
-from kombu import Exchange, Queue, binding
-from celery.schedules import crontab
-from kombu.common import Broadcast
+from kombu import Exchange
 from kombu.common import Broadcast
 
 
 app = Celery(broker='amqp://guest@localhost//', backend='rpc://')
 
+bc_exchange = Exchange('bq', type='fanout')
+bc_queue = 'bq'
+
 app.conf.task_queues = (
-    # Broadcast(name='bq', exchange=exchange),
-    Broadcast(name='bq',),
+    Broadcast(name=bc_queue, exchange=bc_exchange),
 )
 
-# app.conf.CELERY_BEAT_SCHEDULE = {
-#     'test-task': {
-#         'task': 'tasks.reload_cache',
-#         'schedule': crontab(minute=0, hour='*/3'),
-#         'options': {'exchange': 'broadcast_tasks'}
-#     },
-# }
 
 @app.task
 def add(x, y):
+    print(x, y)
+    print(random.random())
     return x + y
-
-
-@app.task
-def foo(*args, **kwargs):
-    print(args, kwargs)

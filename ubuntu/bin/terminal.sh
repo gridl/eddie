@@ -2241,3 +2241,13 @@ echo 65 > /sys/class/gpio/export
 echo out > /sys/class/gpio/gpio65/direction
 
 echo 1 > /sys/class/gpio/gpio65/value
+
+
+
+
+# arduino
+# dl zip file
+# set path
+
+
+# bluetooth
