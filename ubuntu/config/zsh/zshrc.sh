@@ -57,8 +57,8 @@ plugins=(git z extract dirpersist pip zsh-autosuggestions)
 
 # User configuration
 
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/jvm/java-8-oracle/bin:/usr/lib/jvm/java-8-oracle/db/bin:/usr/lib/jvm/java-8-oracle/jre/bin"
-# export MANPATH="/usr/local/man:$MANPATH"
+
+
 
 source $ZSH/oh-my-zsh.sh
 
@@ -846,6 +846,11 @@ alias rdr=reset_dns_resolver
 alias watch='watch '
 alias wt='watch -n1 '
 
+alias ep='echo $PATH'
+alias arduino='sudo ~/projects/vendor/arduino/arduino'
+alias rdn=arduino
+
+alias gradle='~/projects/vendor/android-studio/gradle/gradle-3.2/bin/gradle'
 
 
 # Added by the Heroku Toolbelt
@@ -862,5 +867,12 @@ export NODEENV_HOME=$HOME/.nodeenvs
 
 export NIKOLA_MONO=true
 
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+# :/usr/lib/jvm/java-8-oracle/bin:/usr/lib/jvm/java-8-oracle/db/bin:/usr/lib/jvm/java-8-oracle/jre/bin"
 export PATH="/home/chillaranand/.cask/bin:$PATH"
+export PATH="/home/chillaranand/projects/vendor/arduino:$PATH"
 export PATH="/home/chillaranand/Downloads/android-ndk-r12b-linux-x86_64/android-ndk-r12b:$PATH"
+export JAVA_HOME="/usr/lib/jvm/java-9-openjdk-amd64"
+
+
+# export MANPATH="/usr/local/man:$MANPATH"

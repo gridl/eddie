@@ -2251,3 +2251,9 @@ echo 1 > /sys/class/gpio/gpio65/value
 
 
 # bluetooth
+
+
+# java
+
+# find JAVA_HOME
+$ jrunscript -e 'java.lang.System.out.println(java.lang.System.getProperty("java.home"));'

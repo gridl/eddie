@@ -6,7 +6,7 @@ sudo apt-get install --yes -qq git
 
 cd
 mkdir -p projects
-git clone https://github.com/chillaranand/01 projects/01 || true
+git clone https://github.com/chillaranand/eddie projects/eddie || true
 
 sudo apt-get install --yes -qq zsh
 if [ ! -f ~/.oh-my-zsh/README.md ]; then
