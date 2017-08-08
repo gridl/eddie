@@ -501,12 +501,14 @@ alias ct='crontab '
 
 
 alias ai='adb install '
+alias aid='ai -r app/build/outputs/apk/app-debug.apk'
 alias ad='adb devices '
 alias at='adb shell '
 
 alias app='adb push -p '
 
 alias arr='adb reboot recovery '
+alias arn='adb reboot'
 alias arb='adb reboot bootloader '
 
 
@@ -822,10 +824,6 @@ alias p2='wo py27'
 
 alias rc=redis-cli
 
-free_port() {
-    fuser -k $1/tcp
-}
-alias fp=free_port
 
 
 alias hip='http ipinfo.io'
@@ -835,13 +833,6 @@ alias ni='npm install '
 
 alias clb='for remote in `git branch -r | grep -v /HEAD`; do git checkout --track $remote ; done'
 
-source ~/projects/zsh-autosuggestions/zsh-autosuggestions.zsh
-
-
-reset_dns_resolver() {
-    echo 'nameserver 8.8.8.8' | sudo tee /etc/resolv.conf > /dev/null
-}
-alias rdr=reset_dns_resolver
 
 alias watch='watch '
 alias wt='watch -n1 '
@@ -851,28 +842,51 @@ alias arduino='sudo ~/projects/vendor/arduino/arduino'
 alias rdn=arduino
 
 alias gradle='~/projects/vendor/android-studio/gradle/gradle-3.2/bin/gradle'
+alias androidstudio='~/projects/vendor/android-studio/bin/studio.sh'
+alias nds='androidstudio'
 
 
-# Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
-
-export PATH="$HOME/.cask/bin:$PATH"
-
-# all shell scripts
-export PATH="$HOME/.os/bin:$PATH"
+free_port() {
+    fuser -k $1/tcp
+}
+alias fp=free_port
 
 
+reset_dns_resolver() {
+    echo 'nameserver 8.8.8.8' | sudo tee /etc/resolv.conf > /dev/null
+}
+alias rdr=reset_dns_resolver
 
-export NODEENV_HOME=$HOME/.nodeenvs
 
-export NIKOLA_MONO=true
+upload_to_arduino() {
+    sudo pkill screen;
+    ~/projects/vendor/arduino/arduino --port /dev/ttyACM* --board arduino:avr:mega:cpu=atmega2560 --upload $1
+}
+alias uta=upload_to_arduino
+
+
+export MNA="com.example.aswin.samplemitra/com.example.aswin.samplemitra.MainActivity"
+
+sma() {
+    ./gradlew assembleDebug
+    ai -r app/build/outputs/apk/app-debug.apk
+    adb shell am start -n com.example.aswin.samplemitra/com.example.aswin.samplemitra.MainActivity
+}
+
+
+source ~/projects/vendor/zsh-autosuggestions/zsh-autosuggestions.zsh
+
 
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
-# :/usr/lib/jvm/java-8-oracle/bin:/usr/lib/jvm/java-8-oracle/db/bin:/usr/lib/jvm/java-8-oracle/jre/bin"
 export PATH="/home/chillaranand/.cask/bin:$PATH"
 export PATH="/home/chillaranand/projects/vendor/arduino:$PATH"
 export PATH="/home/chillaranand/Downloads/android-ndk-r12b-linux-x86_64/android-ndk-r12b:$PATH"
+export PATH="/usr/local/heroku/bin:$PATH"
+export PATH="$HOME/.cask/bin:$PATH"
+export PATH="$HOME/projects/eddie/ubuntu/bin:$PATH"
+
 export JAVA_HOME="/usr/lib/jvm/java-9-openjdk-amd64"
+export NODEENV_HOME=$HOME/.nodeenvs
+export MANPATH="/usr/local/man:$MANPATH"
 
-
-# export MANPATH="/usr/local/man:$MANPATH"
+export NIKOLA_MONO=true

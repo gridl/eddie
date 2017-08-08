@@ -4,7 +4,7 @@
 - hosts: all
 
   gather_facts: False
-  become_user: chillaranand
+  become_user: root
   become: yes
   connection: local
 
@@ -22,7 +22,6 @@
 
 
   pre_tasks:
-
     # - name: Add third party PPAs
     #   apt_repository: repo={{ item }} state=present
     #   with_items:
@@ -33,51 +32,59 @@
       apt: update_cache=yes cache_valid_time=8640000
       become_user: root
 
+
   tasks:
 
     - name: install linux utilities
       apt: name={{ item }} state=present
       with_items:
-        - android-tools-adb
-        - android-tools-fastboot
         - apache2-utils
         - arpon
         - autoconf
         - automake
         - build-essential
-        - calibre
-        - clementine
         - clipit
         - cowsay
         - dconf-tools
         - git
         - htop
-        - kazam
-        - libimobiledevice-dev
-        - lynx
         - nethogs
         - nmap
         - openssh-server
         - pastebinit
+        - tmuxinator
+        - tree
+        - unzip
+        - vim
+        - xcape
+        - network-manager
+
+
+    - name: install android utilities
+      apt: name={{ item }} state=present
+      with_items:
+        - android-tools-adb
+        - android-tools-fastboot
+
+
+    - name: install development packages
+      apt: name={{ item }} state=present
+      with_items:
+        - libbluetooth-dev
+
+
+    - name: install stock packages
+      apt: name={{ item }} state=present
+      with_items:
+        - calibre
+        - clementine
         - rabbitmq-server
         - redis-server
         - tesseract-ocr
-        - tmuxinator
-        - tree
-        - ubuntu-make
-        - unzip
-        - vagrant
-        - vagrant
-        - vim
-        - virtualbox
-        - virtualbox
-        - vlc
-        - xcape
-
-      become_user: root
+        - fonts-telu
 
 
-    - name: setup pandoc
+    - name: install pandoc and latex
       apt: name={{ item }} state=present
       with_items:
         - pandoc
@@ -85,19 +92,20 @@
         - texlive-latex-recommended
         - texlive-fonts-recommended
 
-      become_user: root
-
 
     - name: install packages from binaries
       include: binary_install.yml package="{{ item }}"
       with_items:
         - {name: 'certbot-auto', url: 'https://dl.eff.org/certbot-auto'}
+
+    - name: kubernetes setup
+      include: binary_install.yml package="{{ item }}"
+      with_items:
         - {name: 'kubectl',      url: 'https://storage.googleapis.com/kubernetes-release/release/v1.5.1/bin/linux/amd64/kubectl'}
         - {name: 'minio',        url: 'https://dl.minio.io/server/minio/release/linux-amd64/minio'}
         - {name: 'mc',           url: 'https://dl.minio.io/client/mc/release/linux-amd64/mc'}
         - {name: 'minikube',     url: 'https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64'}
         - {name: 'kubetail',     url: 'https://raw.githubusercontent.com/johanhaleby/kubetail/master/kubetail'}
-      become_user: root
 
 
     - name: install python dependencies
@@ -113,8 +121,6 @@
         # required when compiling python from source
         - libsqlite3-dev
         - libbz2-dev
-
-      become_user: root
 
 
     # - name: install global python packages
@@ -215,7 +221,6 @@
       # - compizconfig-settings-manager
       # - compiz-plugins-extra
       # - unity-tweak-tool
-      # - dconf-tools
       # - npm
       # - synapse
 
@@ -224,7 +229,6 @@
 
     # - name: mysql-python dependencies
     #   apt: name=libmysqlclient-dev state=present
-
 
 
     - name: remove symlinks
@@ -256,6 +260,18 @@
         regexp: '^enabled='
         line: 'enabled=0'
       become_user: root
+
+    - name: enable sar
+      lineinfile:
+        dest: /etc/default/sysstat
+        regexp: '^ENABLED'
+        line: 'ENABLED="true"'
+
+    - name: increase history size
+      lineinfile:
+        dest: /etc/default/sysstat
+        regexp: '^HISTORY'
+        line: 'HISTORY=365'
 
 
   handlers:

@@ -26,6 +26,7 @@ declare -A foo=(
 echo {a..z}
 
 
+
 # for loop
 for i in {1..5}; do echo "Welcome $i times"; done
 
@@ -69,6 +70,9 @@ fi
 
 while true; do ls; sleep 1; done
 
+
+
+# arguments
 
 
 
@@ -445,7 +449,7 @@ git format-patch -1 HEAD
 # apply patch
 patch -p1 < file.patch
 
-We don't support Python 2, in the best interest of future generations.
+# We don't support Python 2, in the best interest of future generations.
 
 # show all remotes
 git remote -v
@@ -542,7 +546,6 @@ sudo arp-scan --interface=eth0 --localnet
 sudo arp-scan --interface=wlan0 --localnet | grep 192 | sort -V
 
 
-
 # check port 8000
 sudo netstat -peant | grep ":8000 "
 lsof -i :8000
@@ -575,7 +578,6 @@ nmcli dev wifi connect 'foo bar' password 'baz' name 'wifi1'
 
 # connect to previous network
 nmcli con up id 'wifi1'
-
 
 
 # iptables
@@ -1431,7 +1433,14 @@ renice -20(priority) 7448(jobid)
 
 # monitor, bottleneck, performance
 mpstat
+
+
 sar
+
+# load average
+sar -q
+
+
 vmstat -s
 vmstat -m | head -5
 vmstat -f
@@ -2250,8 +2259,20 @@ echo 1 > /sys/class/gpio/gpio65/value
 # set path
 
 
+
+
 # bluetooth
 
+# send files to device
+bluetooth-sendto
+
+# receive files
+gnome-file-share-properties
+
+
+# bldc 5015a
+
+# L298
 
 # java
 

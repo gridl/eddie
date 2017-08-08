@@ -1,5 +1,6 @@
 # test
-*/1 * * * *    echo 'adf' >> /tmp/cron.txt
+*/1 * * * *    echo 'adf' > /tmp/cron.txt
+*/1 * * * *    echo 'adf' > ~/cron.txt
 
 
 # update git repos
@@ -13,7 +14,7 @@
 
 
 # Collect measurements at 1-minute intervals
-*/1 * * * *    /usr/lib/sysstat/sa1
+*/1 * * * *   /usr/lib/sysstat/sa1
 
 # Create daily reports and purge old files
-0 0 * * *      /usr/lib/sysstat/sa2 -A
+# 0 0 * * *      /usr/lib/sysstat/sa2 -A
