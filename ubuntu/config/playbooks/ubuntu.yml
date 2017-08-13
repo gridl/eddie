@@ -48,6 +48,7 @@
         - dconf-tools
         - git
         - htop
+        - iotop
         - nethogs
         - nmap
         - openssh-server
@@ -58,6 +59,7 @@
         - vim
         - xcape
         - network-manager
+        - ffmpeg
 
 
     - name: install android utilities
@@ -65,6 +67,12 @@
       with_items:
         - android-tools-adb
         - android-tools-fastboot
+
+
+    - name: install java utilities
+      apt: name={{ item }} state=present
+      with_items:
+        - maven
 
 
     - name: install development packages
