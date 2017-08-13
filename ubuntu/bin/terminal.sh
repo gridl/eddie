@@ -243,12 +243,20 @@ wc -L file
 # diff of files
 diff <file1> <file2>
 
+
+
 # awk
 ls -l | awk '{ print $5  }'
 ls -l | awk '{ print $2, '\t', $1  }'
 awk 'BEGIN { print "Last \t Job"  } { print $2, '\t', $4  }'
 cat test.txt | awk '{print NR, NF, $0 }'
 ls -l | awk '{ if ( NF >= 9  ) { print $9  }  }'
+
+
+# pick all nth lines from file
+awk 'NR%2==0' infile > outfile
+
+
 
 # print line 5 from file
 sed -n 5p file
@@ -364,6 +372,9 @@ ffmpeg \
     -b:a 128k -pix_fmt yuv420p -vcodec libx264 -strict -2 \
     -y f.mp4
 
+
+# convert m3u files to mp4
+ffmpeg -i 357963369_mp4_h264_aac_hd.m3u8 -c copy -bsf:a aac_adtstoasc output2.mp4
 
 
 
@@ -733,6 +744,11 @@ sudo rkhunter -c --rwo
 openssl req -new -newkey rsa:2048 -nodes -keyout foo.com.key -out foo.com.csr
 
 
+# reinstall for openssl
+sudo apt-get install --reinstall ca-certificates
+sudo update-ca-certificates
+
+
 
 
 
@@ -910,24 +926,26 @@ w
 
 #### zip
 
-```shell
+
 # compress
 bzip2 file
 zip file.zip <file>
 zip -r file.zip <path>
 gzip file
 
+# keep original file
+gzip < s2.fq > s2.fq.gz
+
 
 #decompress
 bunzip2 file.bz2
+
 # zsh
 x <any zipped file>
-```
 
 
---------------------------------
 
-## third party packages
+# third party packages
 
 
 
@@ -1553,7 +1571,8 @@ mitmproxy
 
 
 
-# android
+
+
 
 
 
@@ -1577,6 +1596,8 @@ mount system RO: mount -o ro,remount,ro /system
 
 
 
+
+android_rooting() {}
 
 
 # unlock bootloader
@@ -1845,6 +1866,10 @@ convert -density 300 input.pdf -quality 90 prefix
 
 # png to pdf
 convert *.png foo.pdf
+
+
+convert myfigure.png -resize 200x100 myfigure.jpg
+convert -resize 50% myfigure.png myfigure.jpg
 
 pdftoppm -rx 300 -ry 300 -png a.pdf prefix
 
