@@ -402,6 +402,7 @@ alias tk='tmux kill-session -t '
 alias cia='celery inspect active'
 alias cpf='celery purge --force'
 alias pkc='pkill -f celery'
+alias pks='sudo pkill -f screen'
 
 
 # alias ma=man
@@ -452,43 +453,7 @@ alias yd='youtube-dl '
 
 alias lh='http://127.0.0.1:8000'
 
-
-
-
-# appknox
-alias akh='appknox --help'
-alias ak='appknox'
-alias akd='appknox -n development'
-alias akdu='appknox -n development upload ~/Downloads/android.apk'
-alias akdua='appknox -n development upload ~/Downloads/android.apk'
-alias asua='appknox -n staging upload ~/Downloads/android.apk'
-alias apua='appknox -n production upload ~/Downloads/android.apk'
-
-
-
-export AK_VENV=appknox
-
-irene () {
-    cd /home/chillaranand/projects/appknox/irene
-    deactivate
-    source ~/.nodeenvs/irene/bin/activate
-    ember serve
-}
-alias ir=irene
-alias my='j mycroft'
-alias sl='j sherlock'
-alias mol='j moriaarty'
-alias df="ssh moriarty@devicefarm.appknox.com"
-alias sm=df
-alias smo=df
-
-
-
-
-
 alias ct='crontab '
-
-
 
 
 
@@ -565,8 +530,8 @@ alias enhance=ne
 
 alias dk=docker
 
-alias rs='./scripts/start_server.sh'
-alias sss='./scripts/start_server.sh'
+# alias rs='./scripts/start_server.sh'
+# alias sss='./scripts/start_server.sh'
 alias ssc='./scripts/start_celery.sh'
 alias st='./scripts/test.sh'
 
@@ -815,7 +780,8 @@ rabbitmq_reset() {
 
 # workon py37d
 # workon py36
-workon py35
+# workon py35
+. ~/.virtualenvs/py35/bin/activate
 
 export PYTHONDONTWRITEBYTECODE=1
 alias pd='j py && ipy'
@@ -844,6 +810,9 @@ alias rdn=arduino
 alias gradle='~/projects/vendor/android-studio/gradle/gradle-3.2/bin/gradle'
 alias androidstudio='~/projects/vendor/android-studio/bin/studio.sh'
 alias nds='androidstudio'
+
+alias sl='sar -q'
+alias sq='sar -q'
 
 
 free_port() {
