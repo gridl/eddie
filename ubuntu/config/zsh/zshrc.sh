@@ -95,6 +95,8 @@ export SSH_KEY_PATH="~/.ssh/dsa_id"
 
 
 # user config
+BASE_DIR=$HOME'/projects/eddie'
+
 
 # set utf8
 LANG="en_US.UTF-8"
@@ -242,7 +244,6 @@ alias da='deactivate'
 alias pf='pip freeze | sort'
 alias pfl='pip freeze | sort | less'
 alias pi='pip install'
-alias spi='s pip install'
 alias pie='pip install -e .'
 alias piu='pip install --upgrade'
 alias pu='pip uninstall --yes'
@@ -251,7 +252,9 @@ alias piup='pip install --upgrade pip'
 alias pir='pip install -r'
 alias pirr='pip install -r requirements.txt'
 alias pire='pip install --upgrade jedi rope flake8 importmagic autopep8 yapf'
-alias pird='pir ~/.01/ubuntu/config/requirements.txt'
+alias pird="pip install -r $BASE_DIR'/ubuntu/config/requirements.txt'"
+
+
 
 pfi () {
     pip uninstall $1 --yes
@@ -402,7 +405,7 @@ alias tk='tmux kill-session -t '
 alias cia='celery inspect active'
 alias cpf='celery purge --force'
 alias pkc='pkill -f celery'
-alias pks='sudo pkill -f screen'
+alias pks='sudo pkill screen'
 
 
 # alias ma=man
@@ -423,7 +426,7 @@ alias re='sudo shutdown -r 0'
 alias rf='rm -rf'
 
 
-BASE_DIR=$HOME'/projects/eddie'
+
 alias cs=$BASE_DIR'/ubuntu/bin/xcape.sh'
 alias bs=$BASE_DIR'/ubuntu/bin/bootstrap.sh'
 alias spd=$BASE_DIR'/ubuntu/bin/proc.sh'
@@ -467,9 +470,10 @@ alias ct='crontab '
 
 alias ai='adb install '
 alias aid='ai -r app/build/outputs/apk/app-debug.apk'
+alias ac='adb connect'
 alias ad='adb devices '
+alias aks='adb kill-server; adb start-server; adb devices'
 alias at='adb shell '
-
 alias app='adb push -p '
 
 alias arr='adb reboot recovery '
@@ -807,6 +811,27 @@ alias ep='echo $PATH'
 alias arduino='sudo ~/projects/vendor/arduino/arduino'
 alias rdn=arduino
 
+alias rmz='sudo ~/projects/vendor/arduino/arduino --board arduino:avr:mega --port /dev/ttyACM0 --upload '
+alias rmo='sudo ~/projects/vendor/arduino/arduino --board arduino:avr:mega --port /dev/ttyACM1 --upload '
+
+alias am='sudo ~/projects/vendor/arduino/arduino --board arduino:avr:mega'
+alias amu='sudo pkill screen; sudo ~/projects/vendor/arduino/arduino --board arduino:avr:mega --port /dev/ttyACM0 --upload master/master.ino'
+alias asu='sudo pkill screen; sudo ~/projects/vendor/arduino/arduino --board arduino:avr:mega --port /dev/ttyACM1 --upload slave_ultra/slave_ultra.ino'
+
+spi() {
+    s pk screen
+    sudo ~/projects/vendor/arduino/arduino --board arduino:avr:mega --port /dev/ttyACM0 --upload master/master.ino
+    sudo ~/projects/vendor/arduino/arduino --board arduino:avr:mega --port /dev/ttyACM1 --upload slave_ultra/slave_ultra.ino
+}
+
+
+ams() {
+    s pk screen
+    sudo ~/projects/vendor/arduino/arduino --port /dev/ttyACM0 --board arduino:avr:mega --upload m/m.ino
+    sudo ~/projects/vendor/arduino/arduino --port /dev/ttyACM1 --board arduino:avr:mega --upload s/s.ino
+}
+
+
 alias gradle='~/projects/vendor/android-studio/gradle/gradle-3.2/bin/gradle'
 alias androidstudio='~/projects/vendor/android-studio/bin/studio.sh'
 alias nds='androidstudio'
@@ -843,6 +868,7 @@ sma() {
 }
 
 
+
 source ~/projects/vendor/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 
@@ -859,3 +885,9 @@ export NODEENV_HOME=$HOME/.nodeenvs
 export MANPATH="/usr/local/man:$MANPATH"
 
 export NIKOLA_MONO=true
+
+PATH="/home/chillaranand/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/home/chillaranand/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/home/chillaranand/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/home/chillaranand/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/home/chillaranand/perl5"; export PERL_MM_OPT;

@@ -18,7 +18,6 @@ df['y'].plot(kind='pie', title='Population distribution',
              autopct='%1.1f%%')
 
 
-
 # on spot averages
 df = pd.DataFrame(
     data=[['a', 2], ['a', 4], ['b', 5]],
@@ -32,6 +31,7 @@ df.groupby('x')['y'].mean()
 d1 = pd.read_csv('./exercise/c1.csv')
 d2 = pd.read_csv('./exercise/c2.csv', skiprows=2)
 d2 = pd.read_csv('./exercise/c2.csv', encoding='utf-8')
+
 
 # write to csv
 df.to_csv('foo.csv')
@@ -57,3 +57,16 @@ df.iloc[[2, 6]]
 
 # get row labelled 3
 df.loc[3]
+
+df.columns
+
+dr = 'daily_returns'
+df[dr] = df['Close'] / df['Open'] - 1
+
+
+# diff of rows
+df['change'] = (1 - df['close'] / df['close'].shift(1)) * 100
+
+
+# sort by index
+df = df.sort_index(ascending=False)

@@ -1,5 +1,3 @@
-appknox
-
 awscli
 boto3
 
@@ -27,15 +25,13 @@ rope
 flake8
 pylint
 
-
 pytest
-
 
 stdlib_list
 
 pandas
 numpy
-
+tensorflow
 
 Sphinx
 
@@ -43,8 +39,6 @@ Sphinx
 mitmproxy
 
 
-
 Nikola
 
 youtube-dl
-pirate-get

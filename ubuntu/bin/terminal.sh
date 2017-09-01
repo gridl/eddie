@@ -590,6 +590,9 @@ nmcli dev wifi connect 'foo bar' password 'baz' name 'wifi1'
 # connect to previous network
 nmcli con up id 'wifi1'
 
+# create hotspot
+nmcli device wifi hotspot con-name fubar ssid fubar band bg password fubar123
+
 
 # iptables
 iptables -A INPUT -s 58.218.199.250 -j DROP
@@ -1141,13 +1144,12 @@ server {
 
 ### notedown
 
-```shell
 # https://github.com/aaren/notedown
 pip install notedown
 
 # convert markdown to ipython notebook
 notedown python.md > python.ipynb
-```
+
 
 
 
@@ -1593,6 +1595,11 @@ adb reboot bootloader
 # in adb shell
 mount -o rw,remount,rw /system
 mount system RO: mount -o ro,remount,ro /system
+
+# list all packages
+adb shell "pm list packages -f"
+adb shell "pm uninstall com.foo.bar"
+
 
 
 
@@ -2302,4 +2309,4 @@ gnome-file-share-properties
 # java
 
 # find JAVA_HOME
-$ jrunscript -e 'java.lang.System.out.println(java.lang.System.getProperty("java.home"));'
+jrunscript -e 'java.lang.System.out.println(java.lang.System.getProperty("java.home"));'
