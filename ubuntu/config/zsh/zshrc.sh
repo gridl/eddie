@@ -203,7 +203,7 @@ alias al='alias | le'
 
 alias j=z
 alias jd='cd ~/Downloads/'
-alias js='cd ~/sandbox'
+alias js='cd ~/projects/sandbox'
 alias jv='cd ~/Videos/'
 alias j1='j 01'
 
@@ -811,8 +811,13 @@ alias ep='echo $PATH'
 alias arduino='sudo ~/projects/vendor/arduino/arduino'
 alias rdn=arduino
 
-alias rmz='sudo ~/projects/vendor/arduino/arduino --board arduino:avr:mega --port /dev/ttyACM0 --upload '
 alias rmo='sudo ~/projects/vendor/arduino/arduino --board arduino:avr:mega --port /dev/ttyACM1 --upload '
+alias rmz='sudo pkill screen; sudo ~/projects/vendor/arduino/arduino --board arduino:avr:mega --port /dev/ttyACM0 --upload '
+alias rma='sudo ~/projects/vendor/arduino/arduino --board arduino:avr:mega --port /dev/ttyACM* --upload '
+
+alias ruz='sudo pkill screen; sudo ~/projects/vendor/arduino/arduino --board arduino:avr:uno --port /dev/ttyACM0 --upload '
+alias ruo='sudo pkill screen; sudo ~/projects/vendor/arduino/arduino --board arduino:avr:uno --port /dev/ttyACM1 --upload '
+alias rua='sudo pkill screen; sudo ~/projects/vendor/arduino/arduino --board arduino:avr:uno --port /dev/ttyACM* --upload '
 
 alias am='sudo ~/projects/vendor/arduino/arduino --board arduino:avr:mega'
 alias amu='sudo pkill screen; sudo ~/projects/vendor/arduino/arduino --board arduino:avr:mega --port /dev/ttyACM0 --upload master/master.ino'

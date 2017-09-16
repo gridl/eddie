@@ -35,8 +35,8 @@ from functools import *
 from distutils.version import *
 lv = LooseVersion
 
-from packaging.version import *
-v = Version
+# from packaging.version import *
+# v = Version
 
 from pprint import pprint
 pp = pprint

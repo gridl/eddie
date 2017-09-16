@@ -1381,6 +1381,8 @@ pastebinit foo.txt
 curl -d "username=chillaranand&password=foo" http://192.168.0.152:8000/api/token/new.json
 
 
+httpie() {}
+
 # httpie post with form data
 http POST 0.0.0.0:8000/api/token/new.json username=f password=f -f
 
@@ -2125,6 +2127,8 @@ https://bootstrap.pypa.io/get-pip.py | python
 
 
 
+# restrict parent
+wget -m -I bar1/bar2 -X "*" http://www.foo.com/bar1/bar2/bar3/index.html
 
 
 
@@ -2146,19 +2150,19 @@ sudo apt-get --purge remove postgresql postgresql-doc postgresql-common
 # restart
 sudo service postgresql restart
 
-
 # for password less login
 sudo psql -u user_name db_name
-
 
 # change to "postgres" Linux user
 sudo su - postgres
 
-
 # list databases
 psql -l
 
-# create database
+# create user
+createuser foo
+
+# db
 createdb db_name
 
 # drop database
@@ -2293,13 +2297,18 @@ echo 1 > /sys/class/gpio/gpio65/value
 
 
 
-# bluetooth
+bluetooth()
+
+# scan for available bluetooth devices
+hcitool scan
+
 
 # send files to device
 bluetooth-sendto
 
 # receive files
 gnome-file-share-properties
+
 
 
 # bldc 5015a
