@@ -2290,7 +2290,18 @@ echo 1 > /sys/class/gpio/gpio65/value
 
 
 
-# arduino
+arduino() {}
+
+# platformio
+sudo pip install platformio
+
+platformio init --board megaatmega2560 -d ~/nav
+
+sudo platformio run --target upload
+
+platformio ci --board=mega foo.ino
+
+
 # dl zip file
 # set path
 

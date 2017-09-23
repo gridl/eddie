@@ -2,8 +2,8 @@ from datetime import date, datetime, timedelta
 
 from nsepy import get_history
 import matplotlib.pyplot as plt
-
 from nsepy.derivatives import get_expiry_date
+
 
 now = datetime.now()
 today = now.date()
