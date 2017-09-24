@@ -2292,14 +2292,14 @@ echo 1 > /sys/class/gpio/gpio65/value
 
 arduino() {}
 
-# platformio
+
+platformio () {}
 sudo pip install platformio
 
 platformio init --board megaatmega2560 -d ~/nav
-
 sudo platformio run --target upload
 
-platformio ci --board=mega foo.ino
+platformio ci --board=megaatmega2560 --project-option="targets=upload" bled/bled.ino
 
 
 # dl zip file
@@ -2321,10 +2321,6 @@ bluetooth-sendto
 gnome-file-share-properties
 
 
-
-# bldc 5015a
-
-# L298
 
 # java
 
