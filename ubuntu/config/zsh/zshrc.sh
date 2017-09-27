@@ -836,6 +836,8 @@ ams() {
     sudo ~/projects/vendor/arduino/arduino --port /dev/ttyACM1 --board arduino:avr:mega --upload s/s.ino
 }
 
+alias pmz='sudo pkill screen; platformio ci --board=megaatmega2560 --project-option="upload_port=/dev/ttyACM0" --project-option="targets=upload"'
+
 
 alias gradle='~/projects/vendor/android-studio/gradle/gradle-3.2/bin/gradle'
 alias androidstudio='~/projects/vendor/android-studio/bin/studio.sh'

@@ -770,6 +770,12 @@ import tempfile
 
 
 
+# math
+import math
+
+# compute angle from co-ordinates
+math.atan2(y, x)
+
 
 
 

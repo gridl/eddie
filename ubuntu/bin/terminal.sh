@@ -2300,10 +2300,8 @@ platformio init --board megaatmega2560 -d ~/nav
 sudo platformio run --target upload
 
 platformio ci --board=megaatmega2560 --project-option="targets=upload" bled/bled.ino
-
-
-# dl zip file
-# set path
+platformio ci --board=megaatmega2560 --project-option="upload_port=/dev/ttyACM0" --project-option="targets=upload" bled/bled.ino
+platformio ci --board=megaatmega2560 --project-option="lib_deps=LedControl" --project-option="targets=upload" nav/nav.ino
 
 
 
