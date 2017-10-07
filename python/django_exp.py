@@ -65,8 +65,13 @@ User.objects.filter(pk__lte=6)
 
 # all users starting with joh
 User.objects.filter(username__icontains='joh')
+
 # users in
 User.objects.filter(pk__in=[1, 4, 7])
+
+# sort by date
+User.objects.order_by('date')
+User.objects.order_by('-date')
 
 
 # print raw sql query

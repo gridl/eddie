@@ -25,8 +25,9 @@ def wait(seconds):
 # @task_success.connect(sender='celery_signals.add')
 @task_success.connect()
 def task_success_handler(sender=None, headers=None, body=None, **kwargs):
-    print(sender)
+    print((sender.request.id))
+    print((sender.request.task_id))
     result = kwargs['result']
     print(result)
+    print(kwargs)
     print('aaaaaaaaa')
-    [wait.apply_async(i) for i in [result]]

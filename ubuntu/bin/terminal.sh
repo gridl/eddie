@@ -1398,6 +1398,11 @@ http :8000/user-agent  User-Agent:Bacon/1.0
 
 http httpbin.org/etag/foo If-None-Match:foo
 
+# basic auth
+http  'https://api.foo.com/bar' -a 'Basic foobartoken'
+http  -a user:pass 'https://api.foo.com/bar'
+
+
 
 
 
@@ -2317,6 +2322,15 @@ bluetooth-sendto
 
 # receive files
 gnome-file-share-properties
+
+
+# android to ubuntu bluetooth
+# use port > 1. Ubuntu already uses port 1 for something else. For port 3 enter:
+sudo rfcomm listen /dev/rfcomm0 3
+
+# connect with the app to port 3
+sudo cutecom
+sudo screen /dev/rfcomm0
 
 
 

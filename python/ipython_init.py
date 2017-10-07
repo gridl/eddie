@@ -79,6 +79,17 @@ except:
 
 # utilities
 
+def to_pickle(obj, file='data.pkl'):
+    with open(file, 'wb') as fh:
+        pickle.dump(obj, fh)
+
+
+def from_pickle(file='data.pkl'):
+    with open(file, 'rb') as fh:
+        obj = pickle.load(fh)
+    return obj
+
+
 def f(*args, **kwargs):
     print('sample function with {}, {}'.format(args, kwargs))
 
