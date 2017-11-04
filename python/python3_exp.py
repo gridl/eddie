@@ -13,6 +13,8 @@ print(x+1)
 
 round(2.333, 2)
 
+# fraction
+from fractions import Fraction
 
 
 
@@ -515,7 +517,12 @@ import datetime
 now = datetime.datetime.now()
 print(now)
 
+
 print(datetime.datetime.strftime(now))
+
+d = '05 Oct 2017 10:27 AM'
+dt.datetime.strptime(d, '%d %b %Y %H:%M %p')
+
 
 month = datetime.timedelta(days=31)
 after_month = now + month

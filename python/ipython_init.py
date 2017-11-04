@@ -1,6 +1,8 @@
 # flake8: NOQA
 # encoding: UTF-8
 
+print("\n\n\n\n")
+
 import os
 import sys
 
@@ -47,15 +49,17 @@ from unicodedata import *
 
 # 3rd party libraries
 try:
-
     import celery
     from celery import current_app, chain, chord, group
     from celery.task.control import revoke, inspect, discard_all
 
 
     import numpy as np
+
     import pandas as pd
     from pandas import DataFrame as df
+
+    from PIL import Image, ImageFont, ImageDraw, ImageChops
 
     from pyflash.core import *
 
@@ -88,6 +92,27 @@ def from_pickle(file='data.pkl'):
     with open(file, 'rb') as fh:
         obj = pickle.load(fh)
     return obj
+
+
+from nsepy import get_history
+
+now = datetime.now()
+start = now - timedelta(365)
+
+def stock_price_df(symbol):
+    file = 'data/{}'.format(symbol.upper())
+    if not os.path.exists(file):
+        df = get_history(symbol, end=now, start=start)
+        df.to_csv(file)
+    return pd.read_csv(file)
+
+
+def stock_price(symbol):
+    file = 'data/{}'.format(symbol.upper())
+    if not os.path.exists(file):
+        pass
+    return pd.from_csv(file)
+
 
 
 def f(*args, **kwargs):

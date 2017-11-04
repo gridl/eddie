@@ -2313,6 +2313,10 @@ platformio ci --board=megaatmega2560 --project-option="lib_deps=LedControl" --pr
 
 bluetooth()
 
+# control
+bluetoothctl
+
+
 # scan for available bluetooth devices
 hcitool scan
 
@@ -2331,6 +2335,9 @@ sudo rfcomm listen /dev/rfcomm0 3
 # connect with the app to port 3
 sudo cutecom
 sudo screen /dev/rfcomm0
+
+# show paired devices
+bt-device -l
 
 
 

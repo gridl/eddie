@@ -5,6 +5,7 @@ import pandas as pd
 df = pd.DataFrame([['a', 2], ['c', 4], ['b', 5]], columns=['x', 'y'])
 
 
+
 # iterrows is a generator which yield both index and row
 for index, row in df.iterrows():
     print(row['c1'], row['c2'])
@@ -58,7 +59,19 @@ df.iloc[[2, 6]]
 # get row labelled 3
 df.loc[3]
 
+
+# show columns
 df.columns
+
+# select columns
+df = df[['c1', 'c2']]
+
+#  columns types
+df.dtypes
+
+# convert type
+pd.to_numeric(df['col'])
+
 
 dr = 'daily_returns'
 df[dr] = df['Close'] / df['Open'] - 1
