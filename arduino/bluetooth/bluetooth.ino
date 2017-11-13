@@ -1,3 +1,8 @@
+String tmp;
+float command;
+int foo;
+
+
 void setup() {
   Serial.begin(9600);
   Serial2.begin(9600);
@@ -6,32 +11,29 @@ void setup() {
 
 
 void loop() {
-  serial_read();
+
+  if (Serial.available()) {
+    command = Serial.parseFloat();
+    print_message(String(command));
+  }
+
+  /* bluetooth */
+  if (Serial2.available()) {
+    foo = Serial2.parseInt();
+    print_message(String(foo));
+  }
+
+  /* bluetooth */
+  if (Serial3.available()) {
+    command = Serial3.parseFloat();
+    print_message(String(command));
+  }
+
 }
 
 
-void serial_read() {
-
-  if(Serial.available() > 0 ) {
-    Serial.println("Reading serial data...");
-    char command = Serial.read();
-    Serial.println(command);
-    Serial.write(command);
-  }
-
-  if(Serial2.available() > 0 ) {
-    Serial2.println("Reading serial data...");
-    char command = Serial2.read();
-    Serial2.println(command);
-    Serial2.write(command);
-  }
-
-  if(Serial3.available() > 0 ) {
-    Serial3.println("Reading serial data...");
-    char command = Serial3.read();
-
-    Serial.println(command);
-    Serial3.println(command);
-  }
-
+void print_message(String msg) {
+  Serial.println(msg);
+  Serial2.println(msg);
+  Serial3.println(msg);
 }
