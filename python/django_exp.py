@@ -218,22 +218,6 @@ url = '{}?{}'.format(reverse('foo:bar'), 'q=foo')
 
 
 
-# cli
-# python manage.py changepassword admin
-# python manage.py createsuperuser
-
-# Reset south migrations - delete ghost migrations
-# rm <app-dir>/migrations/*
-# python manage.py schemamigration <app-name> --initial
-# python manage.py migrate <app-name> 0001 --fake  --delete-ghost-migrations
-# Check for any errors in the construction of your models
-# python manage.py validate
-
-
-# reset sql sequence
-# ./manage.py sqlsequencereset app_name
-
-
 
 
 
@@ -312,3 +296,16 @@ class Command(BaseCommand):
 
 
 # translations
+
+
+
+
+
+# drf
+
+# disable admin-style browsable interface
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    )
+}

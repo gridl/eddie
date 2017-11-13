@@ -1378,7 +1378,11 @@ pastebinit foo.txt
 # REST
 
 # curl post with form data
-curl -d "username=chillaranand&password=foo" http://192.168.0.152:8000/api/token/new.json
+curl http://192.168.0.152:8000/api/token/new.json -d "username=chillaranand&password=foo"
+curl https://api.gitlab.com/user/repos -d '{"name":"foo"}' -u 'chillaranand'
+curl -X POST http://localhost:8000/bots/ -d 'name=ff'
+
+
 
 
 httpie() {}
@@ -2345,3 +2349,45 @@ bt-device -l
 
 # find JAVA_HOME
 jrunscript -e 'java.lang.System.out.println(java.lang.System.getProperty("java.home"));'
+
+
+
+
+python-django()
+# python - django
+
+./manage.py changepassword admin
+./manage.py createsuperuser
+
+# Reset south migrations - delete ghost migrations
+rm <app-dir>/migrations/*
+dj schemamigration <app-name> --initial
+dj migrate <app-name> 0001 --fake  --delete-ghost-migrations
+
+# Check for any errors in the construction of your models
+dj validate
+
+
+# reset sql sequence
+dj sqlsequencereset app_name
+
+# Introspects the database tables and outputs a Django models
+dj inspectdb
+
+# Prints the SQL statements for resetting sequences for the given app
+dj sqlsequencereset users
+
+
+
+
+# drf - django-rest-framework
+
+# get auth token
+dj drf_create_token -r <username>
+curl -X POST http://localhost:8000/api-token-auth/ -d 'username=foo&password=bar'
+
+curl http://localhost:8000/foo/ -H 'Authorization: Token bar'
+
+
+
+uwsgi --http 0.0.0.0:8000 --wsgi-file config.wsgi

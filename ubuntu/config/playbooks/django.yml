@@ -15,7 +15,7 @@
     - name: create virtualenv and install requirements
       pip:
         requirements: "{{ app_root }}/requirements.txt"
-        virtualenv: "{{ home }}.virtualenvs"
+        virtualenv: "{{ home }}/.virtualenvs"
         virtualenv_python: python3.5
 
 
