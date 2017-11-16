@@ -6,6 +6,8 @@
 # update git repos
 # */1 * * * * cd /home/chillaranand/projects/01/ && git pull && git push
 
+@reboot byobu -S boot-time
+
 
 # protect from netcut
 # @reboot sudo arpon -o -D

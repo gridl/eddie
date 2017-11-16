@@ -57,6 +57,7 @@ plugins=(git z extract dirpersist pip zsh-autosuggestions)
 
 # User configuration
 
+source ~/Dropbox/tech/private.sh
 
 
 
@@ -202,10 +203,12 @@ alias a=alias
 alias al='alias | le'
 
 alias j=z
+
+alias ja='j avilpage.com'
 alias jd='cd ~/Downloads/'
+alias jp='cd ~/Pictures/'
 alias js='cd ~/projects/sandbox'
 alias jv='cd ~/Videos/'
-alias j1='j 01'
 
 
 alias b='byobu'
@@ -234,6 +237,7 @@ alias de='sudo salt master state.highstate saltenv=web'
 alias pgi='ps -ef | grep -i'
 
 
+
 # python aliases
 alias py='python'
 alias ipy='ipython'
@@ -254,6 +258,13 @@ alias pirr='pip install -r requirements.txt'
 alias pire='pip install --upgrade jedi rope flake8 importmagic autopep8 yapf'
 alias pird="pip install -r $BASE_DIR'/ubuntu/config/requirements.txt'"
 
+
+alias wo='workon'
+alias wp='workon py35'
+alias wj='workon py35'
+alias we='workon exp'
+
+alias dp='workon py35 && ipython'
 
 
 pfi () {
@@ -419,6 +430,7 @@ alias n='nikola'
 alias na='nikola auto'
 alias naf='rf output cache && rf cache && nikola auto'
 alias ng='nikola github_deploy'
+alias ngd='nikola github_deploy'
 alias nn='nikola new_post'
 
 
@@ -448,10 +460,9 @@ alias db='~/.dropbox-dist/dropboxd'
 alias sy='rsync -raz --progress'
 
 alias t='tree -Cfh'
-alias we='workon exp'
+
 alias wi='whereis'
-alias wo='workon'
-alias wp='workon pearl'
+
 alias yd='youtube-dl '
 
 alias lh='http://127.0.0.1:8000'
@@ -482,6 +493,7 @@ alias arb='adb reboot bootloader '
 
 
 alias fb='sudo fastboot '
+alias fbd='sudo fastboot devices'
 alias fd='sudo fastboot devices'
 
 
@@ -515,8 +527,15 @@ scr () {
 
 # alias as='adb shell'
 
-# appknox
+
 alias ci='curl ipinfo.io'
+
+
+alias cag="curl -H 'Authorization: Token $AUTH_TOKEN' -H 'Accept: application/json; indent=4' -X GET"
+alias cap="curl -H 'Authorization: Token $AUTH_TOKEN' -H 'Accept: application/json; indent=4' -X POST"
+alias capa="curl -H 'Authorization: Token $AUTH_TOKEN' -H 'Accept: application/json; indent=4' -X PATCH"
+
+
 alias c='cat '
 alias cc='pygmentize -g'
 alias o='xdg-open '
@@ -538,6 +557,16 @@ alias dk=docker
 # alias sss='./scripts/start_server.sh'
 alias ssc='./scripts/start_celery.sh'
 alias st='./scripts/test.sh'
+
+
+ifs () {
+    rm -rf test_build
+    mkdir test_build
+    ./autogen.sh
+    ./configure
+    make
+    make install
+}
 
 
 ifs () {
@@ -696,7 +725,7 @@ alias dii='deis info'
 
 alias dl='deis logs'
 
-alias dp='deis ps'
+# alias dp='deis ps'
 
 alias drr='deis releases | tac'
 
@@ -750,7 +779,7 @@ dpkg_unlock() {
     sudo rm /var/lib/dpkg/lock
 }
 
-export JAVA_HOME=/usr/lib/jvm/java-8-oracle/jre/bin/java
+
 
 
 
@@ -823,6 +852,9 @@ alias am='sudo ~/projects/vendor/arduino/arduino --board arduino:avr:mega'
 alias amu='sudo pkill screen; sudo ~/projects/vendor/arduino/arduino --board arduino:avr:mega --port /dev/ttyACM0 --upload master/master.ino'
 alias asu='sudo pkill screen; sudo ~/projects/vendor/arduino/arduino --board arduino:avr:mega --port /dev/ttyACM1 --upload slave_ultra/slave_ultra.ino'
 
+
+alias dfh='df -h'
+
 spi() {
     s pk screen
     sudo ~/projects/vendor/arduino/arduino --board arduino:avr:mega --port /dev/ttyACM0 --upload master/master.ino
@@ -886,12 +918,26 @@ export PATH="/home/chillaranand/Downloads/android-ndk-r12b-linux-x86_64/android-
 export PATH="/usr/local/heroku/bin:$PATH"
 export PATH="$HOME/.cask/bin:$PATH"
 export PATH="$HOME/projects/eddie/ubuntu/bin:$PATH"
+export PATH="$HOME/rr/prebuilts/sdk/tools:$PATH"
 
-export JAVA_HOME="/usr/lib/jvm/java-9-openjdk-amd64"
+export JAVA_HOME=/usr/lib/jvm/java-8-oracle/jre/bin/java
+# export JAVA_HOME="/usr/lib/jvm/java-9-openjdk-amd64"
 export NODEENV_HOME=$HOME/.nodeenvs
 export MANPATH="/usr/local/man:$MANPATH"
 
 export NIKOLA_MONO=true
+
+
+# to build android from source
+export USE_CCACHE=1
+prebuilts/misc/linux-x86/ccache/ccache -M 50G
+export CCACHE_COMPRESS=1
+export ANDROID_JACK_VM_ARGS="-Dfile.encoding=UTF-8 -XX:+TieredCompilation -Xmx4G"
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
+
 
 PATH="/home/chillaranand/perl5/bin${PATH:+:${PATH}}"; export PATH;
 PERL5LIB="/home/chillaranand/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;

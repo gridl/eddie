@@ -53,6 +53,7 @@ try:
     from celery import current_app, chain, chord, group
     from celery.task.control import revoke, inspect, discard_all
 
+    from nsepy import get_history
 
     import numpy as np
 
@@ -94,7 +95,7 @@ def from_pickle(file='data.pkl'):
     return obj
 
 
-from nsepy import get_history
+
 
 now = datetime.now()
 start = now - timedelta(365)

@@ -832,6 +832,10 @@ sudo dpkg-reconfigure tzdata  # set timezone
 # usb pen drive
 
 
+# parted
+s parted -l
+
+
 # list block devices
 lsblk
 
@@ -846,10 +850,16 @@ sudo mount -o remount,rw /media/foo/usb-drive
 sudo dd if=ubuntu-14.04-desktop-amd64.iso of=/dev/sdc bs=4M
 sudo dd if=ubuntu-14.04-desktop-amd64.iso of=/dev/sdc
 
+
 # format usb pendrive
+lsblk
+umount /dev/sdb1
+umount /dev/sdb2
 sudo fdisk /dev/sdb
 o -> n -> w
 sudo mkfs.vfat /dev/sdb1
+sudo mkfs.vfat -n 'name_for_your_pendrive' -I /dev/sdb1
+sudo eject /dev/sdb
 
 # usb write permissions
 df -Th
@@ -1636,10 +1646,6 @@ fastboot oem unlock D2Z6X73ZVAG4X2FSHMNQ
 # reboot
 
 
-
-
-
-
 # custom recovery
 
 # download twrp by device codename
@@ -1782,12 +1788,14 @@ vagrant init debian/jessie64
 
 vagrant up
 vagrant up --provider=Virtualbox
+v provision
 
 vagrant ssh
 
 vagrant reload
 
 vagrant destroy
+
 vagrant status
 vagrant halt
 
@@ -2283,7 +2291,6 @@ apt install i2c-tools
 i2cdetect -y 1
 i2cdetect -y 0
 
-parted
 
 
 
@@ -2354,10 +2361,12 @@ jrunscript -e 'java.lang.System.out.println(java.lang.System.getProperty("java.h
 
 
 python-django()
+django()
 # python - django
 
 ./manage.py changepassword admin
 ./manage.py createsuperuser
+dj reset_db -c --noinput
 
 # Reset south migrations - delete ghost migrations
 rm <app-dir>/migrations/*
