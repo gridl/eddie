@@ -427,7 +427,7 @@ alias me='chmod +x '
 alias nt='nautilus .'
 
 alias n='nikola'
-alias na='nikola auto'
+alias na='j avilpage.com; nikola auto'
 alias naf='rf output cache && rf cache && nikola auto'
 alias ng='nikola github_deploy'
 alias ngd='nikola github_deploy'
@@ -552,6 +552,8 @@ function ne() {
 alias enhance=ne
 
 alias dk=docker
+alias dkp='sudo docker ps'
+
 
 # alias rs='./scripts/start_server.sh'
 # alias sss='./scripts/start_server.sh'
@@ -853,6 +855,10 @@ alias amu='sudo pkill screen; sudo ~/projects/vendor/arduino/arduino --board ard
 alias asu='sudo pkill screen; sudo ~/projects/vendor/arduino/arduino --board arduino:avr:mega --port /dev/ttyACM1 --upload slave_ultra/slave_ultra.ino'
 
 
+alias pmz='sudo pkill screen; platformio ci --board=megaatmega2560 --project-option="upload_port=/dev/ttyACM0" --project-option="targets=upload"'
+alias pmz='sudo pio ci --board=megaatmega2560 --project-option="lib_deps=LedControl" --project-option="targets=upload" --project-option="upload_port=/dev/ttyACM0"'
+
+
 alias dfh='df -h'
 
 spi() {
@@ -868,7 +874,6 @@ ams() {
     sudo ~/projects/vendor/arduino/arduino --port /dev/ttyACM1 --board arduino:avr:mega --upload s/s.ino
 }
 
-alias pmz='sudo pkill screen; platformio ci --board=megaatmega2560 --project-option="upload_port=/dev/ttyACM0" --project-option="targets=upload"'
 
 
 alias gradle='~/projects/vendor/android-studio/gradle/gradle-3.2/bin/gradle'
@@ -930,7 +935,7 @@ export NIKOLA_MONO=true
 
 # to build android from source
 export USE_CCACHE=1
-prebuilts/misc/linux-x86/ccache/ccache -M 50G
+~/android/lineage/prebuilts/misc/linux-x86/ccache/ccache -M 50G
 export CCACHE_COMPRESS=1
 export ANDROID_JACK_VM_ARGS="-Dfile.encoding=UTF-8 -XX:+TieredCompilation -Xmx4G"
 # set PATH so it includes user's private bin if it exists

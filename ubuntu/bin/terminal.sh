@@ -1063,6 +1063,7 @@ docker ps -aq
 docker commit <name>
 docker start <id>
 docker stop <id>
+
 docker attach <id>
 docker build
 docker run -ditp 8001:8001 <image>
@@ -2309,8 +2310,14 @@ echo 1 > /sys/class/gpio/gpio65/value
 arduino() {}
 
 
+
+
 platformio () {}
 sudo pip install platformio
+
+
+# list available devices
+pio device list
 
 platformio init --board megaatmega2560 -d ~/nav
 sudo platformio run --target upload
