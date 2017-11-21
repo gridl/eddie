@@ -518,12 +518,19 @@ alias vgs='vagrant global-status'
 
 
 scs () {
-    systemctl status $1.service
+    sudo systemctl --no-pager status $1.service
+}
+
+scst () {
+    sudo systemctl --no-pager stop $1.service
+    sudo systemctl --no-pager status $1.service
 }
 
 scr () {
-    systemctl restart $1.service
+    sudo systemctl --no-pager restart $1.service
+    sudo systemctl --no-pager status $1.service
 }
+
 
 # alias as='adb shell'
 
@@ -598,8 +605,8 @@ alias subs='subliminal download -s -l en '
 
 
 pyclean () {
-        find . -type f -name "*.py[co]" -delete
-        find . -type d -name "__pycache__" -delete
+    sudo find . -type f -name "*.py[co]" -delete
+    sudo find . -type d -name "__pycache__" -delete
 }
 
 
@@ -933,6 +940,11 @@ export MANPATH="/usr/local/man:$MANPATH"
 export NIKOLA_MONO=true
 
 
+# disable systemctl pager
+export SYSTEMD_PAGER=''
+export SYSTEMD_PAGER='cat'
+
+
 # to build android from source
 export USE_CCACHE=1
 ~/android/lineage/prebuilts/misc/linux-x86/ccache/ccache -M 50G
@@ -942,6 +954,8 @@ export ANDROID_JACK_VM_ARGS="-Dfile.encoding=UTF-8 -XX:+TieredCompilation -Xmx4G
 if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
+
+echo 'DHOST: '$DHOST
 
 
 PATH="/home/chillaranand/perl5/bin${PATH:+:${PATH}}"; export PATH;

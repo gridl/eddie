@@ -30,10 +30,21 @@
 
     - name: update apt cache
       apt: update_cache=yes cache_valid_time=8640000
-      become_user: root
 
 
   tasks:
+
+
+    - name: create gunicorn service
+      template:
+        src: '../templates/{{ item }}.service.j2'
+        dest: '/etc/systemd/system/{{ item }}.service'
+        mode: 0777
+      notify: reload systemctl
+      with_items:
+        - gunicorn
+      become_user: root
+
 
     - name: install linux utilities
       apt: name={{ item }} state=present
@@ -261,6 +272,7 @@
     #   with_items:
     #     - dropbox
     #   become_user: root
+
 
     - name: disable error reporting
       lineinfile:
