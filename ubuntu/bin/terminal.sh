@@ -1718,6 +1718,7 @@ adb sideload de.robv.android.xposed.installer_v32_de4f0d.apk
 
 
 
+android_termux() {}
 
 
 
@@ -1810,6 +1811,8 @@ vagrant global-status
 
 
 ansible() {}
+
+ansible -i hosts all --list-hosts
 
 ansible all -i 192.168.0.47, -m ping -vvvv --user root
 ansible all -i inventory/vagrant.ini -m ping

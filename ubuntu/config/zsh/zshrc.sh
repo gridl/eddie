@@ -532,7 +532,7 @@ scr () {
 }
 
 
-# alias as='adb shell'
+alias as='adb shell'
 
 
 alias ci='curl ipinfo.io'
@@ -752,7 +752,7 @@ alias ae='aws ec2'
 alias aed='aws ec2 describe-instances'
 alias aei="aed --output table --query 'Reservations[].Instances[].[Tags[?Key==\`Name\`] | [0].Value, State.Name, PublicDnsName, PublicIpAddress]'"
 
-alias as='aws s3'
+# alias as='aws s3'
 alias asc='aws s3 cp'
 alias asl='aws s3 ls'
 alias asbs='aws s3 ls --summarize --human-readable --recursive '
