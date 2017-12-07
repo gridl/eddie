@@ -1,18 +1,16 @@
-import random
+from celery import Celery
 
-from celery import Celery, Task
-
-
-app = Celery(broker='amqp://guest@localhost//', backend='rpc://')
+broker = 'amqp://guest:guest@localhost//'
+broker = 'sqla+postgresql://f:f@localhost/f'
 
 
-class ReadyTask(Task):
+app = Celery(broker=broker)
 
-    def run(self, user):
-        try:
-            print(user)
-        except Exception as exc:
-            pass
+app.conf.update({
+    'CELERYD_LOG_COLOR': False,
+})
 
-    def on_failure(self, exc, task_id, *args, **kwargs):
-        print(args, kwargs)
+
+@app.task
+def add(x, y):
+    return x + y

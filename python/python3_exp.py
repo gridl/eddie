@@ -403,6 +403,8 @@ parser.add_argument('-a', action="store_true", default=False)
 
 
 
+
+
 import bisect
 
 
@@ -782,6 +784,23 @@ import math
 
 # compute angle from co-ordinates
 math.atan2(y, x)
+
+
+
+
+
+
+
+
+
+# mock
+from unittest.mock import Mock
+from unittest.mock import MagicMock
+
+thing = ProductionClass()
+thing.method = MagicMock(return_value=3)
+
+
 
 
 
