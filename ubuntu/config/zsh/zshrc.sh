@@ -429,7 +429,7 @@ alias nt='nautilus .'
 alias n='nikola'
 alias na='j avilpage.com; nikola auto'
 alias naf='rf output cache && rf cache && nikola auto'
-alias ng='nikola github_deploy'
+# alias ng='nikola github_deploy'
 alias ngd='nikola github_deploy'
 alias nn='nikola new_post'
 
@@ -786,9 +786,8 @@ dpkg_unlock() {
     sudo rm /var/lib/apt/lists/lock
     sudo rm /var/cache/apt/archives/lock
     sudo rm /var/lib/dpkg/lock
+    sudo dpkg --configure -a
 }
-
-
 
 
 
@@ -933,7 +932,7 @@ export PATH="$HOME/projects/eddie/ubuntu/bin:$PATH"
 export PATH="$HOME/rr/prebuilts/sdk/tools:$PATH"
 
 export JAVA_HOME=/usr/lib/jvm/java-8-oracle/jre/bin/java
-# export JAVA_HOME="/usr/lib/jvm/java-9-openjdk-amd64"
+export JAVA_HOME="/usr/lib/jvm/java-9-openjdk-amd64"
 export NODEENV_HOME=$HOME/.nodeenvs
 export MANPATH="/usr/local/man:$MANPATH"
 
