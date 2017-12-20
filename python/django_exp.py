@@ -296,16 +296,3 @@ class Command(BaseCommand):
 
 
 # translations
-
-
-
-
-
-# drf
-
-# disable admin-style browsable interface
-REST_FRAMEWORK = {
-    'DEFAULT_RENDERER_CLASSES': (
-        'rest_framework.renderers.JSONRenderer',
-    )
-}

@@ -34,6 +34,10 @@ d2 = pd.read_csv('./exercise/c2.csv', skiprows=2)
 d2 = pd.read_csv('./exercise/c2.csv', encoding='utf-8')
 
 
+# set column as index
+df.set_index('Date', inplace=True)
+
+
 # write to csv
 df.to_csv('foo.csv')
 df.to_csv('foo.csv', index=False)
@@ -69,8 +73,11 @@ df = df[['c1', 'c2']]
 #  columns types
 df.dtypes
 
+
 # convert type
 pd.to_numeric(df['col'])
+
+df[['two', 'three']] = df[['two', 'three']].astype(float)
 
 
 dr = 'daily_returns'

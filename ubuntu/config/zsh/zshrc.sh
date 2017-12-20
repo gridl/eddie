@@ -264,7 +264,7 @@ alias wp='workon py35'
 alias wj='workon py35'
 alias we='workon exp'
 
-alias dp='workon py35 && ipython'
+alias dp='j py && workon py35 && ipython'
 
 
 pfi () {

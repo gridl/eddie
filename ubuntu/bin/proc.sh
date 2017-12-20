@@ -5,7 +5,7 @@
 
 declare -A processes=(
     ["chrome"]="google-chrome"
-    ["emacs"]="emacs"
+    ["emacs-27.0.50"]="emacs-27.0.50"
     ["xcape"]="xcape.sh"
     ["dropbox"]="dropboxd"
 )
