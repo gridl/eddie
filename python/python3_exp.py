@@ -863,8 +863,6 @@ for dir_name, subdir, files in os.walk(root_dir):
 
 
 
-os.mkdir
-
 
 
 # pprint

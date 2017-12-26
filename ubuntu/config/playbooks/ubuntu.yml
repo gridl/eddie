@@ -11,7 +11,7 @@
   vars:
     user:  "{{ lookup('env', 'USER') }}"
     home:  "{{ lookup('env', 'HOME') }}"
-    config_dir: "{{ lookup('env', 'CONFIG_DIR') }}"
+    # config_dir: "{{ lookup('env', 'CONFIG_DIR') }}"
     config_dir: "{{ home }}/projects/eddie"
     ubuntu_config:  '{{ config_dir }}/ubuntu/config'
     db_password: "{{ lookup('env', 'db_password') }}"
@@ -34,17 +34,6 @@
 
 
   tasks:
-
-
-    - name: create gunicorn service
-      template:
-        src: '../templates/{{ item }}.service.j2'
-        dest: '/etc/systemd/system/{{ item }}.service'
-        mode: 0777
-      notify: reload systemctl
-      with_items:
-        - gunicorn
-      become_user: root
 
 
     - name: install linux utilities
@@ -93,7 +82,7 @@
         - libbluetooth-dev
 
 
-    - name: install stock packages
+    - name: install standard packages
       apt: name={{ item }} state=present
       with_items:
         - calibre
@@ -114,21 +103,6 @@
         - texlive-fonts-recommended
 
 
-    - name: install packages from binaries
-      include: binary_install.yml package="{{ item }}"
-      with_items:
-        - {name: 'certbot-auto', url: 'https://dl.eff.org/certbot-auto'}
-
-    - name: kubernetes setup
-      include: binary_install.yml package="{{ item }}"
-      with_items:
-        - {name: 'kubectl',      url: 'https://storage.googleapis.com/kubernetes-release/release/v1.5.1/bin/linux/amd64/kubectl'}
-        - {name: 'minio',        url: 'https://dl.minio.io/server/minio/release/linux-amd64/minio'}
-        - {name: 'mc',           url: 'https://dl.minio.io/client/mc/release/linux-amd64/mc'}
-        - {name: 'minikube',     url: 'https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64'}
-        - {name: 'kubetail',     url: 'https://raw.githubusercontent.com/johanhaleby/kubetail/master/kubetail'}
-
-
     - name: install python dependencies
       apt: name={{ item }} state=present
       with_items:
@@ -142,6 +116,13 @@
         # required when compiling python from source
         - libsqlite3-dev
         - libbz2-dev
+
+
+    - name: setup pypirc
+      file:
+        state: link
+        src: '{{ home }}/Dropbox/tech/pypirc'
+        dest: '{{ home }}/.pypirc'
 
 
     # - name: install global python packages
@@ -294,6 +275,27 @@
         dest: /etc/default/sysstat
         regexp: '^HISTORY'
         line: 'HISTORY=365'
+
+
+    - name: install packages from binaries
+      include: binary_install.yml package="{{ item }}"
+      with_items:
+        - {name: 'certbot-auto', url: 'https://dl.eff.org/certbot-auto'}
+
+
+    - name: kubernetes setup
+      include: binary_install.yml package="{{ item }}"
+      with_items:
+        - {name: 'kubectl',      url: 'https://storage.googleapis.com/kubernetes-release/release/v1.5.1/bin/linux/amd64/kubectl'}
+        - {name: 'minio',        url: 'https://dl.minio.io/server/minio/release/linux-amd64/minio'}
+        - {name: 'mc',           url: 'https://dl.minio.io/client/mc/release/linux-amd64/mc'}
+        - {name: 'minikube',     url: 'https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64'}
+        - {name: 'kubetail',     url: 'https://raw.githubusercontent.com/johanhaleby/kubetail/master/kubetail'}
+
+
+
+    - name: install heroku cli via snap
+      command: snap install heroku --classic
 
 
   handlers:
