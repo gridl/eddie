@@ -487,6 +487,10 @@ alias aks='adb kill-server; adb start-server; adb devices'
 alias at='adb shell '
 alias app='adb push -p '
 
+aps() {
+    adb push -p $1 /sdcard/
+}
+
 alias arr='adb reboot recovery '
 alias arn='adb reboot'
 alias arb='adb reboot bootloader '
@@ -881,6 +885,8 @@ ams() {
 }
 
 
+alias ob='python2 /home/chillaranand/projects/ocr/ocropy/ocropus-nlbin '
+alias ops='python2 /home/chillaranand/projects/ocr/ocropy/ocropus-gpageseg '
 
 alias gradle='~/projects/vendor/android-studio/gradle/gradle-3.2/bin/gradle'
 alias androidstudio='~/projects/vendor/android-studio/bin/studio.sh'
