@@ -1012,7 +1012,18 @@ aws s3 ls --summarize --human-readable --recursive s3://bucket
 aws s3api list-objects --bucket BUCKETNAME --output json --query "[length(Contents[])]"
 
 # make a bucket public
-# need to add a policy
+# add policy to bucket
+{
+  "Version": "2008-10-17",
+  "Statement": [{
+    "Sid": "AllowPublicRead",
+    "Effect": "Allow",
+    "Principal": { "AWS": "*" },
+    "Action": ["s3:GetObject"],
+    "Resource": ["arn:aws:s3:::my_bucket/*" ]
+  }]
+}
+
 
 
 
@@ -2410,3 +2421,10 @@ curl http://localhost:8000/foo/ -H 'Authorization: Token bar'
 
 
 uwsgi --http 0.0.0.0:8000 --wsgi-file config.wsgi
+
+
+
+
+# flask
+export FLASK_APP=foo.py
+flask run --host=0.0.0.0

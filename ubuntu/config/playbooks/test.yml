@@ -13,11 +13,13 @@
 
 
   tasks:
+
     - name: test
       debug: msg="Values are {{item[0]}} and {{item[1]}}"
       with_nested:
         - '{{ item[0] }}'
         - list1
+
 
   - name: download keys from github
     uri:
@@ -29,6 +31,7 @@
       - viren-nadkarni
       - chillaranand
     register: github_keys
+
 
   - set_fact:
       github_name: "{{ item.item }}"
@@ -45,3 +48,29 @@
     with_subelements:
       - "{{ github_keys_split.results | map(attribute='ansible_facts') | list }}"
       - github_keys
+
+
+  - name: ensure private key exists
+    copy:
+      src: "{{ local_ssh_key }}"
+      dest: "{{ home }}/.ssh/{{ item }}"
+      mode: 0600
+    with_items:
+      - id_dsa
+    become: no
+
+
+  - name: git pull
+    git:
+      repo: git@gitlab.com:ChillarAnand/mitron.git
+      dest: "{{ home }}/foo"
+      key_file: '{{ ssh_key }}'
+      accept_hostkey: yes
+    become: no
+
+
+  - name: delete private key
+      file:
+        state: absent
+        path: "{{ ssh_key }} "
+      become: no

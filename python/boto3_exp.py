@@ -44,6 +44,8 @@ now = dt.datetime.now(dt.timezone.utc)
 
 last_required_date = now - dt.timedelta(days=4)
 
+
+# delete old objects
 for item in bucket.objects.all():
     if item.last_modified < last_required_date:
         bucket.delete_objects(Delete={'Objects': [{'Key': item.key}]})
@@ -51,6 +53,7 @@ for item in bucket.objects.all():
         print(item.key, item.last_modified)
 
 
+# check if bucket exists
 try:
     client.head_bucket(Bucket=bucket)
 except botocore.exceptions.ClientError:

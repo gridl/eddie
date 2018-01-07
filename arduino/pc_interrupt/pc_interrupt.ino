@@ -1,4 +1,7 @@
-const byte interruptPin = A0;
+#include <PinChangeInterrupt.h>
+
+
+const byte interruptPin = A8;
 
 
 void setup() {
@@ -6,7 +9,7 @@ void setup() {
 
   pinMode(interruptPin, INPUT_PULLUP);
 
-  attachInterrupt(digitalPinToInterrupt(interruptPin), blink, HIGH);
+  attachPCINT(digitalPinToPCINT(interruptPin), interrupt_check, HIGH);
 }
 
 
@@ -15,9 +18,10 @@ void loop() {
   digitalWrite(interruptPin, HIGH);
   delay(1000);
   digitalWrite(interruptPin, LOW);
+  Serial.print("i");
 }
 
 
-void blink() {
+void interrupt_check() {
   Serial.print("interrupt");
 }

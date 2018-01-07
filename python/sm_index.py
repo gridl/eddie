@@ -3,6 +3,7 @@ from datetime import date, datetime, timedelta
 from nsepy import get_history
 import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
 import matplotlib.dates as mdates
 
 close = 'Close'
@@ -54,14 +55,27 @@ print(start_date, end_date)
 
 
 symbol = "NIFTY"
-symbol = "BANKNIFTY"
+symbol = 'acc'
+# symbol = "BANKNIFTY"
 print(symbol)
 
-df = get_history(
-    symbol=symbol, index=True,
-    start=start_date, end=end_date,
-)
+# df = get_history(
+#     symbol=symbol, index=True,
+#     start=start_date, end=end_date,
+# )
 
+
+import time
+
+def get_stock_df(symbol):
+    file = 'data/{}'.format(symbol.upper())
+    if not os.path.exists(file):
+        time.sleep(5)
+        df = get_history(symbol, end=now, start=start_date)
+        df.to_csv(file)
+    return pd.read_csv(file)
+
+df = get_stock_df(symbol)
 df = df.sort_index(ascending=False)
 
 # print(df.head())
@@ -108,7 +122,7 @@ print(df[[close, close_chgp]])
 df['date'] = df.index
 
 # df.set_index(list(range(len(df))))
-df.re
+
 
 print(df[close_chgp].groupby(df.index / 5).mean())
 

@@ -90,3 +90,7 @@ df['change'] = (1 - df['close'] / df['close'].shift(1)) * 100
 
 # sort by index
 df = df.sort_index(ascending=False)
+
+
+# drop multiple columns
+df.drop(['columnheading1', 'columnheading2'], axis=1, inplace=True)

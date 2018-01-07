@@ -108,6 +108,14 @@ def stock_price_df(symbol):
     return pd.read_csv(file)
 
 
+sdf = pd.DataFrame(
+    {
+        'a': {0: 0, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8, 9: 9},
+        'b': {0: -1, 1: -1, 2: -1, 3: 1, 4: 1, 5: 1, 6: 1, 7: -1, 8: -1, 9: -1},
+    }
+)
+
+
 def stock_price(symbol):
     file = 'data/{}'.format(symbol.upper())
     if not os.path.exists(file):
