@@ -1832,10 +1832,17 @@ ansible all -m ping -vvvv --user root -e 'ansible_python_interpreter=/data/data/
 ansible all -i inventory/vagrant.ini -m yum -a "name=ntp state=present" --sudo
 ansible all -i vagrant.ini -m shell -a "pwd"
 
+# show facts
+ansible all -i scripts/inventory.ini -m setup
+
 
 ansible-playbook -i inventory/vagrant.ini ntpd-init.yml
 ansible-playbook playbook.yml -i inventory.ini --user=username --extra-vars "ansible_sudo_pass=yourPassword"
 
+# override variables from cli
+ansible-playbook example.yml -e token=12345
+
+ansible-playbook --list-tasks mezzanine.yml
 
 
 
@@ -1902,7 +1909,7 @@ convert -append *.png out.png
 convert foo.png foo.jpg
 
 
-# pdf to png
+# split pdf to png
 convert -density 300 input.pdf -quality 90 prefix
 
 # png to pdf

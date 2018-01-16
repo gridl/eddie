@@ -913,7 +913,7 @@ upload_to_arduino() {
     ~/projects/vendor/arduino/arduino --port /dev/ttyACM* --board arduino:avr:mega:cpu=atmega2560 --upload $1
 }
 alias uta=upload_to_arduino
-
+alias sm='sudo screen /dev/ttyACM0 '
 
 export MNA="com.example.aswin.samplemitra/com.example.aswin.samplemitra.MainActivity"
 

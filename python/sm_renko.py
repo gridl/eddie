@@ -84,7 +84,7 @@ def plot_renko(data, brick_size):
 
 
     axis_range = len(bricks)
-    major_ticks = np.arange(-axis_range, axis_range, brick_size)
+    major_ticks = np.arange(-axis_range, axis_range, 4)
     minor_ticks = np.arange(-axis_range, axis_range, 1)
 
     axes.set_xticks(major_ticks)
@@ -95,9 +95,9 @@ def plot_renko(data, brick_size):
 
 
 def renko_status(df):
-    df['diff'] = df[close] - df[close].shift(1)
+    df['cdiff'] = df[close] - df[close].shift(1)
     df = df.dropna()
-    df['bricks'] = df.loc[:, ('diff', )] / brick_size
+    df['bricks'] = df.loc[:, ('cdiff', )] / brick_size
     df.loc[:, ('bricks', )] = df['bricks'].astype(int)
     df = df[df['bricks'] != 0]
 
