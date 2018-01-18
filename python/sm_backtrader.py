@@ -24,6 +24,15 @@ class SupertrendCross(bt.SignalStrategy):
         self.signal_add(bt.SIGNAL_LONG, bt.ind.CrossOver(sma1, sma2))
 
 
+class RenkoCross(bt.SignalStrategy):
+
+    params = ()
+
+    def __init__(self):
+        sma1, sma2 = bt.ind.SMA(period=self.p.pfast), bt.ind.SMA(period=self.p.pslow)
+        self.signal_add(bt.SIGNAL_LONG, bt.ind.CrossOver(sma1, sma2))
+
+
 cerebro = bt.Cerebro()
 cerebro.broker.setcash(1000000.00)
 
@@ -33,6 +42,7 @@ nfname = os.path.expanduser('~/.stocks/backtrader/RELIANCE')
 df = pd.read_csv(fname)
 ndf = df[['Date', 'High', 'Low', 'Open', 'Close', 'Volume']]
 ndf.to_csv(nfname, index=False)
+
 
 data = bt.feeds.GenericCSVData(
     dataname=nfname,

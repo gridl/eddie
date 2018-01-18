@@ -1,18 +1,8 @@
 awscli
 boto3
 
-pgcli
-mycli
-
-cookiecutter
-bumpversion
-
 celery
 flower
-
-httpie
-
-grip
 
 ipython
 jupyter
@@ -27,22 +17,32 @@ pylint
 
 pytest
 
-stdlib_list
-
 pandas
 numpy
 
 Sphinx
 
-
-mitmproxy
-
-
 Nikola
 
+
+# utils
+stdlib_list
 youtube-dl
+httpie
+grip
+mitmproxy
+pgcli
+mycli
+cookiecutter
+bumpversion
 
 
 # machine learning
 keras==2.0.8
 tensorflow==1.3.0
+
+
+# trading
+zipline
+backtrader
+nsepy
