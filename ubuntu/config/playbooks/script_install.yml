@@ -16,9 +16,3 @@
 - name: install '{{ package.name }}'
   command: /bin/bash '/tmp/{{ package.name }}-installer'
   when: package_installed | failed
-
-
-- name: move  binary
-  command: mv '/tmp/{{ package.name}}' '/usr/local/bin/{{ package.name }}'
-  when: package_installed | failed
-  become_user: root

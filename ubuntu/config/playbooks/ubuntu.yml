@@ -284,6 +284,12 @@
         - {name: 'certbot-auto', url: 'https://dl.eff.org/certbot-auto'}
 
 
+    - name: install pyenv
+      include: script_install.yml package="{{ item }}"
+      with_items:
+        - {name: 'pyenv', url: 'https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer'}
+
+
     - name: kubernetes setup
       include: binary_install.yml package="{{ item }}"
       with_items:
