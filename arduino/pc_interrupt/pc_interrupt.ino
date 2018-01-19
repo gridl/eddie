@@ -1,27 +1,29 @@
 #include <PinChangeInterrupt.h>
 
 
-const byte interruptPin = A8;
+const byte interruptPin = 53;
+const byte interruptPin2 = 2;
+
+const byte ledPin = 13;
+volatile byte state = LOW;
 
 
 void setup() {
-  Serial.begin(9600);
+  pinMode(ledPin, OUTPUT);
 
   pinMode(interruptPin, INPUT_PULLUP);
+  pinMode(interruptPin2, INPUT_PULLUP);
 
-  attachPCINT(digitalPinToPCINT(interruptPin), interrupt_check, HIGH);
+  attachPinChangeInterrupt(digitalPinToPinChangeInterrupt(interruptPin), blink, CHANGE);
+  attachInterrupt(digitalPinToInterrupt(interruptPin2), blink, CHANGE);
 }
 
 
 void loop() {
-  delay(1000);
-  digitalWrite(interruptPin, HIGH);
-  delay(1000);
-  digitalWrite(interruptPin, LOW);
-  Serial.print("i");
+  digitalWrite(ledPin, state);
 }
 
 
-void interrupt_check() {
-  Serial.print("interrupt");
+void blink() {
+  state = !state;
 }
