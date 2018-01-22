@@ -1,6 +1,10 @@
 # pandas
 import pandas as pd
 
+pd.set_option('display.max_rows', 500)
+pd.set_option('display.max_columns', 500)
+pd.set_option('display.width', 1000)
+
 
 df = pd.DataFrame([['a', 2], ['c', 4], ['b', 5]], columns=['x', 'y'])
 
@@ -64,20 +68,24 @@ df.iloc[[2, 6]]
 df.loc[3]
 
 
+
 # show columns
 df.columns
 
 # select columns
 df = df[['c1', 'c2']]
 
-#  columns types
+# rename column
+data['date'] = data.pop('Date')
+
+# columns types
 df.dtypes
 
 
-# convert type
+# convert column type
 pd.to_numeric(df['col'])
-
 df[['two', 'three']] = df[['two', 'three']].astype(float)
+
 
 
 dr = 'daily_returns'
@@ -92,6 +100,8 @@ df['change'] = (1 - df['close'] / df['close'].shift(1)) * 100
 df = df.sort_index(ascending=False)
 df.sort_index(ascending=False, inplace=True)
 
+# sort by column
+df.sort_values(['c1','c2'], ascending=[False,True])
 
 # drop multiple columns
 df.drop(['columnheading1', 'columnheading2'], axis=1, inplace=True)
