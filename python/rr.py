@@ -77,6 +77,8 @@ class Renko:
         self.calculate_bricks_from_diff()
         self.shift_bricks()
 
+        self.bdf.reset_index(inplace=True, drop=True)
+
     def shift_bricks(self):
         shift = self.df['close'].iloc[-1] - self.bdf['close'].iloc[-1]
         if abs(shift) < self.brick_size:
@@ -158,9 +160,10 @@ if len(sys.argv) > 1:
     print('Reading local file {}'.format(fname))
     df = pd.read_csv(sys.argv[1])
 else:
-    print('Downloading data from nsepy')
+    symbol='SBIN'
+    print('Downloading {} data from nsepy'.format(symbol))
     df = nsepy.get_history(
-        symbol='SBIN',
+        symbol=symbol,
         start=dt.date(2017,1,1),
         end=dt.date(2018,1,19)
     )
