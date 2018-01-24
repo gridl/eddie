@@ -10,15 +10,19 @@ print(bricks)
 """
 
 import sys
+import datetime as dt
 
 import numpy as np
 import pandas as pd
+import nsepy
 
 
 class Renko:
 
     PERIOD_CLOSE = 1
     PRICE_MOVEMENT = 2
+
+    TREND_CHANGE_DIFF = 2
 
     brick_size = 1
     chart_type = PERIOD_CLOSE
@@ -45,23 +49,25 @@ class Renko:
 
     def period_close_bricks(self):
         brick_size = self.brick_size
-        df = self.rdf
+        self.rdf = self.rdf[['date', 'close']]
 
-        df['close_s1'] = df['close'] - df['close'].shift()
-        df.dropna(inplace=True)
+        self.rdf.loc[:, 'close_s1'] = self.rdf['close'] - self.rdf['close'].shift()
+        # self.rdf.dropna(inplace=True)
 
-        df['close_r'] = (df['close'] // brick_size) * brick_size
+        self.rdf.loc[:, 'close_r'] = (self.rdf['close'] // self.brick_size) * self.brick_size
+        self.rdf.loc[:, 'close_r_s1'] = (self.rdf['close_s1'] // self.brick_size) * self.brick_size
 
-        df['close_r_s1'] = (df['close_s1'] // brick_size) * brick_size
         self.filter_noise()
 
         bricks = self.rdf['bricks']
         asign = np.sign(bricks)
-        self.rdf['rtc'] = ((np.roll(asign, 1) - asign) != 0).astype(int)
+        self.rdf.loc[:, 'rtc'] = ((np.roll(asign, 1) - asign) != 0).astype(int)
 
-        self.rdf['u_bricks'] = self.rdf['bricks'][self.rdf['rtc'] == 1]
-        self.rdf['u_bricks'] = self.rdf['u_bricks'].apply(lambda x: x - brick_size if x > 0 else x + brick_size)
-        self.rdf['u_bricks'][self.rdf['rtc'] == 0] = self.rdf['bricks']
+        self.rdf.loc[:, 'u_bricks'] = self.rdf.loc[self.rdf['rtc'] == 1, 'bricks']
+        self.rdf.loc[:, 'u_bricks'] = self.rdf['u_bricks'].apply(
+            lambda x: x - self.TREND_CHANGE_DIFF if x > 0 else x + self.TREND_CHANGE_DIFF
+        )
+        self.rdf.loc[self.rdf['rtc'] == 0, 'u_bricks'] = self.rdf['bricks']
 
         self.rdf = self.rdf[['close_r', 'u_bricks', 'date']]
         self.rdf = self.rdf[self.rdf['u_bricks'] != 0]
@@ -72,12 +78,9 @@ class Renko:
         self.shift_bricks()
 
     def shift_bricks(self):
-        print(self.bdf['close'].iloc[-1])
-        print(self.df['close'].iloc[-1])
         shift = self.df['close'].iloc[-1] - self.bdf['close'].iloc[-1]
         if abs(shift) < self.brick_size:
             return
-        print(shift)
         step = shift // self.brick_size
         self.bdf[['open', 'close']] += step * self.brick_size
 
@@ -91,6 +94,7 @@ class Renko:
         )
 
         prev_bricks = 1
+
         cls = (self.df['close'].iloc[0] // brick_size) * brick_size
 
         for index, row in self.rdf.iterrows():
@@ -125,20 +129,21 @@ class Renko:
         df = self.rdf
         brick_size = self.brick_size
 
-        df['cr_diff'] = df['close_r'] - df['close_r'].shift()
+        df.loc[:, 'cr_diff'] = df['close_r'] - df['close_r'].shift()
         df = df[df['cr_diff'] != 0]
-        df['bricks'] = df.loc[:, ('cr_diff', )] / brick_size
-        df['bricks_s1'] = df['bricks'].shift()
-        df['tc'] = np.where((df['bricks'] * df['bricks_s1']) < 0, True, False)
+        df.loc[:, 'bricks'] = df.loc[:, ('cr_diff', )] / brick_size
+        df.loc[:, 'bricks_s1'] = df['bricks'].shift()
+        df.loc[:, 'tc'] = np.where((df['bricks'] * df['bricks_s1']) < 0, True, False)
 
 
         while True:
-            df['cr_diff'] = df['close_r'] - df['close_r'].shift()
+            df.loc[:, 'cr_diff'] = df['close_r'] - df['close_r'].shift()
             df = df[df['cr_diff'] != 0]
-            df['bricks'] = df.loc[:, ('cr_diff', )] / brick_size
 
+            df['bricks'] = df.loc[:, ('cr_diff', )] / brick_size
             df['bricks_s1'] = df['bricks'].shift()
             df['tc'] = np.where((df['bricks'] * df['bricks_s1']) < 0, True, False)
+
             filtered_df = df[(~df['tc']) | ~(abs(df['bricks']) == 1)]
             if len(df) == len(filtered_df):
                 break
@@ -148,13 +153,26 @@ class Renko:
         self.rdf = df
 
 
-df = pd.read_csv(sys.argv[1])
-df.columns = [i.lower() for i in df.columns]
+if len(sys.argv) > 1:
+    fname = sys.argv[1]
+    print('Reading local file {}'.format(fname))
+    df = pd.read_csv(sys.argv[1])
+else:
+    print('Downloading data from nsepy')
+    df = nsepy.get_history(
+        symbol='SBIN',
+        start=dt.date(2017,1,1),
+        end=dt.date(2018,1,19)
+    )
+    if df.empty:
+        print('No data is received from nsepy. Exiting...')
+        sys.exit()
+
+
 df.reset_index(inplace=True)
-print((df.columns))
+df.columns = [i.lower() for i in df.columns]
 
 renko = Renko(df)
-
-renko.brick_size = 2
+renko.brick_size = 4
 r = renko.get_bricks()
-print(r.tail())
+print(r.tail(20))
