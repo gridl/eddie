@@ -8,10 +8,12 @@ renko.brick_size = 2
 bricks = renko.get_bricks()
 print(bricks)
 """
-
+import os
 import sys
+import time
 import datetime as dt
 
+import quandl
 import numpy as np
 import pandas as pd
 import nsepy
@@ -52,10 +54,13 @@ class Renko:
         self.rdf = self.rdf[['date', 'close']]
 
         self.rdf.loc[:, 'close_s1'] = self.rdf['close'] - self.rdf['close'].shift()
-        # self.rdf.dropna(inplace=True)
+        self.rdf.dropna(inplace=True)
 
         self.rdf.loc[:, 'close_r'] = (self.rdf['close'] // self.brick_size) * self.brick_size
         self.rdf.loc[:, 'close_r_s1'] = (self.rdf['close_s1'] // self.brick_size) * self.brick_size
+
+        if debug:
+            print(self.rdf.head())
 
         self.filter_noise()
 
@@ -155,27 +160,42 @@ class Renko:
         self.rdf = df
 
 
+def stock_df(symbol):
+    file = '{}'.format(symbol.upper())
+    if not os.path.exists(file):
+        print('Downloading {}'.format(symbol))
+        time.sleep(5)
+        quandl.ApiConfig.api_version = '2015-04-09'
+        df = quandl.get('NSE/{}'.format(symbol), start_date='2017-01-01', end_date='2018-01-25')
+        df.reset_index(inplace=True)
+        df.columns = [i.lower() for i in df.columns]
+        df.to_csv(file)
+    return pd.read_csv(file)
+
+
 if len(sys.argv) > 1:
     fname = sys.argv[1]
     print('Reading local file {}'.format(fname))
     df = pd.read_csv(sys.argv[1])
 else:
     symbol='SBIN'
-    print('Downloading {} data from nsepy'.format(symbol))
-    df = nsepy.get_history(
-        symbol=symbol,
-        start=dt.date(2017,1,1),
-        end=dt.date(2018,1,19)
-    )
-    if df.empty:
-        print('No data is received from nsepy. Exiting...')
-        sys.exit()
+    # print('Downloading {} data from nsepy'.format(symbol))
+    # df = nsepy.get_history(
+    #     symbol=symbol,
+    #     start=dt.date(2017,1,1),
+    #     end=dt.date(2018,1,19)
+    # )
+    # if df.empty:
+        # print('No data is received from nsepy.')
+        # sys.exit()
+    df = stock_df(symbol)
 
-
+debug = True
 df.reset_index(inplace=True)
 df.columns = [i.lower() for i in df.columns]
+print(df.tail(20))
 
 renko = Renko(df)
-renko.brick_size = 4
+renko.brick_size = 4.5
 r = renko.get_bricks()
 print(r.tail(20))
