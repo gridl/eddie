@@ -24,6 +24,16 @@ class LineBreak:
         if not self.required_columns.issubset(self.df.columns):
             raise ValueError('DataFrame should have OHLC {} columns'.format(self.required_columns))
 
+    def uptrend_reversal(self, close):
+        lows = [self.cdf.iloc[i]['low'] for i in range(-1, -self.LINE_NUMBER - 1, -1)]
+        least = min(lows)
+        return close < least
+
+    def downtrend_reversal(self, close):
+        highs = [self.cdf.iloc[i]['high'] for i in range(-1, -self.LINE_NUMBER - 1, -1)]
+        highest = max(highs)
+        return close > highest
+
     def get_chart_data(self):
         self.df = self.df[['date', 'open', 'high', 'low', 'close']]
 
@@ -62,14 +72,14 @@ class LineBreak:
             if uptrend and close > close_p1:
                 r = [close_p1, close, close_p1, close]
                 t = 'uc'
-            elif uptrend and close < min(low_p1, low_p2):
+            elif uptrend and self.uptrend_reversal(close):
                 uptrend = not uptrend
                 t = 'ur'
                 r = [open_p1, open_p1, close, close]
             elif not uptrend and close < close_p1:
                 r = [close_p1, close_p1, close, close]
                 t = 'dc'
-            elif not uptrend and close > max(high_p1, high_p2):
+            elif not uptrend and self.downtrend_reversal(close):
                 uptrend = not uptrend
                 r = [open_p1, close, open_p1, close]
                 t = 'dr'
