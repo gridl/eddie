@@ -27,88 +27,54 @@ class LineBreak:
     def get_chart_data(self):
         self.df = self.df[['date', 'open', 'high', 'low', 'close']]
 
-        print('ooooooooooooooooooooooo')
-        print(self.df.tail(22))
-
-        self.df.loc[:, 'close_s1'] = self.df['close'] - self.df['close'].shift(1)
-        self.df.loc[:, 'close_s2'] = self.df['close'] - self.df['close'].shift(2)
-
-        columns = ['date', 'open', 'high', 'low', 'close', 'uptrend']
+        columns = ['date', 'open', 'high', 'low', 'close']
 
         self.cdf = pd.DataFrame(
             columns=columns,
             data=[],
         )
 
-        uptrend = True
-        uptrend = False
+        self.cdf.loc[0] = self.df.loc[0]
+        self.cdf.loc[1] = self.df.loc[1]
+
+        self.cdf['uptrend'] = True
+
+        columns = ['date', 'open', 'high', 'low', 'close', 'uptrend']
 
         for index, row in self.df.iterrows():
-            if uptrend and row['close'] > self.df.iloc[index - 1]['close']:
-                r = [
-                    row['date'],
-                    self.df.iloc[index - 1]['close'],
-                    row['close'],
-                    self.df.iloc[index - 1]['close'],
-                    row['close'],
-                ]
 
-            elif uptrend and (
-                    row['close'] < self.df.iloc[index - 1]['close'] and \
-                    row['close'] < self.df.iloc[index - 2]['open']
-                    ):
+            close = row['close']
+
+            row_p1 = self.cdf.iloc[-1]
+            row_p2 = self.cdf.iloc[-1]
+
+            uptrend = row_p1['uptrend']
+
+            open_p1 = row_p1['open']
+            high_p1 = row_p1['high']
+            low_p1 = row_p1['low']
+            close_p1 = row_p1['close']
+
+            high_p2 = row_p2['high']
+            low_p2 = row_p2['low']
+
+            if uptrend and close > close_p1:
+                r = [close_p1, close, close_p1, close]
+            elif uptrend and close < min(low_p1, low_p2):
                 uptrend = not uptrend
-                r = [
-                    row['date'],
-                    self.df.iloc[index - 1]['open'],
-                    self.df.iloc[index - 1]['open'],
-                    row['close'],
-                    row['close'],
-                ]
-
-            elif not uptrend and row['close'] < self.df.iloc[index - 1]['close']:
-                r = [
-                    row['date'],
-                    self.df.iloc[index - 1]['close'],
-                    self.df.iloc[index - 1]['close'],
-                    row['close'],
-                    row['close'],
-                ]
-
-            elif not uptrend and (
-                    row['close'] > self.df.iloc[index - 1]['close'] and \
-                    row['close'] > self.df.iloc[index - 2]['open']
-                    ):
+                r = [open_p1, open_p1, close, close]
+            elif not uptrend and close < close_p1:
+                r = [close_p1, close_p1, close, close]
+            elif not uptrend and close > max(high_p1, high_p2):
                 uptrend = not uptrend
-                r = [
-                    row['date'],
-                    self.df.iloc[index - 1]['open'],
-                    row['close'],
-                    self.df.iloc[index - 1]['open'],
-                    row['close'],
-                ]
+                r = [open_p1, close, open_p1, close]
             else:
                 continue
 
-
-            sdf = pd.DataFrame(data=[[*r, uptrend]], columns=columns)
-
+            sdf = pd.DataFrame(data=[[row['date']] + r + [uptrend]], columns=columns)
             self.cdf = pd.concat([self.cdf, sdf])
 
-        print(self.cdf.tail(22))
-        print('======================')
-
-    def filter_noise(self):
-
-        while True:
-            self.update_ohlc()
-            filtered_df = self.df[self.df['trend'] != 0]
-
-            if len(self.df) == len(filtered_df):
-                break
-            else:
-                print('noise')
-            self.df = filtered_df
+        return self.cdf
 
     def update_ohlc(self):
         self.df.loc[:, 'close_s1'] = self.df['close'].shift(1)
@@ -144,7 +110,6 @@ else:
 
 df.reset_index(inplace=True)
 df.columns = [i.lower() for i in df.columns]
-
 
 lb = LineBreak(df)
 d = lb.get_chart_data()
