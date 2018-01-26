@@ -34,8 +34,8 @@ class LineBreak:
             data=[],
         )
 
-        self.cdf.loc[0] = self.df.loc[0]
-        self.cdf.loc[1] = self.df.loc[1]
+        for i in range(self.LINE_NUMBER):
+            self.cdf.loc[i] = self.df.loc[i]
 
         self.cdf['uptrend'] = True
 
@@ -46,12 +46,13 @@ class LineBreak:
             close = row['close']
 
             row_p1 = self.cdf.iloc[-1]
-            row_p2 = self.cdf.iloc[-1]
+            row_p2 = self.cdf.iloc[-2]
 
             uptrend = row_p1['uptrend']
 
             open_p1 = row_p1['open']
             high_p1 = row_p1['high']
+
             low_p1 = row_p1['low']
             close_p1 = row_p1['close']
 
@@ -60,17 +61,22 @@ class LineBreak:
 
             if uptrend and close > close_p1:
                 r = [close_p1, close, close_p1, close]
+                t = 'uc'
             elif uptrend and close < min(low_p1, low_p2):
                 uptrend = not uptrend
+                t = 'ur'
                 r = [open_p1, open_p1, close, close]
             elif not uptrend and close < close_p1:
                 r = [close_p1, close_p1, close, close]
+                t = 'dc'
             elif not uptrend and close > max(high_p1, high_p2):
                 uptrend = not uptrend
                 r = [open_p1, close, open_p1, close]
+                t = 'dr'
             else:
                 continue
 
+            print(row['date'], t)
             sdf = pd.DataFrame(data=[[row['date']] + r + [uptrend]], columns=columns)
             self.cdf = pd.concat([self.cdf, sdf])
 
@@ -96,7 +102,7 @@ if len(sys.argv) > 1:
     print('Reading local file {}'.format(fname))
     df = pd.read_csv(sys.argv[1])
 else:
-    symbol='SBIN'
+    symbol='HDFCLIFE'
     print('Downloading {} data from nsepy'.format(symbol))
     df = nsepy.get_history(
         symbol=symbol,
@@ -110,7 +116,9 @@ else:
 
 df.reset_index(inplace=True)
 df.columns = [i.lower() for i in df.columns]
+print(df[['date', 'high', 'close']].tail(38))
 
 lb = LineBreak(df)
+lb.LINE_NUMBER = 2
 d = lb.get_chart_data()
-print(d)
+print(d.tail(38))
