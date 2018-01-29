@@ -105,3 +105,15 @@ df.sort_values(['c1','c2'], ascending=[False,True])
 
 # drop multiple columns
 df.drop(['columnheading1', 'columnheading2'], axis=1, inplace=True)
+
+
+
+
+# df['ewma9'] = cls.ewm(span=9)
+adjust = False
+
+# df['ewma9'] = pd.ewma(df[close], span=9, adjust=adjust)
+# df['ewma12'] = pd.ewma(df[close], span=12, adjust=adjust)
+# df['sma20'] = pd.rolling_mean(df[close], window=20)
+# df['ewma26'] = pd.ewma(df[close], span=26, adjust=adjust)
+# df['MACD'] = df['ewma12'] - df['ewma26']

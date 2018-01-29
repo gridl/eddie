@@ -86,7 +86,6 @@ class LineBreak:
             else:
                 continue
 
-            print(row['date'], t)
             sdf = pd.DataFrame(data=[[row['date']] + r + [uptrend]], columns=columns)
             self.cdf = pd.concat([self.cdf, sdf])
 
@@ -126,9 +125,8 @@ else:
 
 df.reset_index(inplace=True)
 df.columns = [i.lower() for i in df.columns]
-print(df[['date', 'high', 'close']].tail(38))
 
 lb = LineBreak(df)
 lb.LINE_NUMBER = 2
-d = lb.get_chart_data()
-print(d.tail(38))
+data = lb.get_chart_data()
+print(data.tail(38))

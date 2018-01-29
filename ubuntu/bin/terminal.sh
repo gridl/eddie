@@ -392,6 +392,9 @@ wget --user='user' --password='password' ftp://foo.com/bar
 ftp <ip>
 ftp> open <ip>
 ftp> put <source> <target>
+ftp> put test.png
+ftp> cd /foo/bar/
+ftp> put test.png
 
 
 # ftp server
