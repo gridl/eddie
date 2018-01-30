@@ -681,6 +681,12 @@
   (nyan-mode))
 
 
+(use-package dimmer
+  :config
+  (setq dimmer-fraction 0.5)
+  (dimmer-mode))
+
+
 ;; (use-package ctags-update)
 
 
