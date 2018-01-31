@@ -4,15 +4,16 @@
 shell_scripting() {}
 
 
-set -e
 # fail on error
+set -e
 
-set -u
 # fail on unset variables
+set -u
 
-set -x
+
 # prints each command in a script to stderr before running it
 # trace all commands
+set -x
 
 
 # hash table
@@ -1517,39 +1518,6 @@ ionice -c 3 command-name
 
 
 
-### About hadoop:
-
-Cost of hadoop cluster is much cheaper than MySQl cluster.
-MySQL accession rate is faster than Hadoop.
-
-For offline data processing(where customer is not interacting with data) hadoop is good solution.
-
-when does Hadoop makes sense?
-https://www.percona.com/blog/2013/07/11/mysql-and-hadoop/
-
-
-Installation:
-
-how to install single node hadoop in ubuntu?
-http://askubuntu.com/questions/144433/how-to-install-hadoop
-
-hadoop-hive
-https://en.wikipedia.org/wiki/Apache_Hive
-
-hadoop-hue
-https://en.wikipedia.org/wiki/Hue_(Hadoop)
-
-installation of hue
-http://tutorialforlinux.com/2014/05/23/how-to-install-hue-hadoop-web-gui-on-ubuntu-14-04-trusty-lts-easy-guide/
-
-hive database access
-http://www.orzota.com/hive-tutorial-for-beginners/
-
-
-Tutorials:
-installation screencasts old: http://hadoopscreencasts.com/episodes/5
-
-
 
 
 
@@ -1576,9 +1544,8 @@ pip install -e /package/path
 
 
 
-#### simple http server
+# simple http server
 
-```sh
 # python 2
 python -m SimpleHTTPServer
 
@@ -1587,18 +1554,16 @@ python3 -m http.server
 
 # twistd
 twistd -n web --path .
-```
 
 
 
 
-### mitmproxy
 
-```sh
+# mitmproxy
 sudo apt-get install python-pyasn1 python-flask python-urwid python-dev libxml2-dev libxslt-dev libffi-dev
 sudo pip install mitmproxy
 mitmproxy
-```
+
 
 
 
@@ -2089,8 +2054,6 @@ helm delete deis --purge
 
 
 
-
-
 deis () {}
 
 # install helm client and run helm init to start server
@@ -2129,8 +2092,6 @@ deis info
 
 deis releases
 deis releases:info v9
-
-
 
 
 
