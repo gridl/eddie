@@ -611,6 +611,7 @@ chmod 600 ~/.ssh/authorized_keys
 
 cat .ssh/id_rsa.pub | ssh user@host 'cat >> .ssh/authorized_keys'
 
+ssh-add pubkey
 ssh-copy-id user@host
 
 ssh user@host
@@ -1761,7 +1762,7 @@ gsettings set org.gnome.desktop.media-handling automount-open false
 
 
 
-# vagrant
+vagrant()
 
 vagrant init
 vagrant init ubuntu/xenial64
@@ -1772,6 +1773,7 @@ vagrant up --provider=Virtualbox
 v provision
 
 vagrant ssh
+vagrant ssh-config
 
 vagrant reload
 
