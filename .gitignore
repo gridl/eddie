@@ -25,3 +25,4 @@ python/exercise/test.log
 /ubuntu/config/emacs/bookmarks
 /ubuntu/config/emacs/tramp
 /cf.el
+*.log
