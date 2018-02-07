@@ -26,4 +26,4 @@ python/exercise/test.log
 /ubuntu/config/emacs/tramp
 /cf.el
 *.log
-/js/node_modules/accepts/HISTORY.md
+*node_modules*
