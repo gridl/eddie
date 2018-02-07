@@ -14,7 +14,7 @@
     # config_dir: "{{ lookup('env', 'CONFIG_DIR') }}"
     config_dir: "{{ home }}/projects/eddie"
     ubuntu_config:  '{{ config_dir }}/ubuntu/config'
-    db_password: "{{ lookup('env', 'db_password') }}"
+    postgres_password: "{{ lookup('env', 'POSTGRES_PASSWORD') }}"
     links:
       - { src: '{{ ubuntu_config }}/zsh/zshrc.sh', dest: '{{ home }}/.zshrc' }
       - { src: '{{ ubuntu_config }}/tmuxinator', dest: '{{ home }}/.tmuxinator' }
@@ -134,18 +134,21 @@
         - postgresql
         - python-psycopg2
         - libpq-dev
-      become_user: root
 
-    # - name: create postgres user
-    #   postgresql_user:
-    #     name: "{{ user }}"
-    #     password: "{{ db_password }}"
 
-    # - name: create database
-    #   postgresql_db:
-    #     name: "{{ user }}"
-    #     owner: "{{ user }}"
-    #     encoding: UTF8
+    - name: create postgres user
+      postgresql_user:
+        name: "{{ user }}"
+        password: "{{ postgres_password }}"
+      become_user: postgres
+
+
+    - name: create database
+      postgresql_db:
+        name: "{{ user }}"
+        owner: "{{ user }}"
+      become_user: postgres
+
 
     - block:
       - name: install pillow dependencies
@@ -218,7 +221,6 @@
 # automate
 # byobu profile
 # ctrl - v paste
-# postgres create user, db, superuser
 # git config
 
       # - compizconfig-settings-manager
