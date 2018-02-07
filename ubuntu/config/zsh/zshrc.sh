@@ -543,7 +543,9 @@ alias as='adb shell'
 alias ci='curl ipinfo.io'
 
 
+alias cg="curl -X GET"
 alias cag="curl -H 'Authorization: Token $AUTH_TOKEN' -H 'Accept: application/json; indent=4' -X GET"
+
 alias cap="curl -H 'Authorization: Token $AUTH_TOKEN' -H 'Accept: application/json; indent=4' -X POST"
 alias capa="curl -H 'Authorization: Token $AUTH_TOKEN' -H 'Accept: application/json; indent=4' -X PATCH"
 

@@ -1524,9 +1524,18 @@ ionice -c 3 command-name
 
 # pypi
 
-# upload package to pypi
+# upload package to pypi - distutils
 python setup.py register -r pypi
 python setup.py sdist upload -r pypi
+
+
+# upload package to pypi - twine
+python setup.py sdist bdist_wheel
+
+
+
+# bumpversion
+bumpversion --new-version 0.1.3
 
 
 
@@ -1813,6 +1822,11 @@ ansible-playbook playbook.yml -i inventory.ini --user=username --extra-vars "ans
 ansible-playbook example.yml -e token=12345
 
 ansible-playbook --list-tasks mezzanine.yml
+
+
+# profiling
+# add this line to ansible.cfg
+callback_whitelist = profile_tasks
 
 
 
@@ -2401,3 +2415,11 @@ uwsgi --http 0.0.0.0:8000 --wsgi-file config.wsgi
 # flask
 export FLASK_APP=foo.py
 flask run --host=0.0.0.0
+
+
+# python
+python()
+
+python -m cProfile -s time foo.py
+
+python -m timeit "2*3"
