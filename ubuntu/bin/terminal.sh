@@ -550,6 +550,9 @@ avahi-browse -tl _workstation._tcp
 avahi-browse -attr
 
 
+# get hostname
+hostname
+
 # set hostname
 hostnamectl set-hostname localhost
 
@@ -2136,6 +2139,9 @@ watchmedo shell-command --patterns="*.py;*.html" --recursive --command='pgrep ce
 gpg --list-secret-keys --keyid-format LONG
 
 gpg --gen-key
+
+git config --global gpg.program gpg2
+
 
 
 

@@ -1,25 +1,32 @@
 import os
 
-from alpha_vantage.timeseries import TimeSeries, TimeSeriesDaily
-from alpha_vantage.techindicators import TechIndicators
-
+import stocktrends
+import pandas as pd
+from alpha_vantage.timeseries import TimeSeries
 
 key = os.environ.get('ALPHAVANTAGE_KEY')
 print(key)
 
-ts = TimeSeries(key=key)
+ts = TimeSeries(key=key, output_format='pandas')
 
-
-import matplotlib.pyplot as plt
-
-symbol = 'MSFT'
 symbol = 'NSE:RELIANCE'
 
-ti = TechIndicators(key=key, output_format='pandas')
-data, meta_data = ti.get_bbands(symbol=symbol, interval='60min', time_period=60)
-data.plot()
-plt.title('BBbands indicator for  MSFT stock (60 min)')
-plt.show()
+df, meta_data = ts.get_daily_adjusted(symbol=symbol, outputsize='compact')
+renames = {
+    '1. open': 'open',
+    '2. high': 'high',
+    '3. low': 'low',
+    '4. close': 'close',
+    '5. adjusted close': 'adjusted close',
+    '6. volume': 'volume',
+    '7. dividend amount': 'dividend amount',
+    '8. split coefficient': 'split coefficient'
+}
+df.rename(columns=renames, inplace=True)
 
-
-print(meta_data)
+df.to_csv('tmp.csv')
+df = pd.read_csv('tmp.csv')
+renko = stocktrends.Renko(df)
+renko.brick_size = 9.5
+r = renko.get_bricks()
+print(r.head())

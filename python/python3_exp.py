@@ -810,6 +810,7 @@ thing.method = MagicMock(return_value=3)
 
 
 # multiprocessing
+import multiprocessing
 
 
 def foo(name):

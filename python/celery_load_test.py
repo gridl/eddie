@@ -1,12 +1,11 @@
+import time
 import sys
 import timeit
 
 from celery import Celery
-from kombu.serialization import register
+
 
 broker = 'memory://'
-broker = 'amqp://guest:guest@localhost//'
-broker = 'sqla+postgresql://f:f@localhost/f'
 
 app = Celery(broker=broker)
 
@@ -15,25 +14,21 @@ app.conf.update({
 })
 
 
+
 @app.task
 def add(x, y):
+    time.sleep(2)
     return x + y
 
 
 @app.task
 def dummy():
+    time.sleep(2)
     pass
 
 
-try:
-    count = int(sys.argv[1])
-except:
-    count = 1000
-
-print(count)
-
-
+tasks = 1000
 start_time = timeit.default_timer()
-# [dummy.delay() for i in range(count)]
-[add.delay(1, 2) for i in range(count)]
-print(timeit.default_timer() - start_time)
+[dummy.delay() for i in range(tasks)]
+duration = timeit.default_timer() - start_time
+print("Queue rate: " + str(tasks//duration) + " tasks/sec")

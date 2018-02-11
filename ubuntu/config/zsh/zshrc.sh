@@ -855,8 +855,9 @@ alias ep='echo $PATH'
 alias arduino='sudo ~/projects/vendor/arduino/arduino'
 alias rdn=arduino
 
-alias rmo='sudo ~/projects/vendor/arduino/arduino --board arduino:avr:mega --port /dev/ttyACM1 --upload '
+alias rmo='sudo pkill screen; sudo ~/projects/vendor/arduino/arduino --board arduino:avr:mega --port /dev/ttyACM1 --upload '
 alias rmz='sudo pkill screen; sudo ~/projects/vendor/arduino/arduino --board arduino:avr:mega --port /dev/ttyACM0 --upload '
+
 alias rma='sudo ~/projects/vendor/arduino/arduino --board arduino:avr:mega --port /dev/ttyACM* --upload '
 
 alias ruz='sudo pkill screen; sudo ~/projects/vendor/arduino/arduino --board arduino:avr:uno --port /dev/ttyACM0 --upload '

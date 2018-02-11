@@ -56,6 +56,8 @@ def __init__(self, *args, **kwargs):
 
 
 # models
+import models
+
 from django.db import models
 
 
@@ -81,6 +83,8 @@ print(Mymodel.objects.all().query)
 # show all sql queries
 from django.db import connection
 connection.queries
+
+
 
 
 # get model to avoid circular imports
