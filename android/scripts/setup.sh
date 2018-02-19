@@ -4,9 +4,8 @@ set -eux
 
 
 adb devices
-adb root
 
-adb shell "mount -o remount,rw /"
+adb shell su "mount -o remount,rw /"
 adb shell "mount -o remount,rw /system"
 
 declare -a directories=(
@@ -42,7 +41,6 @@ adb shell "chmod +x /usr/bin/python"
 
 adb push -p "$CONFIG_FOLDER/mkshrc.sh" /system/etc/mkshrc
 
-#! /bin/bash
 
 adb shell 'apt install openssh'
 
