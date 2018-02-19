@@ -57,7 +57,7 @@ plugins=(git z extract dirpersist pip zsh-autosuggestions)
 
 # User configuration
 
-source ~/Dropbox/tech/private.sh
+
 
 
 
@@ -147,15 +147,12 @@ export PYTHONDONTWRITEBYTECODE=False
 
 export THEANO_FLAGS='floatX=float32'
 
-source $ZSH_CUSTOM/aliases.sh
+# source $ZSH_CUSTOM/aliases.sh
 
 
 
 
 
-
-# secrets
-source ~/Dropbox/tech/env.sh
 
 if [[ $TERM = dumb ]]; then
   unset zle_bracketed_paste
@@ -549,6 +546,9 @@ alias cag="curl -H 'Authorization: Token $AUTH_TOKEN' -H 'Accept: application/js
 alias cap="curl -H 'Authorization: Token $AUTH_TOKEN' -H 'Accept: application/json; indent=4' -X POST"
 alias capa="curl -H 'Authorization: Token $AUTH_TOKEN' -H 'Accept: application/json; indent=4' -X PATCH"
 
+alias chp="curl -H 'Accept: application/json; indent=4' -X POST"
+alias chg="curl -H 'Accept: application/json; indent=4' -X GET"
+
 
 alias c='cat '
 alias cc='pygmentize -g'
@@ -618,8 +618,6 @@ pyclean () {
 
 
 alias sc='sudo systemctl '
-alias rmc='sudo rabbitmqctl '
-
 
 
 
@@ -716,6 +714,7 @@ alias ksi='kubectl set image'
 alias kts='kubetail sherlock -n sherlock'
 alias ktd='kubetail deis -n deis'
 
+alias sv='ssh -v'
 
 
 ssh_pod() {
@@ -758,11 +757,14 @@ awsa() {}
 alias ae='aws ec2'
 alias aed='aws ec2 describe-instances'
 alias aei="aed --output table --query 'Reservations[].Instances[].[Tags[?Key==\`Name\`] | [0].Value, State.Name, PublicDnsName, PublicIpAddress]'"
+alias ael="aws ec2 describe-instances --output table --query 'Reservations[].Instances[].[Tags[?Key==\`Name\`] | [0].Value, State.Name, PublicDnsName, PublicIpAddress]'"
 
 # alias as='aws s3'
 alias asc='aws s3 cp'
 alias asl='aws s3 ls'
 alias asbs='aws s3 ls --summarize --human-readable --recursive '
+
+
 
 
 
@@ -816,6 +818,10 @@ source /usr/local/bin/activate.sh
 alias sr='sudo service'
 alias f8='flake8'
 
+
+alias rmc='sudo rabbitmqctl '
+alias rl='sudo rabbitmqctl list_queues name messages consumers'
+
 rabbitmq_reset() {
     celery purge -f
     sudo rabbitmqctl stop_app
@@ -858,9 +864,12 @@ alias rdn=arduino
 alias rmo='sudo pkill screen; sudo ~/projects/vendor/arduino/arduino --board arduino:avr:mega --port /dev/ttyACM1 --upload '
 alias rmz='sudo pkill screen; sudo ~/projects/vendor/arduino/arduino --board arduino:avr:mega --port /dev/ttyACM0 --upload '
 
+alias rmz='sudo pkill screen; sudo ~/projects/vendor/arduino/arduino --board arduino:avr:mega --port /dev/ttyACM0 --upload '
+
 alias rma='sudo ~/projects/vendor/arduino/arduino --board arduino:avr:mega --port /dev/ttyACM* --upload '
 
 alias ruz='sudo pkill screen; sudo ~/projects/vendor/arduino/arduino --board arduino:avr:uno --port /dev/ttyACM0 --upload '
+alias ruu='sudo pkill screen; sudo ~/projects/vendor/arduino/arduino --board arduino:avr:uno --port /dev/ttyUSB0 --upload '
 alias ruo='sudo pkill screen; sudo ~/projects/vendor/arduino/arduino --board arduino:avr:uno --port /dev/ttyACM1 --upload '
 alias rua='sudo pkill screen; sudo ~/projects/vendor/arduino/arduino --board arduino:avr:uno --port /dev/ttyACM* --upload '
 
@@ -974,3 +983,4 @@ PERL_MB_OPT="--install_base \"/home/chillaranand/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/home/chillaranand/perl5"; export PERL_MM_OPT;
 
 # [[ -s "$HOME/.local/share/marker/marker.sh" ]] && source "$HOME/.local/share/marker/marker.sh"
+source ~/Dropbox/tech/private.sh

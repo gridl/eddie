@@ -1002,7 +1002,6 @@ aws s3 ls
 # minio
 aws s3 ls --endpoint-url http://0.0.0.0:9000
 
-
 # buckets
 aws s3 mb s3://bucket-name
 aws s3 rb s3://bucket-name
@@ -1039,7 +1038,7 @@ aws s3api list-objects --bucket BUCKETNAME --output json --query "[length(Conten
 aws ec2 describe-instances --output table --query 'Reservations[].Instances[].[Tags[?Key==`Name`] | [0].Value, State.Name]'
 aws ec2 run-instances --image-id ami-e13739f6 --count 1 --instance-type t2.nano
 aed --output table --query 'Reservations[].Instances[].[Tags[?Key==`Name`] | [0].Value, State.Name, PublicDnsName, PublicIpAddress]'
-
+apm ec2 describe-instances --output table --query 'Reservations[].Instances[].[Tags[?Key==`Name`] | [0].Value, State.Name, PublicDnsName, PublicIpAddress]' --region us-east-1
 
 
 
@@ -1085,6 +1084,10 @@ docker stop <id>
 
 docker attach <id>
 docker build
+
+# build docker from current directory file
+docker build .
+
 docker run -ditp 8001:8001 <image>
 docker inspect <id>
 docker history <image>
@@ -1446,6 +1449,7 @@ http  -a user:pass 'https://api.foo.com/bar'
 
 
 
+heroku() {}
 # heroku
 
 
@@ -1464,6 +1468,15 @@ heroku config
 
 # set env
 heroku config:set DEBUG_COLLECTSTATIC=1
+
+
+# deployment
+# Procfile
+# set buildpack
+# set runtime
+# set requirements
+# set config
+# set port
 
 
 
@@ -2423,9 +2436,23 @@ export FLASK_APP=foo.py
 flask run --host=0.0.0.0
 
 
+
+
 # python
 python()
 
+
 python -m cProfile -s time foo.py
 
+
 python -m timeit "2*3"
+
+
+python -m trace --listfuncs foo.py
+
+
+# run script
+kernprof -l foo.py
+
+# see results
+python -m line_profiler foo.py.lprof

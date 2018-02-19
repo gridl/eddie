@@ -30,7 +30,7 @@
     #     - ppa:nathan-renniewaldock/flux
 
     - name: update apt cache
-      apt: update_cache=yes cache_valid_time=8640000
+      apt: update_cache=yes cache_valid_time=3600
 
 
   tasks:
