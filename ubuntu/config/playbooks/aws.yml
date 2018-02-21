@@ -1,0 +1,70 @@
+---
+- name: Interface aws services
+  hosts: localhost
+  connection: local
+  gather_facts: False
+
+
+  vars:
+    user: chillaranand
+
+    profile: "avilpage"
+    ubuntu_ami: "ami-66506c1c"
+    home: "{{ lookup('env', 'HOME') }}"
+
+    aws_region: "us-east-1"
+    project_name: "avilpage"
+    pubkey: '{{ home }}/.ssh/id_rsa.pub'
+
+
+  tasks:
+
+    # - debug: var=vars
+    - debug: var=home
+
+
+    - name: create key pair
+      ec2_key:
+        name: "{{ user }}"
+        region: "{{ aws_region }}"
+        key_material: "{{ item }}"
+      with_file: '{{ pubkey }}'
+      register: keypair
+
+    - debug: var=aws_access_key
+
+    - name: web security group
+      ec2_group:
+        name: web
+        description: allow http and https access
+        rules:
+          - proto: tcp
+            from_port: 80
+            to_port: 80
+            cidr_ip: 0.0.0.0/0
+          - proto: tcp
+            from_port: 443
+            to_port: 443
+            cidr_ip: 0.0.0.0/0
+
+
+    - name: ssh security group
+      ec2_group:
+        name: ssh
+        description: allow ssh access
+        rules:
+          - proto: tcp
+            from_port: 22
+            to_port: 22
+            cidr_ip: 0.0.0.0/0
+
+
+    - name: start the instance
+      ec2:
+        image: "{{ ubuntu_ami }}"
+        instance_type: t2.micro
+        group: [web, ssh]
+        instance_tags: { type: web, env: testing }
+        region: '{{ aws_region }}'
+        key_name: '{{ user }}'
+        exact_count: 1

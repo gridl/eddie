@@ -237,6 +237,8 @@ mail_admins(subject, message)
 
 
 
+from django.utils.crypto import get_random_string
+name = get_random_string(length=32)
 
 
 

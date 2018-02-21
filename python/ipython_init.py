@@ -259,6 +259,17 @@ import sphinx_rtd_theme
 print(os, sys, sphinx_rtd_theme)
 """
 
+ohlc = ['open', 'high', 'low', 'close']
+dohlc = ['date', 'open', 'high', 'low', 'close']
+
+
+def odf(df):
+    df.columns=[i.lower() for i in df.columns]
+    df.index = df['date']
+    df = df[ohlc]
+    return df
+
+
 telugu = [chr(i) for i in range(hd('0c00'), hd('0c7f'))]
 te = telugu
 

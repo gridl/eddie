@@ -1,6 +1,8 @@
 // what to do with incoming data
 volatile byte command = 0;
 
+int ss1 = 22;
+
 
 void setup (void) {
 
@@ -16,6 +18,8 @@ void setup (void) {
   Serial.begin(115200);
   Serial.println("slave");
   pinMode(LED_BUILTIN, OUTPUT);
+
+  pinMode(ss1, INPUT);
 }  // end of setup
 
 
@@ -24,10 +28,11 @@ ISR (SPI_STC_vect)
 {
   byte c = SPDR;
 
-  Serial.println(c);
+  command = c;
 
-  switch (c)
-    {
+  Serial.println(command);
+
+  switch (command) {
       // no command? then this is the command
     case 0:
       Serial.println("==0");
@@ -41,7 +46,7 @@ ISR (SPI_STC_vect)
 
       // subtract from incoming byte, return result
     default:
-      Serial.println(c);
+      Serial.println("ii");
       break;
 
     } // end of switch
@@ -50,8 +55,5 @@ ISR (SPI_STC_vect)
 
 void loop (void)
 {
-
   // if SPI not active, clear current command
-  if (digitalRead (SS) == HIGH)
-    command = 2;
 }  // end of loop

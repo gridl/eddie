@@ -1,0 +1,18 @@
+---
+- hosts: all
+  gather_facts: False
+
+
+  vars:
+    user: root
+    project_name: "avilpage.com"
+    project_root: "{{ home }}/{{ project_name }}"
+    local_project_root: "{{ playbook_dir | dirname }}"
+
+
+  tasks:
+
+    - debug: var=user
+
+    - name: run command
+      command: ls

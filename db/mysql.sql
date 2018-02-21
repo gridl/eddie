@@ -102,7 +102,12 @@ mysql -u root
 
 ```sql
 mysql> use mysql;
-mysql> update user set password=PASSWORD("foo") where User='root';
+mysql> update user set password=PASSWORD("foo") where User='foo';
 mysql> flush privileges;
 mysql> quit
 ```
+
+DROP User 'foo'@'localhost';
+
+CREATE USER 'foo'@'%' IDENTIFIED BY 'bar';
+GRANT ALL PRIVILEGES ON * . * TO 'sudheer'@'%';

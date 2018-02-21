@@ -3,9 +3,9 @@
 ---
 - hosts: all
 
-  become_user: chillaranand
+  become_user: ec2-user
   become: yes
-  connection: local
+  # connection: local
 
 
   vars:
@@ -75,3 +75,24 @@
   - debug: var=whoami
   - debug: var=whoami.stdout
   - debug: var=user
+
+    # - debug: var=keypair
+
+    # - name: create an ec2 key
+    #   ec2_key:
+    #     name: "{{ project_name }}"
+    #     region: "{{ aws_region }}"
+    #   register: keypair
+
+    # - debug: var=keypair
+
+    # - name: save private key
+    #   copy:
+    #     content: "{{ keypair.key.private_key }}"
+    #     dest: "{{ project_name }}.pem"
+    #     mode: 0600
+    #   when: keypair.changed
+
+
+  - name: return motd to registered var
+    command: cat /etc/motd

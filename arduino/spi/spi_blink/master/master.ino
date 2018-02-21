@@ -1,5 +1,7 @@
 #include <SPI.h>
 
+int number, remainder;
+
 
 void setup (void) {
   Serial.begin(115200);
@@ -12,6 +14,7 @@ void setup (void) {
   SPI.setClockDivider(SPI_CLOCK_DIV8);
 
   pinMode(LED_BUILTIN, OUTPUT);
+  pinMode(SS, OUTPUT);
 }  // end of setup
 
 
@@ -29,7 +32,18 @@ void loop (void) {
   // enable Slave Select
   digitalWrite(SS, LOW);
 
-  int i = random(0, 100);
+  transferAndWait(r);
+
+  digitalWrite(SS, HIGH);
+
+  Serial.println (i);
+
+  delay (2000);  // 1 second delay
+}  // end of loop
+
+
+int random_blink() {
+  number = random(0, 100);
   int r;
 
   if(i%2==0) {
@@ -39,11 +53,4 @@ void loop (void) {
     r=1;
     digitalWrite(LED_BUILTIN, HIGH);
   }
-  transferAndWait(r);
-
-  digitalWrite(SS, HIGH);
-
-  Serial.println (i);
-
-  delay (2000);  // 1 second delay
-}  // end of loop
+}

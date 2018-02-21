@@ -3,6 +3,7 @@ import time
 
 import redis
 
+# r = redis.from_url(os.environ.get("REDIS_URL"))
 
 r = redis.client.StrictRedis()
 
