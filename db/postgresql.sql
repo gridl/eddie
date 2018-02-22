@@ -52,6 +52,15 @@ ORDER BY n_live_tup
 
 -- TABLES
 
+-- create table
+CREATE TABLE COMPANY(
+   ID INT PRIMARY KEY     NOT NULL,
+   NAME           TEXT    NOT NULL,
+   AGE            INT     NOT NULL,
+   ADDRESS        CHAR(50),
+   SALARY         REAL
+   );
+
 -- describe table
 \d <tablename>
 

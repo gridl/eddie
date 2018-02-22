@@ -4,13 +4,10 @@ import os
 import boto3
 import botocore.exceptions
 
-
 ak = os.environ.get('AWS_ACCESS_KEY_ID')
 sk = os.environ.get('AWS_SECRET_ACCESS_KEY')
 
-
 host = 'http://localhost:9000'
-
 
 session = boto3.session.Session()
 
@@ -36,7 +33,6 @@ client = s3_client
 
 bucket_name = 'test-bucket'
 
-
 bucket = s3.Bucket(bucket_name)
 print(bucket)
 
@@ -44,14 +40,12 @@ now = dt.datetime.now(dt.timezone.utc)
 
 last_required_date = now - dt.timedelta(days=4)
 
-
 # delete old objects
 for item in bucket.objects.all():
     if item.last_modified < last_required_date:
         bucket.delete_objects(Delete={'Objects': [{'Key': item.key}]})
     else:
         print(item.key, item.last_modified)
-
 
 # check if bucket exists
 try:
@@ -62,13 +56,10 @@ except botocore.exceptions.ClientError:
 policy = client.get_bucket_policy(Bucket=buckets[0])
 print(policy)
 
-
 filename = key = 'test.txt'
 client.upload_file(Filename='test.txt', Bucket=bucket, Key=key)
 
 client.download_file(bucket, key, 'foo.txt')
-
-
 
 # Connect to EC2
 # ec2 = boto3.resource('ec2')
@@ -82,7 +73,6 @@ import boto.ec2
 conn = boto.ec2.connect_to_region("us-east-1")
 statuses = conn.get_all_instance_status()
 print(statuses)
-
 
 import boto3
 import botocore
@@ -101,3 +91,25 @@ else:
     exists = True
 
 print(exists)
+
+dynamodb = client
+
+try:
+    table = dynamodb.Table('users')
+    print(table.creation_date_time)
+except:
+    table = dynamodb.create_table(
+        TableName='users',
+        KeySchema=[
+            {'AttributeName': 'username', 'KeyType': 'HASH'},
+            {'AttributeName': 'last_name', 'KeyType': 'RANGE'}
+        ],
+        AttributeDefinitions=[
+            {'AttributeName': 'username', 'AttributeType': 'S'},
+            {'AttributeName': 'last_name','AttributeType': 'S'},
+        ],
+        ProvisionedThroughput={'ReadCapacityUnits': 10, 'WriteCapacityUnits': 10,}
+    )
+
+item = {'username': 'foo', 'last_name': 'bar'}
+table.put_item(Item=item)

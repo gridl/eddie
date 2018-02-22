@@ -909,6 +909,9 @@ alias sl='sar -q'
 alias sq='sar -q'
 
 
+alias dnr='dotnet run'
+
+
 free_port() {
     fuser -k $1/tcp
 }
@@ -939,6 +942,8 @@ sma() {
 
 
 source ~/projects/vendor/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+alias psqlr='psql -h '$PSQL_HOST' -U '$PSQL_USER
 
 
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"

@@ -4,6 +4,10 @@ void setup() {
 
 
 void loop() {
+  blink();
+}
+
+void blink() {
   digitalWrite(LED_BUILTIN, HIGH);
   delay(1000);
   digitalWrite(LED_BUILTIN, LOW);
