@@ -124,10 +124,17 @@ grep CRON /var/log/syslog
 
 
 
-### xargs
+# strace
+strace -f -o /tmp/strace python t.py
+
+
+
+
+# xargs
 
 
 # on mac
+ls | xargs -I {} ls {}
 ls | xargs -I {} ls {}
 
 # ignore empty
@@ -600,6 +607,11 @@ nmcli con up id 'wifi1'
 # create hotspot
 nmcli device wifi hotspot con-name fubar ssid fubar band bg password fubar123
 
+# connected networks are available in
+/etc/NetworkManager/system-connections
+
+
+
 
 # iptables
 iptables -A INPUT -s 58.218.199.250 -j DROP
@@ -805,6 +817,13 @@ echo 100 > /sys/class/backlight/foo/brightness
 
 
 
+services()
+
+# SysV
+ls /etc/init.d
+
+sudo update-rc.d rabbitmq-server disable
+
 
 journalctl -u nginx.service
 journalctl -u nginx
@@ -855,8 +874,8 @@ sudo mount -o remount,rw /media/foo/usb-drive
 
 # bootable usb
 # write to that device
-sudo dd if=ubuntu-14.04-desktop-amd64.iso of=/dev/sdc bs=4M
-sudo dd if=ubuntu-14.04-desktop-amd64.iso of=/dev/sdc
+sudo dd if=ubuntu-14.04-desktop-amd64.iso of=/dev/sdb bs=4M
+sudo dd if=ubuntu-14.04-desktop-amd64.iso of=/dev/sdb
 
 
 # format usb pendrive
@@ -1721,6 +1740,12 @@ adb sideload de.robv.android.xposed.installer_v32_de4f0d.apk
 # download xposed apk and install it
 
 
+# decompile apk
+apktool d foo.apk
+apktool d foo.apk -f
+java -jar apktool_2.3.1.jar d foo.apk
+
+
 
 
 android_termux() {}
@@ -1922,9 +1947,18 @@ convert -resize 50% myfigure.png myfigure.jpg
 pdftoppm -rx 300 -ry 300 -png a.pdf prefix
 
 # pdf compress
-gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sOutputFile=outputa.pdf book.pdf
-gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/screen -dNOPAUSE -dQUIET -dBATCH -sOutputFile=outputa.pdf book.pdf
 
+# good quality
+gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sOutputFile=out.pdf book.pdf
+
+# low quality
+gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/screen -dNOPAUSE -dQUIET -dBATCH -sOutputFile=out.pdf book.pdf
+
+ps2pdf in.pdf out.pdf
+
+convert -density 300x300 -quality 60 -compress jpeg in.pdf out.pdf
+
+# pdf2go - 52
 
 
 
