@@ -2,22 +2,25 @@
 
 set -x
 
-sudo apt-get install --yes -qq git
 
+BASE_DIR=$HOME'/projects/eddie'
+CONFIG_DIR=$BASE_DIR'/ubuntu/config'
+
+
+sudo apt-get install --yes -qq git
 cd
 mkdir -p projects
 git clone https://github.com/chillaranand/eddie projects/eddie || true
 
-sudo apt-get install --yes -qq zsh
+
 if [ ! -f ~/.oh-my-zsh/README.md ]; then
+    sudo apt-get install --yes -qq zsh
+    sudo apt-get install --yes -qq byobu
     sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
+    git clone https://github.com/zsh-users/zsh-autosuggestions .zsh-autosuggestions || true
+    rm ~/.zshrc
+    ln -s $CONFIG_DIR'/zsh/zshrc.sh' ~/.zshrc
 fi
-
-BASE_DIR=$HOME'/projects/01'
-CONFIG_DIR=$BASE_DIR'/ubuntu/config'
-
-rm ~/.zshrc
-ln -s $CONFIG_DIR'/zsh/zshrc.sh' ~/.zshrc
 
 
 if [ ! -f /usr/bin/google-chrome ]; then
@@ -28,8 +31,10 @@ if [ ! -f /usr/bin/google-chrome ]; then
 fi
 
 
-sudo apt-get install --yes -qq software-properties-common python python-pip
+if [! -f /usr/local/bin/ansible ]; then
+    sudo apt-get install --yes -qq software-properties-common python python-pip python3-pip
+    sudo -H python3 -m pip install ansible -q
+fi
 
-sudo -H pip install ansible -q
 
 sudo ansible-playbook $CONFIG_DIR'/playbooks/ubuntu.yml' -i localhost, --connection local
