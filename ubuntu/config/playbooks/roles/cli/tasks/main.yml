@@ -1,0 +1,38 @@
+---
+
+- name: install linux utilities
+  apt: name={{ item }} state=present
+  with_items:
+    - apache2-utils
+    - arpon
+    - autoconf
+    - automake
+    - build-essential
+    - clipit
+    - cowsay
+    - dconf-tools
+    - git
+    - htop
+    - iotop
+    - nethogs
+    - nmap
+    - openssh-server
+    - pastebinit
+    - tmuxinator
+    - tree
+    - unzip
+    - vim
+    - xcape
+    - network-manager
+    - ffmpeg
+    - calibre
+    - clementine
+    - fonts-telu
+    - tesseract-ocr
+
+
+- name: install server packages
+  apt: name={{ item }} state=present
+  with_items:
+    - rabbitmq-server
+    - redis-server

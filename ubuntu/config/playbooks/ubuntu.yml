@@ -21,6 +21,10 @@
       - { src: '{{ config_dir }}/python/ipython_config.py', dest: '{{ home }}/.ipython/profile_default/ipython_config.py'}
 
 
+  roles:
+    - cli
+
+
   pre_tasks:
 
     # - name: Add third party PPAs
@@ -34,34 +38,6 @@
 
 
   tasks:
-
-
-    - name: install linux utilities
-      apt: name={{ item }} state=present
-      with_items:
-        - apache2-utils
-        - arpon
-        - autoconf
-        - automake
-        - build-essential
-        - clipit
-        - cowsay
-        - dconf-tools
-        - git
-        - htop
-        - iotop
-        - nethogs
-        - nmap
-        - openssh-server
-        - pastebinit
-        - tmuxinator
-        - tree
-        - unzip
-        - vim
-        - xcape
-        - network-manager
-        - ffmpeg
-
 
     - name: install android utilities
       apt: name={{ item }} state=present
@@ -80,17 +56,6 @@
       apt: name={{ item }} state=present
       with_items:
         - libbluetooth-dev
-
-
-    - name: install standard packages
-      apt: name={{ item }} state=present
-      with_items:
-        - calibre
-        - clementine
-        - rabbitmq-server
-        - redis-server
-        - tesseract-ocr
-        - fonts-telu
 
 
     - name: install pandoc and latex
