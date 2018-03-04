@@ -190,7 +190,7 @@ sudo apt-get install nfs-kernel-server nfs-common
 sudo mount -o soft,intr,rsize=8192,wsize=8192 <ip>:/nfs /path/to/mount
 
 # find firmware version
-ssh user@ip
+# login to device
 cat /etc/version
 
 # https://help.ubuntu.com/community/SettingUpNFSHowTo
@@ -618,16 +618,30 @@ iptables -A INPUT -s 58.218.199.250 -j DROP
 
 
 
+
+ssh()
 # ssh using keys
 ssh-keygen -t rsa
 
+# get public key from private key
+ssh-keygen -y -f ~/.ssh/id_rsa
+
+# set permissions
 chmod 700 ~/.ssh
+chmod 644 ~/.ssh/id_rsa.pub
+chmod 600 ~/.ssh/id_rsa
+
 chmod 600 ~/.ssh/authorized_keys
 
-cat .ssh/id_rsa.pub | ssh user@host 'cat >> .ssh/authorized_keys'
+# add keys to agent
+ssh-add
+ssh-add -l
+ssh-add ~/.ssh/id_rsa
 
-ssh-add pubkey
+# copy key to server
+cat .ssh/id_rsa.pub | ssh user@host 'cat >> .ssh/authorized_keys'
 ssh-copy-id user@host
+
 
 ssh user@host
 ssh user@host -p 2222
