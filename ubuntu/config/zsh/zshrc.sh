@@ -121,13 +121,23 @@ fi
 
 # virtualenv wrapper
 export WORKON_HOME=$HOME/.virtualenvs
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
 export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
 source /usr/local/bin/virtualenvwrapper.sh
 
+workon py35
+# . ~/.virtualenvs/py35/bin/activate
 
 # source /etc/bash_completion.d/virtualenvwrapper
+
+# workon py37d
+# workon py36
+
+
+export PYTHONDONTWRITEBYTECODE=1
+alias pd='j py && ipy'
+alias p2='wo py27'
 
 
 
@@ -832,15 +842,6 @@ rabbitmq_reset() {
 
 
 
-# workon py37d
-# workon py36
-# workon py35
-. ~/.virtualenvs/py35/bin/activate
-
-export PYTHONDONTWRITEBYTECODE=1
-alias pd='j py && ipy'
-alias p2='wo py27'
-
 
 alias rc=redis-cli
 
@@ -941,7 +942,7 @@ sma() {
 
 
 
-source ~/projects/vendor/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/.zsh-autosuggestions/zsh-autosuggestions.zsh
 
 alias psqlr='psql -h '$PSQL_HOST' -U '$PSQL_USER
 
