@@ -1,0 +1,9 @@
+---
+
+- name: install unity packages
+  apt: name={{ item }} state=present
+  with_items:
+    # - compizconfig-settings-manager
+    # - compiz-plugins-extra
+    - unity-tweak-tool
+    - synapse
