@@ -8,7 +8,6 @@
     - autoconf
     - automake
     - build-essential
-    - clipit
     - cowsay
     - dconf-tools
     - git
@@ -18,17 +17,25 @@
     - nmap
     - openssh-server
     - pastebinit
-    - tmuxinator
     - tree
     - unzip
     - vim
     - xcape
     - network-manager
     - ffmpeg
-    - calibre
-    - clementine
     - fonts-telu
     - tesseract-ocr
+    - npm
+
+
+- name: install general packages
+  apt: name={{ item }} state=present
+  with_items:
+    - vlc
+    - calibre
+    - clementine
+    - clipit
+
 
 
 - name: install server packages

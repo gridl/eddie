@@ -23,6 +23,7 @@
 
   roles:
     - cli
+    - unity
 
 
   pre_tasks:
@@ -188,11 +189,6 @@
 # ctrl - v paste
 # git config
 
-      # - compizconfig-settings-manager
-      # - compiz-plugins-extra
-      # - unity-tweak-tool
-      # - npm
-      # - synapse
 
     # - name: install watchman
     #   command: sudo npm install -g watchman
