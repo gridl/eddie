@@ -24,7 +24,7 @@
   roles:
     - cli
     - unity
-
+    - desktop
 
   pre_tasks:
 

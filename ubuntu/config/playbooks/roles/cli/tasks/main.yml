@@ -15,7 +15,6 @@
     - iotop
     - nethogs
     - nmap
-    - openssh-server
     - pastebinit
     - tree
     - unzip
@@ -25,17 +24,6 @@
     - ffmpeg
     - fonts-telu
     - tesseract-ocr
-    - npm
-
-
-- name: install general packages
-  apt: name={{ item }} state=present
-  with_items:
-    - vlc
-    - calibre
-    - clementine
-    - clipit
-
 
 
 - name: install server packages
@@ -43,3 +31,4 @@
   with_items:
     - rabbitmq-server
     - redis-server
+    - openssh-server
