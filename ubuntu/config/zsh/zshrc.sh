@@ -126,7 +126,7 @@ export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
 export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
 source /usr/local/bin/virtualenvwrapper.sh
 
-workon py35
+
 # . ~/.virtualenvs/py35/bin/activate
 
 # source /etc/bash_completion.d/virtualenvwrapper
@@ -138,6 +138,11 @@ workon py35
 export PYTHONDONTWRITEBYTECODE=1
 alias pd='j py && ipy'
 alias p2='wo py27'
+
+alias wo='workon'
+alias wp='workon py35'
+alias wj='workon py35'
+alias we='workon exp'
 
 
 
@@ -213,7 +218,8 @@ alias j=z
 
 alias ja='j avilpage.com'
 alias jd='cd ~/Downloads/'
-alias jp='cd ~/Pictures/'
+alias jp='cd ~/projects/'
+alias jpi='cd ~/Pictures/'
 alias js='cd ~/projects/sandbox'
 alias jv='cd ~/Videos/'
 
@@ -266,10 +272,6 @@ alias pire='pip install --upgrade jedi rope flake8 importmagic autopep8 yapf'
 alias pird="pip install -r $BASE_DIR'/ubuntu/config/requirements.txt'"
 
 
-alias wo='workon'
-alias wp='workon py35'
-alias wj='workon py35'
-alias we='workon exp'
 
 alias dp='j py && workon py35 && ipython'
 
@@ -990,3 +992,4 @@ PERL_MM_OPT="INSTALL_BASE=/home/chillaranand/perl5"; export PERL_MM_OPT;
 
 # [[ -s "$HOME/.local/share/marker/marker.sh" ]] && source "$HOME/.local/share/marker/marker.sh"
 source ~/Dropbox/tech/private.sh
+workon py35
