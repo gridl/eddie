@@ -45,6 +45,7 @@
       with_items:
         - android-tools-adb
         - android-tools-fastboot
+        - mtpfs
 
 
     - name: install java utilities

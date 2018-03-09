@@ -8,3 +8,11 @@
     - clementine
     - clipit
     - workrave
+    - google-chrome-stable
+
+
+# - name: disable chrome restore
+#   lineinfile:
+#     dest: "{{ home }}/.config/google-chrome/Default/preferences"
+#     regexp: "^exited_cleanly"
+#     line: "exited_cleanly: true"

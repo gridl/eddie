@@ -171,8 +171,8 @@
 (package-initialize)
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
-;; (package-refresh-contents)
-;; (package-initialize)
+(package-refresh-contents)
+(package-initialize)
 
 ;; dont check signatures
 (setq package-check-signature nil)
