@@ -78,6 +78,8 @@ while true; do ls; sleep 1; done
 
 
 
+# show history in zsh
+fc -li -100000
 
 
 # alias
@@ -756,6 +758,7 @@ nice -n 19 command
 
 
 
+security()
 # security
 
 # enable automatic security updates
@@ -773,12 +776,21 @@ sudo clamscan -r -i /home
 
 # root kit checker
 sudo apt-get install -y rkhunter
+
 # rkhunter check & report warnings only
 sudo rkhunter -c --rwo
+
+sudo apt-get install -y chkrootkit
+chkrootkit
 
 
 # generate csr for ssl
 openssl req -new -newkey rsa:2048 -nodes -keyout foo.com.key -out foo.com.csr
+
+
+
+
+
 
 
 # reinstall for openssl
@@ -1538,7 +1550,7 @@ renice -20(priority) 7448(jobid)
 
 
 
-# monitor, bottleneck, performance
+# monitor, bottleneck, performance, troubleshoot
 mpstat
 
 
@@ -1552,19 +1564,28 @@ vmstat -s
 vmstat -m | head -5
 vmstat -f
 
-iotop
 htop
 
 ionice -c 3 command-name
 
 
+# io usage
+s iotop
+s iotop -d 4
+
+bmw-ng -i disk
+
+iostat -xmt 1
 
 
-### create new user
 
-    sudo useradd <username>
-    sudo passwd <username>
-    sudo adduser <username> sudo
+
+
+# create new user
+
+sudo useradd <username>
+sudo passwd <username>
+sudo adduser <username> sudo
 
 
 
@@ -1790,8 +1811,7 @@ nikola serve
 
 
 
-### celery
-```sh
+# celery
 celery -A apps.project.tasks worker -l info
 
 
@@ -1800,7 +1820,16 @@ ps -ef | grep 'celery worker' | awk '{print $2}' | xargs kill -9
 
 
 celery inspect active
-```
+
+
+# flower
+flower
+flower --app t
+flower --app t --address=0.0.0.0 --port=8888
+flower --version
+
+
+
 
 
 

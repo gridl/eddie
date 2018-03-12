@@ -126,15 +126,6 @@ export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
 export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
 source /usr/local/bin/virtualenvwrapper.sh
 
-
-# . ~/.virtualenvs/py35/bin/activate
-
-# source /etc/bash_completion.d/virtualenvwrapper
-
-# workon py37d
-# workon py36
-
-
 export PYTHONDONTWRITEBYTECODE=1
 alias pd='j py && ipy'
 alias p2='wo py27'
@@ -451,7 +442,7 @@ alias rf='rm -rf'
 alias cs=$BASE_DIR'/ubuntu/bin/xcape.sh'
 alias bs=$BASE_DIR'/ubuntu/bin/bootstrap.sh'
 alias spd=$BASE_DIR'/ubuntu/bin/proc.sh'
-spd
+# spd
 
 alias us="sudo ansible-playbook $BASE_DIR'/ubuntu/config/playbooks/ubuntu.yml' -i localhost, -c local"
 
@@ -515,7 +506,7 @@ alias fd='sudo fastboot devices'
 alias wifi='nmcli dev wifi '
 alias wf=wifi
 wco () {
-    nmcli dev wifi connect $1 password $2
+    nmcli dev wifi connect $1 password $2 name $1
 }
 
 alias ram="watch -n3 'sudo ps_mem | tail -n+2 | head -n-3 | tail -n10 | tac'"
@@ -843,6 +834,15 @@ rabbitmq_reset() {
 
 
 
+
+# workon py37d
+# workon py36
+# workon py35
+
+
+export PYTHONDONTWRITEBYTECODE=1
+alias pd='j py && ipy'
+alias p2='wo py27'
 
 
 alias rc=redis-cli
