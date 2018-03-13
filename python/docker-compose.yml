@@ -1,0 +1,33 @@
+version: '3'
+services:
+  celery-redis:
+    image: redis:4-alpine
+    command: redis-server
+    ports:
+      - '6379:6379'
+    networks:
+      - default
+  celery-worker:
+    build: .
+    image: example/worker
+    command: celery -A tasks worker --loglevel=DEBUG --concurrency 1 --events
+    depends_on:
+      - celery-redis
+    restart: always
+    networks:
+      - default
+    environment:
+      RUN_MODE: worker
+  celery-flower:
+    build: .
+    image: example/flower
+    command: celery flower -A tasks --debug
+    depends_on:
+      - celery-redis
+    ports:
+      - '5000:5000'
+      - '5555:5555'
+    networks:
+      - default
+networks:
+    default:
