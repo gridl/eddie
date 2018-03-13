@@ -28,7 +28,7 @@ ZSH_THEME="ys2"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 COMPLETION_WAITING_DOTS="true"
@@ -41,7 +41,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
 # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# HIST_STAMPS="mm/dd/yyyy"
+HIST_STAMPS="dd/mm/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
 ZSH_CUSTOM=~/projects/01/ubuntu/config/zsh
@@ -53,13 +53,12 @@ ZSH_CUSTOM=~/projects/eddie/ubuntu/config/zsh
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 # plugins=(git z extract dirpersist autoenv web-search pip)
-plugins=(git z extract dirpersist pip zsh-autosuggestions)
+plugins=(git z extract dirpersist pip zsh-autosuggestions zsh-syntax-highlighting)
+
+
+
 
 # User configuration
-
-
-
-
 
 source $ZSH/oh-my-zsh.sh
 
@@ -78,7 +77,7 @@ fi
 # export ARCHFLAGS="-arch x86_64"
 
 # ssh
-export SSH_KEY_PATH="~/.ssh/dsa_id"
+export SSH_KEY_PATH="~/.ssh/id_rsa"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -158,8 +157,6 @@ export THEANO_FLAGS='floatX=float32'
 
 
 
-
-
 if [[ $TERM = dumb ]]; then
   unset zle_bracketed_paste
 fi
@@ -175,15 +172,13 @@ export PATH="/home/chillar/projects/vendor/arduino:$PATH"
 export VAGRANT_DEFAULT_PROVIDER=virtualbox
 
 
-# remove duplicate history
-# setopt EXTENDED_HISTORY
-# setopt HIST_EXPIRE_DUPS_FIRST
-# setopt HIST_IGNORE_DUPS
-# setopt HIST_IGNORE_ALL_DUPS
-# setopt HIST_IGNORE_SPACE
-# setopt HIST_FIND_NO_DUPS
-# setopt HIST_SAVE_NO_DUPS
-export HISTSIZE=1000000
+# history
+setopt EXTENDED_HISTORY          # Write the history file in the ":start:elapsed;command" format.
+setopt HIST_FIND_NO_DUPS         # Do not display a line previously found.
+setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
+setopt SHARE_HISTORY             # Share history between all sessions.
+
+export HISTSIZE=10000000
 export SAVEHIST=$HISTSIZE
 
 
@@ -458,6 +453,7 @@ alias sd='source ~/Dropbox/env'
 alias db='~/.dropbox-dist/dropboxd'
 
 alias sy='rsync -raz --progress'
+alias rp='rsync -razP'
 
 alias t='tree -Cfh'
 
@@ -781,7 +777,7 @@ alias sudo='sudo '
 export EDITOR=vim
 
 
-alias h='http '
+# alias h='http '
 # alias hs='http --session=tmp/session.json '
 
 alias wl='http :8000'
@@ -832,13 +828,7 @@ rabbitmq_reset() {
     sudo rabbitmqctl start_app
 }
 
-
-
-
-# workon py37d
-# workon py36
 # workon py35
-
 
 export PYTHONDONTWRITEBYTECODE=1
 alias pd='j py && ipy'
@@ -931,15 +921,14 @@ upload_to_arduino() {
     sudo pkill screen;
     ~/projects/vendor/arduino/arduino --port /dev/ttyACM* --board arduino:avr:mega:cpu=atmega2560 --upload $1
 }
+
 alias uta=upload_to_arduino
 alias sm='sudo screen /dev/ttyACM0 '
-
-export MNA="com.example.aswin.samplemitra/com.example.aswin.samplemitra.MainActivity"
 
 sma() {
     ./gradlew assembleDebug
     ai -r app/build/outputs/apk/app-debug.apk
-    adb shell am start -n com.example.aswin.samplemitra/com.example.aswin.samplemitra.MainActivity
+    adb shell am start -n com.foo.bar
 }
 
 
@@ -972,9 +961,10 @@ export SYSTEMD_PAGER='cat'
 
 
 # to build android from source
-export USE_CCACHE=1
-~/android/lineage/prebuilts/misc/linux-x86/ccache/ccache -M 50G
+# export USE_CCACHE=1
+# ~/android/lineage/prebuilts/misc/linux-x86/ccache/ccache -M 50G
 export CCACHE_COMPRESS=1
+
 export ANDROID_JACK_VM_ARGS="-Dfile.encoding=UTF-8 -XX:+TieredCompilation -Xmx4G"
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
@@ -990,6 +980,24 @@ PERL_LOCAL_LIB_ROOT="/home/chillaranand/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCA
 PERL_MB_OPT="--install_base \"/home/chillaranand/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/home/chillaranand/perl5"; export PERL_MM_OPT;
 
-# [[ -s "$HOME/.local/share/marker/marker.sh" ]] && source "$HOME/.local/share/marker/marker.sh"
+[[ -s "$HOME/.local/share/marker/marker.sh" ]] && source "$HOME/.local/share/marker/marker.sh"
 source ~/Dropbox/tech/private.sh
 workon py35
+
+source ~/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.zaw/zaw.zsh
+
+source ~/.zsh-history-substring-search/zsh-history-substring-search.zsh
+
+
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
+bindkey '^[OA' history-substring-search-up
+bindkey '^[OB' history-substring-search-down
+
+bindkey -M emacs '^P' history-substring-search-up
+bindkey -M emacs '^N' history-substring-search-down
+
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
