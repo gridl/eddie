@@ -505,6 +505,11 @@ wco () {
     nmcli dev wifi connect $1 password $2 name $1
 }
 
+ncu () {
+    nmcli con up id $1
+}
+
+
 alias ram="watch -n3 'sudo ps_mem | tail -n+2 | head -n-3 | tail -n10 | tac'"
 
 alias v='vagrant '
@@ -775,6 +780,7 @@ alias sudo='sudo '
 
 
 export EDITOR=vim
+
 
 
 # alias h='http '

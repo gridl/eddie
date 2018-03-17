@@ -593,18 +593,21 @@ nslookup -querytype=mx bbc.co.uk
 dig avilpage
 
 
+
+
 # connect to wifi from cli
+
 # show available wifi networks
 nmcli dev wifi
 
-# connect to a wifi
+# create new connection to a wifi
 nmcli dev wifi connect 'foo bar' password 'baz'
 
-# connect to a wifi and name it
+# create a new connection to a wifi and name it
 nmcli dev wifi connect 'foo bar' password 'baz' name 'wifi1'
 
 # connect to previous network
-nmcli con up id 'wifi1'
+nmcli con up id 'wifi_name'
 
 # create hotspot
 nmcli device wifi hotspot con-name fubar ssid fubar band bg password fubar123
@@ -2557,3 +2560,12 @@ dotnet ef migrations -v add "intial"
 dotnet ef -v database update
 
 dotnet run
+
+
+
+
+
+# dbus
+qdbus
+qdbus --system
+qdbus --system org.freedesktop.NetworkManager
