@@ -909,12 +909,13 @@ sudo dd if=ubuntu-14.04-desktop-amd64.iso of=/dev/sdb
 
 # format usb pendrive
 lsblk
-umount /dev/sdb1
-umount /dev/sdb2
+sudo umount /dev/sdb1
+sudo umount /dev/sdb2
 sudo fdisk /dev/sdb
 o -> n -> w
 sudo mkfs.vfat /dev/sdb1
 sudo mkfs.vfat -n 'name_for_your_pendrive' -I /dev/sdb1
+s mkntfs -Q -v -F -L "BALU" /dev/sdb1
 sudo eject /dev/sdb
 
 # usb write permissions
@@ -2569,3 +2570,12 @@ dotnet run
 qdbus
 qdbus --system
 qdbus --system org.freedesktop.NetworkManager
+
+
+
+
+# translate
+
+pip install translate
+
+translate-cli -t te "This is a pen."
