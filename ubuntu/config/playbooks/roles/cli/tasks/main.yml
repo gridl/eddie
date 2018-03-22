@@ -7,6 +7,7 @@
     - arpon
     - autoconf
     - automake
+    - aptitude
     - build-essential
     - cowsay
     - dconf-tools
