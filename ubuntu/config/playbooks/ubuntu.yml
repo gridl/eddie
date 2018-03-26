@@ -11,7 +11,6 @@
   vars:
     user:  "{{ lookup('env', 'USER') }}"
     home:  "{{ lookup('env', 'HOME') }}"
-    # config_dir: "{{ lookup('env', 'CONFIG_DIR') }}"
     config_dir: "{{ home }}/projects/eddie"
     ubuntu_config:  '{{ config_dir }}/ubuntu/config'
     postgres_password: "{{ lookup('env', 'POSTGRES_PASSWORD') }}"
@@ -22,9 +21,13 @@
 
 
   roles:
+    - android
     - cli
-    - unity
-    - desktop
+    # - gui
+    # - python
+    # - java
+    # - latex
+
 
   pre_tasks:
 
@@ -34,19 +37,11 @@
     #     - ppa:synapse-core/ppa
     #     - ppa:nathan-renniewaldock/flux
 
-    - name: update apt cache
-      apt: update_cache=yes cache_valid_time=3600
+    - name: apt update cache
+      apt: update_cache=yes cache_valid_time=86400
 
 
   tasks:
-
-    - name: install android utilities
-      apt: name={{ item }} state=present
-      with_items:
-        - android-tools-adb
-        - android-tools-fastboot
-        - mtpfs
-
 
     - name: install java utilities
       apt: name={{ item }} state=present

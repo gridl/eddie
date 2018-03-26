@@ -157,6 +157,7 @@ ls | xargs -I {} cat {} -r
 
 # list block devices
 lsblk
+lsblk -o NAME,FSTYPE,UUID
 
 # list drives
 sudo lshw -class disk -short
@@ -165,8 +166,10 @@ sudo lshw -class disk -short
 df
 # show file system type
 df -T
+
 # show human readable summary of disk usage
 du -hs
+
 # size of folder
 du -hs /var/lib/mysql/
 
@@ -190,6 +193,15 @@ sudo ntfsfix /dev/sdXX
 sudo apt-get install nfs-kernel-server nfs-common
 # mount
 sudo mount -o soft,intr,rsize=8192,wsize=8192 <ip>:/nfs /path/to/mount
+
+
+# auto mount ext partitions
+
+lsblk -o NAME,FSTYPE,UUID
+
+# /etc/fastab
+UUID=foo /media/chillar/foo/ ext4 defaults 0 0
+
 
 # find firmware version
 # login to device
@@ -1510,7 +1522,7 @@ heroku apps:create foo-bar
 
 
 # add remote to existing app
-heroku git:remote -a foo
+heroku git:remote -a app_name
 
 # show all env variables
 heroku config
@@ -1527,6 +1539,7 @@ heroku config:set DEBUG_COLLECTSTATIC=1
 # set config
 # set port
 
+git push heroku master
 
 
 

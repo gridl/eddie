@@ -1,0 +1,9 @@
+---
+
+
+- name: install adb, fastboot
+  apt: name={{ item }} state=present
+  with_items:
+    - android-tools-adb
+    - android-tools-fastboot
+    - gmtp

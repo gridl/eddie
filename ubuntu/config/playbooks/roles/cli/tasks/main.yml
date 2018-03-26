@@ -25,6 +25,7 @@
     - ffmpeg
     - fonts-telu
     - tesseract-ocr
+    - libbluetooth-dev
 
 
 - name: install server packages
@@ -33,3 +34,11 @@
     - rabbitmq-server
     - redis-server
     - openssh-server
+
+- name: clone zsh-autosuggestions
+  git:
+    repo: git@github.com:zsh-users/zsh-autosuggestions.git
+    dest: ~/.zsh-autosuggestions
+    version: master
+    accept_hostkey: yes
+    key_file: ~/.ssh/id_rsa

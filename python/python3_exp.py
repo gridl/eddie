@@ -7,6 +7,7 @@ print(sys.version)
 
 # float
 x = float('inf')
+x = float('inf')
 print(x)
 print(x+1)
 
@@ -412,6 +413,7 @@ import bisect
 a = [12, 35, 4, 58, 6, 48, 98]
 a = sorted(a)
 index = bisect.bisect(a, 50)
+
 
 bisect.insort(a, 50)
 

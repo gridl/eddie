@@ -1,3 +1,4 @@
+# aws
 awscli
 boto3
 
@@ -7,6 +8,8 @@ flower
 ipython
 jupyter
 ipdb
+
+
 
 
 importmagic
@@ -28,13 +31,21 @@ Nikola
 # utils
 stdlib_list
 youtube-dl
-httpie
 grip
-mitmproxy
-pgcli
-mycli
 cookiecutter
 bumpversion
+
+
+# http web
+uncurl
+httpie
+mitmproxy
+internetarchive
+
+
+# db clients
+pgcli
+mycli
 
 
 # machine learning
