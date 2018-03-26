@@ -1,4 +1,4 @@
-from bs4 import BeautifulSoup as BS
+from bs4 import BeautifulSoup
 
 
 xml = """
@@ -7,15 +7,18 @@ xml = """
 <title>
 """
 
-soup = BS(xml, 'xml')
+soup = BeautifulSoup(xml, 'xml')
 
 markup = """
 <title name="bar">
     <foo>test</foo>
+    <p>some text</p>
+    <p>some text</p>
+    <p></p>
 <title>
 """
 
-soup = BS(markup, 'html.parser')
+soup = BeautifulSoup(markup, 'html.parser')
 
 titles = soup.find_all('title')
 
@@ -25,5 +28,9 @@ print(title.attrs, title['name'])
 print('done', '\n\n')
 
 print(title.find())
+
+text = [element.text for element in soup.find_all('p') if element.text]
+print(text)
+
 
 soup = soup.find_all('span')

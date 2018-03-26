@@ -28,7 +28,7 @@ ZSH_THEME="ys2"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="false"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 COMPLETION_WAITING_DOTS="true"
@@ -385,9 +385,9 @@ alias gpom="git push origin master"
 alias pom="git push origin master"
 
 alias gphm="git push heroku master"
+alias gphm="git push heroku master -f"
 alias phm="git push heroku master"
-alias hm="git push heroku master"
-alias hmf="git push heroku master -f"
+alias phf="git push heroku master -f"
 
 alias gpp="git pull && git push"
 

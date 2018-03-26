@@ -117,3 +117,5 @@ adjust = False
 # df['sma20'] = pd.rolling_mean(df[close], window=20)
 # df['ewma26'] = pd.ewma(df[close], span=26, adjust=adjust)
 # df['MACD'] = df['ewma12'] - df['ewma26']
+
+df.columns = [i.lower() for i in df.cloumns]

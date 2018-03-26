@@ -243,6 +243,8 @@ t = (1, "aaa", 4.5, None, )
 s = {1, "333", "foo"}
 b = [120, 3, 255, 0, 100]
 
+dq = collections.deque(l)
+
 
 beta = 'β'
 gamma = ''

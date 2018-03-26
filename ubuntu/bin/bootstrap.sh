@@ -7,10 +7,16 @@ BASE_DIR=$HOME'/projects/eddie'
 CONFIG_DIR=$BASE_DIR'/ubuntu/config'
 
 
-sudo apt-get install --yes -qq git
-cd
-mkdir -p projects
-git clone https://github.com/chillaranand/eddie projects/eddie || true
+if [ ! -f /usr/bin/git ]; then
+    sudo apt-get install --yes -qq git
+fi
+
+
+if [ ! -f $BASE_DIR'/README.md' ]; then
+    cd
+    mkdir -p projects
+    git clone https://github.com/chillaranand/eddie projects/eddie || true
+fi
 
 
 if [ ! -f ~/.oh-my-zsh/README.md ]; then
@@ -31,7 +37,7 @@ if [ ! -f /usr/bin/google-chrome ]; then
 fi
 
 
-if [! -f /usr/local/bin/ansible ]; then
+if [ ! -f /usr/local/bin/ansible ]; then
     sudo apt-get install --yes -qq software-properties-common python python-pip python3-pip
     sudo -H python3 -m pip install ansible -q
 fi
