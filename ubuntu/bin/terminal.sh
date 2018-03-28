@@ -2288,9 +2288,6 @@ sudo psql -u user_name db_name
 # change to "postgres" Linux user
 sudo su - postgres
 
-# list databases
-psql -l
-
 # create user
 createuser foo
 
@@ -2301,6 +2298,8 @@ createdb db_name
 dropdb db_name
 
 
+# list databases
+psql -l
 
 # run queries from cli
 psql -c '\c testdb;'
@@ -2334,6 +2333,13 @@ pg_restore -Ft database.tar
 # create db & restore
 pg_restore -Fc -C database.bak
 
+
+
+# load test
+
+pgbench -i -s 50 load_test_db
+
+pgbench -c 10 -j 2 -t 10000 load_test
 
 
 

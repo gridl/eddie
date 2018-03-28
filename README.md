@@ -11,19 +11,5 @@ sh -c "$(wget https://raw.githubusercontent.com/ChillarAnand/01/master/ubuntu/bi
 
 ### Todo
 
-Pybluez-tools
-openssl
-zsh suggestions
-venv setup
-network-manager
-
-Project name
-ansible
-notebook – split utils
-install ipython
-p3 pip def profi
-curl
+create  ipython profile
 https://github.com/SergKolo/lks-indicator/issues/new
-
-Emacs:
-use package
