@@ -1,0 +1,43 @@
+---
+
+- name: install linux utilities
+  apt: name={{ item }} state=present
+  with_items:
+    - apache2-utils
+    - arpon
+    - autoconf
+    - automake
+    - aptitude
+    - build-essential
+    - cowsay
+    - dconf-tools
+    - git
+    - htop
+    - iotop
+    - nethogs
+    - nmap
+    - pastebinit
+    - tree
+    - unzip
+    - vim
+    - xcape
+    - network-manager
+    - ffmpeg
+    - fonts-telu
+    - tesseract-ocr
+
+
+- name: install server packages
+  apt: name={{ item }} state=present
+  with_items:
+    - rabbitmq-server
+    - redis-server
+    - openssh-server
+
+- name: clone zsh-autosuggestions
+  git:
+    repo: git@github.com:zsh-users/zsh-autosuggestions.git
+    dest: ~/.zsh-autosuggestions
+    version: master
+    accept_hostkey: yes
+    key_file: ~/.ssh/id_rsa

@@ -1,0 +1,11 @@
+---
+
+
+- name: kubernetes setup
+  include: binary_install.yml package="{{ item }}"
+  with_items:
+    - {name: 'kubectl',      url: 'https://storage.googleapis.com/kubernetes-release/release/v1.5.1/bin/linux/amd64/kubectl'}
+    - {name: 'minio',        url: 'https://dl.minio.io/server/minio/release/linux-amd64/minio'}
+    - {name: 'mc',           url: 'https://dl.minio.io/client/mc/release/linux-amd64/mc'}
+    - {name: 'minikube',     url: 'https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64'}
+    - {name: 'kubetail',     url: 'https://raw.githubusercontent.com/johanhaleby/kubetail/master/kubetail'}

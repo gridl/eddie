@@ -1,0 +1,33 @@
+---
+
+
+- name: install postgres and its dependencies
+  apt: name="{{ item }}" state=present
+  with_items:
+    - postgresql
+    - python-psycopg2
+    - libpq-dev
+
+- debug: msg="{{ user }}"
+- debug: msg="{{ postgres_password }}"
+
+
+- name: set cache_buffers to 1GB
+  lineinfile:
+    dest: /etc/postgresql/10/main/postgresql.conf
+        regexp: '^enabled='
+        line: 'enabled=0'
+      become_user: root
+
+# - name: create postgres user
+#   postgresql_user:
+#     name: "{{ user }}"
+#     password: "md59e5767a90e953a5319ef73e9881d55e8"
+#   become_user: postgres
+
+
+- name: create database
+  postgresql_db:
+    name: "{{ user }}"
+    owner: "{{ user }}"
+  become_user: postgres
