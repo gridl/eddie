@@ -35,10 +35,38 @@
     - redis-server
     - openssh-server
 
+
 - name: clone zsh-autosuggestions
   git:
     repo: git@github.com:zsh-users/zsh-autosuggestions.git
     dest: ~/.zsh-autosuggestions
+    version: master
+    accept_hostkey: yes
+    key_file: ~/.ssh/id_rsa
+
+
+- name: clone zsh-syntax-highlighting
+  git:
+    repo: git@github.com:zsh-users/zsh-syntax-highlighting.git
+    dest: ~/.zsh-syntax-highlighting
+    version: master
+    accept_hostkey: yes
+    key_file: ~/.ssh/id_rsa
+
+
+- name: clone zsh-history-substring-search
+  git:
+    repo: git@github.com:zsh-users/zsh-history-substring-search.git
+    dest: ~/.zsh-history-substring-search
+    version: master
+    accept_hostkey: yes
+    key_file: ~/.ssh/id_rsa
+
+
+- name: clone zaw
+  git:
+    repo: git@github.com:zsh-users/zaw.git
+    dest: ~/.zaw
     version: master
     accept_hostkey: yes
     key_file: ~/.ssh/id_rsa

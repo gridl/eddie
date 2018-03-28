@@ -8,16 +8,14 @@
     - python-psycopg2
     - libpq-dev
 
-- debug: msg="{{ user }}"
-- debug: msg="{{ postgres_password }}"
 
+# - name: set cache_buffers to 1GB
+#   lineinfile:
+#     dest: /etc/postgresql/10/main/postgresql.conf
+#         regexp: '^enabled='
+#         line: 'enabled=0'
+#       become_user: root
 
-- name: set cache_buffers to 1GB
-  lineinfile:
-    dest: /etc/postgresql/10/main/postgresql.conf
-        regexp: '^enabled='
-        line: 'enabled=0'
-      become_user: root
 
 # - name: create postgres user
 #   postgresql_user:

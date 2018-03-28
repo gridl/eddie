@@ -26,14 +26,14 @@
   roles:
     - db
     - android
-    - cli
+    # - cli
     # - kubernetes
     - latex
     - telugu
     # - gui
     - python
     # - java
-
+    # - haskell
 
 
   pre_tasks:
@@ -50,57 +50,6 @@
 
   tasks:
 
-    - name: install java utilities
-      apt: name={{ item }} state=present
-      with_items:
-        - maven
-
-
-    # - block:
-
-    #   - name: check if heroku installed
-    #     stat: path=/usr/local/bin/heroku
-    #     register: heroku
-
-    #   - name: download heroku
-    #     get_url:
-    #       url=https://cli-assets.heroku.com/branches/stable/heroku-linux-amd64.tar.gz
-    #       dest=/tmp/heroku-linux-amd64.tar.gz
-    #     when:
-    #       heroku.stat.exists == False
-
-    #   - unarchive:
-    #       src: /tmp/heroku-linux-amd64.tar.gz
-    #       dest: /usr/local/lib/
-    #     when:
-    #       heroku.stat.exists == False
-
-    #   - name: create heroku link
-    #     file:
-    #       src: /usr/local/lib/heroku/bin/heroku
-    #       dest: /usr/local/bin/heroku
-    #       state: link
-    #     when:
-    #       heroku.stat.exists == False
-
-    # - block:
-    #   - name: check if gcloud is installed
-    #     stat: path=/usr/bin/gcloud
-    #     register: gcloud
-    #   - name: Install gcloud
-    #     apt: name=google-cloud-sdk state=present
-    #     when:
-    #       gcloud.stat.exists == False
-
-    # - name: clone github repos
-    #   include: git_clone.yml package="{{ item }}"
-    #   with_items:
-    #     - elpy
-    #     - avilpage.com
-    #     - django
-    #     - importmagic
-
-
    # - name: Install docker
    #    command: curl -sSL https://get.docker.com/ | sudo bash
    # - name: Give permissions
@@ -108,12 +57,6 @@
 
     # - git: repo=git://foosball.example.org/path/to/repo.git
            # dest: /home/chillaranand/.qfc
-
-# automate
-# byobu profile
-# ctrl - v paste
-# git config
-
 
     # - name: install watchman
     #   command: sudo npm install -g watchman
@@ -153,6 +96,7 @@
         line: 'enabled=0'
       become_user: root
 
+
     - name: enable sar
       lineinfile:
         dest: /etc/default/sysstat
@@ -171,16 +115,6 @@
       with_items:
         - {name: 'certbot-auto', url: 'https://dl.eff.org/certbot-auto'}
 
-
-    - name: install pyenv
-      include: script_install.yml package="{{ item }}"
-      with_items:
-        - {name: 'pyenv', url: 'https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer'}
-
-
-
-    - name: install heroku cli via snap
-      command: snap install heroku --classic
 
 
   handlers:

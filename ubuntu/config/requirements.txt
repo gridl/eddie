@@ -33,6 +33,7 @@ Markdown==2.6.9
 Nikola==7.8.9
 watchdog==0.8.3
 ws4py==0.4.2
+webassets==0.12.1
 
 
 # utils
@@ -48,6 +49,7 @@ uncurl
 httpie
 mitmproxy
 internetarchive
+django
 
 
 # db clients

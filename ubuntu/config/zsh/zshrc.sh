@@ -610,6 +610,7 @@ alias tv=tvol
 
 
 alias rnm='sudo systemctl restart NetworkManager'
+alias rps='sudo systemctl restart '
 
 alias sub='subliminal download -s -l en '
 alias subs='subliminal download -s -l en '
@@ -623,6 +624,7 @@ pyclean () {
 
 
 alias sc='sudo systemctl '
+alias scr='sudo systemctl restart'
 
 
 
@@ -821,6 +823,10 @@ source /usr/local/bin/activate.sh
 # direnv
 # eval "$(direnv hook zsh)"
 
+rs() {
+    sudo service $1 restart
+}
+
 alias sr='sudo service'
 alias f8='flake8'
 
@@ -987,9 +993,9 @@ PERL_LOCAL_LIB_ROOT="/home/chillaranand/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCA
 PERL_MB_OPT="--install_base \"/home/chillaranand/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/home/chillaranand/perl5"; export PERL_MM_OPT;
 
-[[ -s "$HOME/.local/share/marker/marker.sh" ]] && source "$HOME/.local/share/marker/marker.sh"
+# [[ -s "$HOME/.local/share/marker/marker.sh" ]] && source "$HOME/.local/share/marker/marker.sh"
 source ~/Dropbox/tech/private.sh
-workon py35
+workon py36
 
 source ~/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.zaw/zaw.zsh
