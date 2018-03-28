@@ -27,6 +27,11 @@
 (setq recent-files-dir (expand-file-name "recentf" root-dir))
 
 
+;; turno off sounds
+(setq visible-bell 1)
+;; (setq ring-bell-function 'ignore)
+
+
 ;; Always load newest byte code
 ;; (setq load-prefer-newer t)
 
