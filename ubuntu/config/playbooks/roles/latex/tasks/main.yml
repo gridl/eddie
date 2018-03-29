@@ -1,0 +1,10 @@
+---
+
+- name: install pandoc and latex
+  apt: name={{ item }} state=present
+  with_items:
+    - pandoc
+    - texlive-full
+    - texlive-latex-base
+    - texlive-latex-recommended
+    - texlive-fonts-recommended

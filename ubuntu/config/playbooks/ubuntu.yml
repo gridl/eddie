@@ -23,10 +23,12 @@
   roles:
     - android
     - cli
+    - latex
+
     # - gui
     # - python
     # - java
-    # - latex
+
 
 
   pre_tasks:
@@ -47,23 +49,6 @@
       apt: name={{ item }} state=present
       with_items:
         - maven
-
-
-    - name: install development packages
-      apt: name={{ item }} state=present
-      with_items:
-        - libbluetooth-dev
-
-
-    - name: install pandoc and latex
-      apt: name={{ item }} state=present
-      with_items:
-        - pandoc
-        - texlive-full
-        - texlive-latex-base
-        - texlive-latex-recommended
-        - texlive-fonts-recommended
-
 
     - name: install python dependencies
       apt: name={{ item }} state=present
