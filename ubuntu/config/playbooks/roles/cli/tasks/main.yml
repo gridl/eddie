@@ -26,6 +26,7 @@
     - fonts-telu
     - tesseract-ocr
     - libbluetooth-dev
+    - calibre
 
 
 - name: install server packages

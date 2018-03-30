@@ -41,6 +41,8 @@ import random
 import string
 print(''.join(random.choice(string.ascii_letters) for _ in range(10)))
 
+# get rand int in range
+n = random.randint(5, 10)
 
 # check if a list of words in another string
 list_ = ['one', 'foo']

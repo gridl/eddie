@@ -18,7 +18,12 @@ rope
 flake8
 pylint
 
+
+# testing
 pytest
+nose
+tox
+
 
 pandas
 numpy
