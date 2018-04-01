@@ -2288,6 +2288,10 @@ sudo psql -u user_name db_name
 # change to "postgres" Linux user
 sudo su - postgres
 
+# connect to remote db
+psql -h $DB_HOST -U $DB_USER -w
+
+
 # create user
 createuser foo
 

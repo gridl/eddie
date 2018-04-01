@@ -14,6 +14,8 @@
     home:  "{{ lookup('env', 'HOME') }}"
     config_dir: "{{ home }}/projects/eddie"
     venv_dir: "{{ home }}/.virtualenvs"
+    venv_name: "py36"
+    venv_bin: "{{ venv_dir }}/{{ venv_name }}/bin/"
     ubuntu_config:  '{{ config_dir }}/ubuntu/config'
     postgres_password: "{{ lookup('env', 'POSTGRES_PASSWORD') }}"
     links:
@@ -102,6 +104,7 @@
         dest: /etc/default/sysstat
         regexp: '^ENABLED'
         line: 'ENABLED="true"'
+
 
     - name: increase history size
       lineinfile:

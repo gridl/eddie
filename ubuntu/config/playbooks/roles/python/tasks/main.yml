@@ -24,9 +24,6 @@
     dest: '{{ home }}/.pypirc'
 
 
-# - name: install global python packages
-#   command: pip install -r "{{ ubuntu_config }}/global-requirements.txt"
-
 
 - name: install pillow dependencies
   apt: name={{ item }} state=present
@@ -41,6 +38,14 @@
     requirements: "{{ config_dir }}/ubuntu/config/requirements.txt"
     virtualenv: "{{ venv_dir }}/py36"
     virtualenv_python: python3.6
+
+
+# - name: install global python packages
+#   command: pip install -r "{{ ubuntu_config }}/global-requirements.txt"
+
+
+- name: create default ipython profile
+  command: "{{ venv_bin}}/ipython profile create"
 
 
 - name: install pyenv

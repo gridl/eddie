@@ -11,6 +11,6 @@ sh -c "$(wget https://raw.githubusercontent.com/ChillarAnand/01/master/ubuntu/bi
 
 ### Todo
 
-create  ipython profile
 https://github.com/SergKolo/lks-indicator/issues/new
+
 git config
