@@ -633,6 +633,18 @@ nmcli device wifi hotspot con-name fubar ssid fubar band bg password fubar123
 # iptables
 iptables -A INPUT -s 58.218.199.250 -j DROP
 
+sudo iptables -P INPUT ACCEPT
+sudo iptables -P OUTPUT ACCEPT
+sudo iptables -P FORWARD ACCEPT
+sudo iptables -F INPUT
+sudo iptables -F OUTPUT
+sudo iptables -F FORWARD
+
+
+
+# capture packets
+sudo ettercap -i wlp1s0 -Tq -w data2.pkt
+
 
 
 
@@ -1133,12 +1145,28 @@ S + Arrows - To move along splits
 
 docker () {}
 
+# docker non root
+sudo groupadd docker
+sudo gpasswd -a $USER docker
+sudo usermod -a -G docker $USER
+
+sudo chown $USER ~/.docker -R
+newgrp docker
+docker run hello-world
+
+
 docker images
+
+# show running containers
 docker ps
+
+# show all containers
 docker ps -a
 
 # list only container ids
 docker ps -aq
+
+
 docker commit <name>
 docker start <id>
 docker stop <id>
@@ -1149,7 +1177,14 @@ docker build
 # build docker from current directory file
 docker build .
 
+
+docker run ubuntu
+# detach
+docker run -d ubuntu
+dk run mkam/vulnerable-api-demo
+docker run -it ubuntu
 docker run -ditp 8001:8001 <image>
+
 docker inspect <id>
 docker history <image>
 docker search <image name>
@@ -1165,13 +1200,16 @@ docker pull jocatalin/kubernetes-bootcamp
 docker pull jocatalin/kubernetes-bootcamp:v1
 
 
-docker run -it ubuntu
-docker run -d ubuntu
+
+# Stop all running containers
+docker stop $(docker ps -aq)
+
+# Remove all containers
+docker rm $(docker ps -aq)
 
 
-
-
-
+# docker-compose
+sudo curl -L https://github.com/docker/compose/releases/download/1.20.1/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose; sudo chmod +x /usr/local/bin/docker-compose
 
 # suppress warning: no swap limit support
 sudoedit /etc/default/grub
@@ -1511,14 +1549,12 @@ http  -a user:pass 'https://api.foo.com/bar'
 
 
 heroku() {}
-# heroku
-
 
 heroku login
 
 # create new app
 heroku create
-heroku apps:create foo-bar
+heroku apps:create app-name
 
 
 # add remote to existing app
@@ -1531,10 +1567,14 @@ heroku config
 heroku config:set DEBUG_COLLECTSTATIC=1
 
 
-# deployment
+# deployment - python web
 # Procfile
+
 # set buildpack
+heroku buildpacks:set heroku/python
+
 # set runtime
+
 # set requirements
 # set config
 # set port
@@ -1542,6 +1582,12 @@ heroku config:set DEBUG_COLLECTSTATIC=1
 git push heroku master
 
 
+# deployment docker
+heroku plugins:install heroku-container-tools
+
+heroku container:login
+
+heroku container:push web
 
 
 
@@ -1810,9 +1856,8 @@ android_termux() {}
 
 
 
-### nikola
+# nikola
 
-```sh
 pip install nikola
 
 nikola plugin -i import_blogger
@@ -1824,11 +1869,12 @@ nikola theme -i base-jinja
 
 nikola auto
 nikola serve
-```
+
 
 
 
 # celery
+
 celery -A apps.project.tasks worker -l info
 
 
@@ -1837,6 +1883,8 @@ ps -ef | grep 'celery worker' | awk '{print $2}' | xargs kill -9
 
 
 celery inspect active
+# https://gist.github.com/amatellanes/a986f6babb9cf8556e36
+
 
 
 # flower
@@ -2602,3 +2650,14 @@ qdbus --system org.freedesktop.NetworkManager
 pip install translate
 
 translate-cli -t te "This is a pen."
+
+
+
+# 1. Set the OPENEDX_RELEASE variable:
+export OPENEDX_RELEASE=release-2018-04-02-11.52
+# 2. Bootstrap the Ansible installation:
+wget https://raw.githubusercontent.com/edx/configuration/$OPENEDX_RELEASE/util/install/ansible-bootstrap.sh -O - | sudo bash
+# 3. (Optional) If this is a new installation, randomize the passwords:
+wget https://raw.githubusercontent.com/edx/configuration/$OPENEDX_RELEASE/util/install/generate-passwords.sh -O - | bash
+# 4. Install Open edX:
+wget https://raw.githubusercontent.com/edx/configuration/$OPENEDX_RELEASE/util/install/sandbox.sh -O - | bash
