@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: rn
+# key: rn
+# group: lazy
+# --
+return None

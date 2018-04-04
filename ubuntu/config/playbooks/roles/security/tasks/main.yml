@@ -1,0 +1,16 @@
+---
+
+- name: install dependencies security tools
+  apt: name={{ item }} state=present
+  with_items:
+    - libnetfilter-queue-dev
+    - libcap-dev
+
+
+- name: install security tools
+  apt: name={{ item }} state=present
+  with_items:
+    - dsniff
+    - tcpdump
+    - tor
+    - hydra
