@@ -533,10 +533,10 @@ scst () {
     sudo systemctl --no-pager status $1.service
 }
 
-scr () {
-    sudo systemctl --no-pager restart $1.service
-    sudo systemctl --no-pager status $1.service
-}
+# scr () {
+#     sudo systemctl --no-pager restart $1.service
+#     sudo systemctl --no-pager status $1.service
+# }
 
 
 alias as='adb shell'
@@ -570,8 +570,23 @@ function ne() {
 
 alias enhance=ne
 
-alias dk=docker
-alias dkp='sudo docker ps'
+
+# docker
+alias dk='sudo docker'
+
+alias dkb=dk' build'
+alias dkbc=dk' build .'
+
+alias dki=dk' images'
+
+alias dkps=dk' ps'
+
+alias dkr=dk' run'
+
+
+alias dkc='sudo docker-compose'
+
+
 
 
 # alias rs='./scripts/start_server.sh'
@@ -1014,3 +1029,13 @@ bindkey -M emacs '^N' history-substring-search-down
 
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
+
+
+reset_iptables() {
+sudo iptables -P INPUT ACCEPT
+sudo iptables -P OUTPUT ACCEPT
+sudo iptables -P FORWARD ACCEPT
+sudo iptables -F INPUT
+sudo iptables -F OUTPUT
+sudo iptables -F FORWARD
+}
