@@ -90,22 +90,22 @@ truncate
 truncate <table name>; # make table empty
 ```
 
-### reset root password
 
-```sh
-sudo service mysql stop
+-- reset root password
 
-mysqld_safe --skip-grant-tables
+use mysql;
 
-mysql -u root
-```
+update user set password=PASSWORD("foo") where User='foo';
 
-```sql
-mysql> use mysql;
-mysql> update user set password=PASSWORD("foo") where User='foo';
-mysql> flush privileges;
-mysql> quit
-```
+update user set authentication_string=PASSWORD("") where User='root';
+
+-- set password resolving to default mechanism for root user
+update user set plugin="mysql_native_password" where User='root';
+
+
+flush privileges;
+quit;
+
 
 DROP User 'foo'@'localhost';
 

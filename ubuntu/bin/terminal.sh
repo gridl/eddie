@@ -1873,14 +1873,14 @@ nikola serve
 
 
 
-# celery
+celery()
 
-celery -A apps.project.tasks worker -l info
-
+celery -A tasks worker -l info
 
 # kill all celery workers
-ps -ef | grep 'celery worker' | awk '{print $2}' | xargs kill -9
+ps -ef | grep 'celery' | awk '{print $2}' | xargs kill -9
 
+pgrep celery | xargs kill -9
 
 celery inspect active
 # https://gist.github.com/amatellanes/a986f6babb9cf8556e36
@@ -2402,6 +2402,16 @@ pgbench -c 10 -j 2 -t 10000 load_test
 
 mysql() {}
 
+# post install
+sudo mkdir -p /var/run/mysqld
+sudo chown mysql:mysql /var/run/mysqld
+
+
+# reset root password
+sudo mysqld_safe --skip-grant-tables --skip-networking
+mysql -u root
+
+
 # backup & restore
 mysqldump -u root -p database > database.sql
 mysqldump -u root -p database < database.sql
@@ -2661,3 +2671,7 @@ wget https://raw.githubusercontent.com/edx/configuration/$OPENEDX_RELEASE/util/i
 wget https://raw.githubusercontent.com/edx/configuration/$OPENEDX_RELEASE/util/install/generate-passwords.sh -O - | bash
 # 4. Install Open edX:
 wget https://raw.githubusercontent.com/edx/configuration/$OPENEDX_RELEASE/util/install/sandbox.sh -O - | bash
+
+
+
+# expose ports to internet

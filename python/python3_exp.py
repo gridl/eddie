@@ -494,6 +494,15 @@ with cd('/tmp'):
     print(os.getcwd())
 
 
+@contextlib.contextmanager
+def nostdout():
+    save_stdout = sys.stdout
+    sys.stdout = open(os.devnull, 'w')
+    yield
+    sys.stdout = save_stdout
+
+
+
 
 # copy
 
@@ -585,6 +594,10 @@ print(detros(a))
 
 reduce(add, [1, 2, 3], 200)
 # calculates 200 + 1, 201 + 2, 203 + 3
+
+items = [1, 2, 3]
+squared = list(map(lambda x: x**2, items))
+
 
 
 
@@ -1004,7 +1017,6 @@ class Cheese:
 
 
 
-
 # weakref
 
 import weakref
@@ -1413,30 +1425,3 @@ guess_lexer_for_filename('test.py', 'print "Hello World!"')
 
 # others
 # Convert xls to txt file
-
-import xlrd
-workbook = xlrd.open_workbook('data.xls')
-worksheet = workbook.sheet_by_name('Sheet1')
-num_rows = worksheet.nrows
-num_cells = worksheet.ncols
-curr_row = -1
-
-with open("xxx.txt", "w") as fh:
-    for row in range(num_rows):
-        for column in range(num_cells):
-            print worksheet.cell_value(row, column)
-            fh.write("\n")
-
-
-
-# suppress stdout
-import contextlib
-import sys
-
-
-@contextlib.contextmanager
-def nostdout():
-    save_stdout = sys.stdout
-    sys.stdout = open(os.devnull, 'w')
-    yield
-    sys.stdout = save_stdout
