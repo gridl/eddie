@@ -119,3 +119,7 @@ adjust = False
 # df['MACD'] = df['ewma12'] - df['ewma26']
 
 df.columns = [i.lower() for i in df.cloumns]
+
+
+# filter rows
+df.loc[df['title'].str.startswith('a', na=False)]
