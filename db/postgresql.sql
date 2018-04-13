@@ -98,3 +98,29 @@ SELECT setval('testdb_id_seq', (SELECT MAX(id) FROM testdb)+1);
 select count(*) from pg_stat_activity;
 
 SELECT sum(numbackends) FROM pg_stat_database;
+
+
+
+
+-- window functions
+SELECT
+    product_name,
+    price,
+group_name,
+    AVG (price) OVER (PARTITION BY group_name)
+FROM
+    products
+    INNER JOIN product_groups USING (group_id);
+
+
+SELECT
+    product_name,
+    group_name,
+    price,
+    RANK () OVER (
+        PARTITION BY group_name
+        ORDER BY price
+   )
+FROM
+    products
+INNER JOIN product_groups USING (group_id);

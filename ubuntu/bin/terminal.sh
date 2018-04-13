@@ -359,6 +359,9 @@ ffmpeg() {}
 
 # extract audio from video
 ffmpeg -i foo.mp4 adandada.mp3
+ffmpeg -acodec copy audio.mp3 -i vokoscreen-2018-04-13_17-29-33.mkv
+ffmpeg -acodec libmp3lame audio.mp3 -i vokoscreen-2018-04-13_17-29-33.mkv
+
 
 # convert one format to another
 ffmpeg -i foo.wembm adandada.mp3
