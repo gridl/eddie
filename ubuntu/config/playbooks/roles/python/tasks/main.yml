@@ -33,12 +33,12 @@
   become_user: root
 
 
-- name: create virtualenv and install requirements
-  pip:
-    requirements: "{{ config_dir }}/ubuntu/config/requirements.txt"
-    virtualenv: "{{ venv_dir }}/py36"
-    virtualenv_python: python3.6
-  # become_user: '{{ user }}'
+# - name: create virtualenv and install requirements
+#   pip:
+#     requirements: "{{ config_dir }}/ubuntu/config/requirements.txt"
+#     virtualenv: "{{ venv_dir }}/py36"
+#     virtualenv_python: python3.6
+#   # become_user: '{{ user }}'
 
 
 # - name: install global python packages

@@ -13,6 +13,7 @@
     user:  "chillar"
     home:  "{{ lookup('env', 'HOME') }}"
     config_dir: "{{ home }}/projects/eddie"
+    config_bin: "{{ home }}/projects/eddie/ubuntu/bin"
     venv_dir: "{{ home }}/.virtualenvs"
     venv_name: "py36"
     venv_bin: "{{ venv_dir }}/{{ venv_name }}/bin/"
@@ -23,13 +24,14 @@
       - { src: '{{ ubuntu_config }}/tmuxinator', dest: '{{ home }}/.tmuxinator' }
       - { src: '{{ config_dir }}/python/ipython_config.py', dest: '{{ home }}/.ipython/profile_default/ipython_config.py'}
       - { src: '{{ home }}/projects/vendor/tor-browser_en-US/Browser/start-tor-browser', dest: '/usr/local/bin/tor'}
+      - { src: '{{ ubuntu_config }}/autostart', dest: '{{ home }}/.config/autostart'}
 
 
   roles:
+    - kubernetes
+    - cli
     - db
     - android
-    - cli
-    # - kubernetes
     - latex
     - telugu
     # - gui

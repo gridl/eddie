@@ -816,14 +816,15 @@ openssl req -new -newkey rsa:2048 -nodes -keyout foo.com.key -out foo.com.csr
 
 
 
-
-
-
-
 # reinstall for openssl
 sudo apt-get install --reinstall ca-certificates
 sudo update-ca-certificates
 
+
+# scan http server for secret files
+pip3 install snallygaster
+
+snallygaster avilpage.com -d
 
 
 
@@ -2126,6 +2127,9 @@ gcloud compute firewall-rules create <rule-name> --allow tcp:9090 --source-tags=
 kubectl () {}
 
 
+kubectl proxy
+
+
 # show merged kubeconfig settings - all clusters
 kubectl config view
 
@@ -2275,8 +2279,9 @@ deis releases:info v9
 
 
 kops() {}
-export KOPS_STATE_STORE=s3://kube.avil.com
-kops export kubecfg kube.avil.com
+export KOPS_STATE_STORE=s3://kube.avilpage.com
+export NAME=kube.avilpage.com
+kops export kubecfg kube.avilpage.com
 
 
 
