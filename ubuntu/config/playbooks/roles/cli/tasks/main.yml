@@ -27,6 +27,7 @@
     - tesseract-ocr
     - libbluetooth-dev
     - calibre
+    - sshpass
 
 
 - name: install server packages
