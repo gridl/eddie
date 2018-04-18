@@ -324,6 +324,9 @@ find . -name '*.py' -exec etags -a {} \;
 echo 16384 > /proc/sys/fs/inotify/max_user_watches
 # permanent, add this to /etc/sysctl.conf
 fs.inotify.max_user_watches=16384
+
+sysctl -w net.core.somaxconn=4096
+
 echo 999999 | sudo tee -a /proc/sys/fs/inotify/max_user_watches
 echo 999999 | sudo tee -a /proc/sys/fs/inotify/max_queued_events
 echo 999999 | sudo tee -a /proc/sys/fs/inotify/max_user_instances
@@ -500,6 +503,9 @@ git branch tasks origin/tasks
 # fetch all remotes
 git fetch origin '+refs/heads/*:refs/remotes/origin/*'
 
+# fetch as another user
+git pull https://myusername@github.com/projectfolder/projectname.git master
+git fetch https://myusername@github.com/projectfolder/projectname.git master
 
 # create gitlab remote
 curl -u 'chillaranand' https://api.gitlab.com/user/repos -d '{"name":"foo"}'
@@ -682,6 +688,7 @@ ssh user@host -p 2222
 
 # copy files
 rsync -raz --progress user@host:/path/to/dir /path/to/target
+rsync -raz --progress user@host:/path/to/dir /path/to/target --exclude=foo/bar
 
 
 # show status of wireless devices
@@ -822,6 +829,10 @@ openssl req -new -newkey rsa:2048 -nodes -keyout foo.com.key -out foo.com.csr
 # reinstall for openssl
 sudo apt-get install --reinstall ca-certificates
 sudo update-ca-certificates
+
+
+# generate ssl
+sudo certbot --nginx -d meshedu.com certsonly
 
 
 # scan http server for secret files
@@ -1224,18 +1235,6 @@ sudo update-grub && shutdown -r 0
 
 
 
-# gunicorn
-
-
-# run gunicorn & log to terminal
-gunicorn library.wsgi -c g.py --log-file=-
-gunicorn library.wsgi --log-file=- --log-level debug -w 9
-
-# hug
-gunicorn textsearch:__hug_wsgi__
-
-# running gunicorn
-gunicorn project.wsgi --bind 0.0.0.0:8008 --log-level debug --log-file=- --preload
 
 
 
@@ -1350,7 +1349,7 @@ rabbitmqadmin -f tsv -q list queues name | while read queue; do rabbitmqadmin -q
 
 
 
-# redis
+redis() {}
 
 # start server
 redis-server
@@ -1366,6 +1365,11 @@ redis-cli shutdown
 
 # show all keys
 redis-cli --scan --pattern '*'
+
+
+# show channels
+pubsub channels
+
 
 # subscribe to all channesl
 redis-cli psubscribe '*'
@@ -1518,6 +1522,14 @@ curl http://192.168.0.152:8000/api/token/new.json -d "username=chillaranand&pass
 curl https://api.gitlab.com/user/repos -d '{"name":"foo"}' -u 'chillaranand'
 curl -X POST http://localhost:8000/bots/ -d 'name=ff'
 
+
+# check cors headers
+curl -H "Origin: http://test.com/" -X OPTIONS -v http://bar.com
+
+curl -X OPTIONS -v http://cdn.acme.com/icons.woff \
+ -H "Origin: http://foo.com/" \
+ -H "Access-Control-Request-Method: POST" \
+ -H "Access-Control-Request-Headers: X-Requested-With" \
 
 
 
@@ -2403,6 +2415,11 @@ pgbench -c 10 -j 2 -t 10000 load_test
 
 
 
+# websocket load test
+npm install -g loadtest thor
+
+thor -C 200 -A 800 wss://foo.com/bar/1/
+
 
 
 
@@ -2433,6 +2450,14 @@ mysqldump -u root -p database table > table.sql
 
 
 node() {}
+
+# install nvm
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
+nvm ls-remote
+
+nvm install node
+nvm install --lts
+
 
 # update node
 sudo npm cache clean -f
@@ -2595,9 +2620,24 @@ curl -X POST http://localhost:8000/api-token-auth/ -d 'username=foo&password=bar
 curl http://localhost:8000/foo/ -H 'Authorization: Token bar'
 
 
+# uwsgi
+uwsgi --http 0.0.0.0:8000 --wsgi-file config.wsgi
+uwsgi --http 0.0.0.0:8000 --wsgi-file config.wsgi
 
-uwsgi --http 0.0.0.0:8000 --wsgi-file config.wsgi
-uwsgi --http 0.0.0.0:8000 --wsgi-file config.wsgi
+uwsgi --http :8890 --file rse.py --gevent 2000 -l 1000 -p 1 -L
+
+
+# gunicorn
+
+# run gunicorn & log to terminal
+gunicorn library.wsgi -c g.py --log-file=-
+gunicorn library.wsgi --log-file=- --log-level debug -w 9
+
+# hug
+gunicorn textsearch:__hug_wsgi__
+
+# running gunicorn
+gunicorn project.wsgi --bind 0.0.0.0:8008 --log-level debug --log-file=- --preload
 
 
 
@@ -2683,3 +2723,7 @@ wget https://raw.githubusercontent.com/edx/configuration/$OPENEDX_RELEASE/util/i
 
 
 # expose ports to internet
+
+
+
+# supervisor
