@@ -2747,3 +2747,7 @@ wget https://raw.githubusercontent.com/edx/configuration/$OPENEDX_RELEASE/util/i
 logwatch()
 
 logwatch --range "-10 days" --debug high
+
+
+# set default shell
+chsh -s $(which zsh)
