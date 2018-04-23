@@ -318,6 +318,8 @@ cat in_file | sudo tee -a append_file
 find . -name '*.py' -exec etags -a {} \;
 
 
+
+
 # increase inotify watches limit
 
 # temp
@@ -331,6 +333,13 @@ echo 999999 | sudo tee -a /proc/sys/fs/inotify/max_user_watches
 echo 999999 | sudo tee -a /proc/sys/fs/inotify/max_queued_events
 echo 999999 | sudo tee -a /proc/sys/fs/inotify/max_user_instances
 
+
+# allow linux to bind a nonlocal ip
+
+# permanent, add this to /etc/sysctl.conf
+net.ipv4.ip_nonlocal_bind = 1
+
+sysctl -p /etc/sysctl.conf
 
 
 
@@ -404,6 +413,9 @@ ffmpeg \
 # convert m3u files to mp4
 ffmpeg -i 357963369_mp4_h264_aac_hd.m3u8 -c copy -bsf:a aac_adtstoasc output2.mp4
 
+
+# merge audio video
+ffmpeg -i video.mp4 -i audio.wav -c copy output.mkv
 
 
 
@@ -2620,7 +2632,9 @@ curl -X POST http://localhost:8000/api-token-auth/ -d 'username=foo&password=bar
 curl http://localhost:8000/foo/ -H 'Authorization: Token bar'
 
 
-# uwsgi
+
+
+uwsgi() {}
 uwsgi --http 0.0.0.0:8000 --wsgi-file config.wsgi
 uwsgi --http 0.0.0.0:8000 --wsgi-file config.wsgi
 
@@ -2632,12 +2646,12 @@ uwsgi --http :8890 --file rse.py --gevent 2000 -l 1000 -p 1 -L
 # run gunicorn & log to terminal
 gunicorn library.wsgi -c g.py --log-file=-
 gunicorn library.wsgi --log-file=- --log-level debug -w 9
+DJANGO_SETTINGS_MODULE=project.settings.prod gunicorn project.wsgi --bind 0.0.0.0:8008 --log-level debug --log-file=- --preload
+
 
 # hug
 gunicorn textsearch:__hug_wsgi__
 
-# running gunicorn
-gunicorn project.wsgi --bind 0.0.0.0:8008 --log-level debug --log-file=- --preload
 
 
 
@@ -2727,3 +2741,9 @@ wget https://raw.githubusercontent.com/edx/configuration/$OPENEDX_RELEASE/util/i
 
 
 # supervisor
+
+
+
+logwatch()
+
+logwatch --range "-10 days" --debug high
