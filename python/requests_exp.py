@@ -13,6 +13,8 @@ print(response.url)
 resp = requests.post(url, headers={'Authorization': 'Basic foo'})
 data = resp.json()
 
+r = requests.post('http://httpbin.org/post', data = {'key':'value'})
+
 
 with open('d.pkl', 'wb') as fh:
     pickle.dump(data, fh)

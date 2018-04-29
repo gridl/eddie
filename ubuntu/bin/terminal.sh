@@ -1772,7 +1772,15 @@ mount system RO: mount -o ro,remount,ro /system
 adb shell "pm list packages -f"
 adb shell "pm uninstall com.foo.bar"
 
+# start app
+adb shell am start -n com.foo.bar
 
+# start ap
+adb shell am broadcast -a com.whereismywifeserver.intent.TEST --es sms_body "test from adb"
+
+
+# dumpysys
+adb shell dumpsys activity broadcasts
 
 
 
@@ -2362,6 +2370,9 @@ sudo apt-get --purge remove postgresql postgresql-doc postgresql-common
 # restart
 sudo service postgresql restart
 
+
+psql --version
+
 # for password less login
 sudo psql -u user_name db_name
 
@@ -2641,7 +2652,9 @@ uwsgi --http 0.0.0.0:8000 --wsgi-file config.wsgi
 uwsgi --http :8890 --file rse.py --gevent 2000 -l 1000 -p 1 -L
 
 
-# gunicorn
+
+
+gunicorn() {}
 
 # run gunicorn & log to terminal
 gunicorn library.wsgi -c g.py --log-file=-
@@ -2652,6 +2665,13 @@ DJANGO_SETTINGS_MODULE=project.settings.prod gunicorn project.wsgi --bind 0.0.0.
 # hug
 gunicorn textsearch:__hug_wsgi__
 
+
+
+daphne() {}
+
+
+uvicorn() {}
+uvicorn foo.asgi --workers 4 --log-level debug
 
 
 
