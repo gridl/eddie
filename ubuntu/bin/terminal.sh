@@ -511,6 +511,8 @@ git remote -v
 # create branch from remote
 git branch tasks origin/tasks
 
+git checkout -b new-branch existing-branch
+
 
 # fetch all remotes
 git fetch origin '+refs/heads/*:refs/remotes/origin/*'
@@ -1464,14 +1466,6 @@ C + a C + a # toggle windows
 ```
 
 
-### stress
-
-```shell
-sudo apt-get install stress
-
-# 3 cpu 100% usage for 10 seconds
-stress -c 3 -t 10
-```
 
 
 
@@ -1641,8 +1635,16 @@ renice -20(priority) 7448(jobid)
 
 
 
+
 # monitor, bottleneck, performance, troubleshoot
 mpstat
+
+
+sudo apt-get install stress
+
+
+# generate load cpu
+stress --cpu 4 --timeout 90
 
 
 sar
@@ -2330,10 +2332,14 @@ watchmedo shell-command --patterns="*.py;*.html" --recursive --command='pgrep ce
 
 
 
-# gpg
-gpg --list-secret-keys --keyid-format LONG
+
+gpg()
 
 gpg --gen-key
+
+gpg --list-secret-keys --keyid-format LONG
+
+gpg --armor --export 3AA5C34371567BD2
 
 git config --global gpg.program gpg2
 
@@ -2397,6 +2403,8 @@ dropdb db_name
 psql -l
 
 # run queries from cli
+psql -c 'ALTER USER chillar WITH SUPERUSER;'
+
 psql -c '\c testdb;'
 psql << EOF
 SELECT * FROM xyz_table;
@@ -2413,12 +2421,14 @@ pg_dump database_name > db.sql
 
 # compressed binary format
 pg_dump -Fc db_name > db.bak
+
 # tarball
 pg_dump -Ft db_name > db.tar
 
 
 # restore from plain text
 cat db.sql | psql db_name
+
 psql -d db_name -f db.sql
 
 # restore from compressed files
@@ -2646,8 +2656,9 @@ curl http://localhost:8000/foo/ -H 'Authorization: Token bar'
 
 
 uwsgi() {}
-uwsgi --http 0.0.0.0:8000 --wsgi-file config.wsgi
-uwsgi --http 0.0.0.0:8000 --wsgi-file config.wsgi
+uwsgi --http 0.0.0.0:8000 --wsgi-file config/wsgi.py
+
+uwsgi --http 0.0.0.0:8000 --wsgi-file avilpage/wsgi.py --threads 2 --process 4 --max-worker-lifetime 30 --logto /tmp/uwsgi.log --enable-threads
 
 uwsgi --http :8890 --file rse.py --gevent 2000 -l 1000 -p 1 -L
 
@@ -2668,6 +2679,7 @@ gunicorn textsearch:__hug_wsgi__
 
 
 daphne() {}
+
 
 
 uvicorn() {}
