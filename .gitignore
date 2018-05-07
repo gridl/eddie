@@ -27,3 +27,4 @@ python/exercise/test.log
 /cf.el
 *.log
 *node_modules*
+/ubuntu/bin/*
