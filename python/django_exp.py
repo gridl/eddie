@@ -60,6 +60,8 @@ import models
 
 from django.db import models
 
+credit = models.DecimalField(max_digits=6, decimal_places=2)
+
 
 # all users where pk < 5
 User.objects.filter(pk__lt=5)

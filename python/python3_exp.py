@@ -723,8 +723,7 @@ logging.getLogger("urllib3").setLevel(logging.WARNING)
 
 
 # find all loggers
-for key in logging.Logger.manager.loggerDict:
-    print(key)
+for key in logging.Logger.manager.loggerDict: print(key)
 
 
 

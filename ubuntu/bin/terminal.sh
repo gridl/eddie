@@ -72,6 +72,9 @@ fi
 while true; do ls; sleep 1; done
 
 
+# environment variable
+MyVar="${DEPLOY_ENV:-default_value}"
+
 
 # arguments
 
@@ -556,7 +559,9 @@ git checkout --orphan <branchname>
 git rm --cached -r .
 
 
-
+# reset to origin
+git fetch origin
+git reset --hard origin/master
 
 
 
@@ -835,6 +840,8 @@ sudo apt-get install -y chkrootkit
 chkrootkit
 
 
+
+
 # generate csr for ssl
 openssl req -new -newkey rsa:2048 -nodes -keyout foo.com.key -out foo.com.csr
 
@@ -847,6 +854,10 @@ sudo update-ca-certificates
 
 # generate ssl
 sudo certbot --nginx -d meshedu.com certsonly
+
+
+# generate ssl from web
+https://www.sslforfree.com/
 
 
 # scan http server for secret files
@@ -2783,3 +2794,9 @@ logwatch --range "-10 days" --debug high
 
 # set default shell
 chsh -s $(which zsh)
+
+
+# autopep8
+autopep8
+
+autopep8 --in-place --recursive .

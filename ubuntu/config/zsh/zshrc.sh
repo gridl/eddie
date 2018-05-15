@@ -288,6 +288,7 @@ alias dmm="python manage.py makemigrations"
 alias dmmm="dmm && dm"
 
 alias dr="python manage.py runserver --no-color"
+alias dr="python manage.py runserver_plus --print-sql --pm --no-color 0.0.0.0:8000"
 alias drp="python manage.py runserver_plus"
 
 alias ds="python manage.py shell_plus --print-sql"
@@ -537,6 +538,10 @@ scst () {
 #     sudo systemctl --no-pager restart $1.service
 #     sudo systemctl --no-pager status $1.service
 # }
+
+ssr() {
+    sudo service $1 restart
+}
 
 
 alias as='adb shell'
@@ -838,10 +843,6 @@ source /usr/local/bin/activate.sh
 # direnv
 # eval "$(direnv hook zsh)"
 
-rs() {
-    sudo service $1 restart
-}
-
 alias sr='sudo service'
 alias f8='flake8'
 
@@ -1033,6 +1034,9 @@ bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 
 
+alias nr='sudo service nginx restart'
+
+
 reset_iptables() {
 sudo iptables -P INPUT ACCEPT
 sudo iptables -P OUTPUT ACCEPT
@@ -1046,3 +1050,5 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 export GPG_TTY=$(tty)
+
+export DJANGO_COLORS="light"
