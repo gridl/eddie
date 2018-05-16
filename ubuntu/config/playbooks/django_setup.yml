@@ -1,0 +1,81 @@
+---
+- hosts: all
+  become_method: sudo
+  become: yes
+  gather_facts: False
+
+
+  vars:
+    user: chillar
+    project_name: avilpage
+    home: "/home/{{ user }}"
+    venv_home: "{{ home }}/.virtualenvs"
+    venv_bin: "{{ home }}/.virtualenvs/{{ project_name }}/bin"
+    project_root: "{{ home }}/{{ project_name }}"
+    settings: "{{ project_name }}.settings.production"
+
+
+  tasks:
+
+    - name: install linux dependencies
+      apt: name={{ item }} state=present
+      with_items:
+        - zsh
+        - tree
+        - byobu
+        - nethogs
+        - nmap
+        - python3-dev
+        - python3-pip
+        - software-properties-common
+        - python-virtualenv
+        - glances
+
+
+    - name: install server packages
+      apt: name={{ item }} state=present
+      with_items:
+        - redis-server
+        - nginx
+
+
+    - name: create redis service
+      template:
+        src: redis.service.j2
+        dest: /etc/systemd/system/redis.service
+        mode: 0777
+
+
+    - name: create gunicorn service
+      template:
+        src: gunicorn.service.j2
+        dest: /etc/systemd/system/gunicorn.service
+        mode: 0777
+
+
+    - name: create uvicorn service
+      template:
+        src: uvicorn.service.j2
+        dest: /etc/systemd/system/uvicorn.service
+        mode: 0777
+
+
+    - name: ensure tls certificates are present
+      copy: src=../{{ item.src }} dest=/etc/ssl/{{ item.dest }}
+      with_items:
+        - { src: avilpage.com.chain.crt, dest: avilpage.com.chain.crt }
+        - { src: avilpage.com.key, dest: avilpage.com.key }
+
+
+    - name: create nginx conf files
+      template:
+        src: avilpage.com.nginx.j2
+        dest: /etc/nginx/sites-enabled/avilpage.com
+
+
+    - name: reload systemd to reread configs
+      systemd: daemon_reload=yes
+
+
+    - name: restart nginx
+      service: name=nginx state=restarted

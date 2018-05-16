@@ -1656,6 +1656,8 @@ sudo apt-get install stress
 
 # generate load cpu
 stress --cpu 4 --timeout 90
+stress --cpu 8 --io 4 --vm 2 --vm-bytes 128M --timeout 10s
+
 
 
 sar
