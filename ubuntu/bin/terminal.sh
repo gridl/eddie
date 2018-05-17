@@ -845,6 +845,9 @@ chkrootkit
 # generate csr for ssl
 openssl req -new -newkey rsa:2048 -nodes -keyout foo.com.key -out foo.com.csr
 
+# get cnfrom ssl
+openssl x509 -noout -subject -in fullchain.pem
+
 
 
 # reinstall for openssl

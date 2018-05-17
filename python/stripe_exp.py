@@ -16,6 +16,7 @@ else:
     customer = customers['data'][0]
 
 sc_id = customer.to_dict()['id']
+print(sc_id)
 
 
 invoice_item = stripe.InvoiceItem.create(
@@ -24,12 +25,15 @@ invoice_item = stripe.InvoiceItem.create(
   customer=sc_id,
   description='One-time setup fee',
 )
+print(invoice_item)
 
 
 invoice = stripe.Invoice.create(
   customer=sc_id,
   billing='send_invoice',
-  days_until_due=5,
+  days_until_due=2,
 )
 
 print(invoice)
+
+iid = invoice.to_dict()['id']
