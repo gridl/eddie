@@ -1,0 +1,10 @@
+---
+
+- name: install screencast software
+  apt: name={{ item }} state=present
+  with_items:
+    - vokoscreen
+    - kazam
+    - audacity
+
+  become_user: root
