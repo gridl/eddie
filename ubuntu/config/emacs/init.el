@@ -982,20 +982,19 @@
   (add-hook 'markdown-mode-hook 'artbollocks-mode))
 
 
-(use-package auto-capitalize
-  :config
-  (autoload 'auto-capitalize-mode "auto-capitalize"
-    "Toggle `auto-capitalize' minor mode in this buffer." t)
-  (autoload 'turn-on-auto-capitalize-mode "auto-capitalize"
-    "Turn on `auto-capitalize' minor mode in this buffer." t)
-  (autoload 'enable-auto-capitalize-mode "auto-capitalize"
-    "Enable `auto-capitalize' minor mode in this buffer." t)
-  (defun cap ()
-    (auto-capitalize-mode))
-  (add-hook 'org-mode-hook 'cap)
-  (add-hook 'markdown-mode-hook 'cap)
-  (defvar auto-capitalize-words
-    '("I" "Python" "Emacs" "You")))
+(load-file "~/projects/vendor/auto-capitalize.el")
+(autoload 'auto-capitalize-mode "auto-capitalize"
+  "Toggle `auto-capitalize' minor mode in this buffer." t)
+(autoload 'turn-on-auto-capitalize-mode "auto-capitalize"
+  "Turn on `auto-capitalize' minor mode in this buffer." t)
+(autoload 'enable-auto-capitalize-mode "auto-capitalize"
+  "Enable `auto-capitalize' minor mode in this buffer." t)
+(defun cap ()
+  (auto-capitalize-mode))
+(add-hook 'org-mode-hook 'cap)
+(add-hook 'markdown-mode-hook 'cap)
+(defvar auto-capitalize-words
+  '("I" "Python" "Emacs" "You" "Django"))
 
 
 (use-package keyfreq
