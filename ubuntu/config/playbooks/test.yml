@@ -17,6 +17,13 @@
 
   tasks:
 
+    - name: create deploy user
+      user:
+        name: deploy
+        password: hashed_password
+        groups: "sudo"
+
+
   - name: test
     debug: msg="Values are {{item[0]}} and {{item[1]}}"
     with_nested:

@@ -288,8 +288,10 @@ alias dmm="python manage.py makemigrations"
 alias dmmm="dmm && dm"
 
 alias dr="python manage.py runserver --no-color"
-alias dr="python manage.py runserver_plus --print-sql --pm --no-color 0.0.0.0:8000"
+
+alias dr="python manage.py runserver_plus --pm --no-color 0.0.0.0:8000"
 alias drp="python manage.py runserver_plus"
+alias drps="python manage.py runserver_plus --print-sql --pm --no-color 0.0.0.0:8000"
 
 alias ds="python manage.py shell_plus --print-sql"
 alias dsp="python manage.py shell_plus"

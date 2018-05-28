@@ -372,6 +372,9 @@ sudo ufw logging [on/off]
 
 ffmpeg() {}
 
+# install
+sudo apt install -y ffmpeg
+
 # extract audio from video
 ffmpeg -i foo.mp4 adandada.mp3
 ffmpeg -acodec copy audio.mp3 -i vokoscreen-2018-04-13_17-29-33.mkv
@@ -2037,8 +2040,12 @@ callback_whitelist = profile_tasks
 
 ios () {}
 
+i libimobiledevice-utils
+
 # restart ios device
 idevicediagnostics restart
+
+
 idevice_id -l
 ideviceinstaller -l
 ideviceinfo --domain com.apple.mobile.battery
@@ -2447,6 +2454,8 @@ cat db.sql | psql db_name
 
 psql -d db_name -f db.sql
 
+pg_restore -d dummy_db -1 backup-2018-05-23.dump -v
+
 # restore from compressed files
 pg_restore -Fc database.bak
 pg_restore -Ft database.tar
@@ -2805,3 +2814,36 @@ chsh -s $(which zsh)
 autopep8
 
 autopep8 --in-place --recursive .
+
+
+
+# mongodb
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
+echo "deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.2.list
+sudo apt-get update
+sudo apt-get install -y mongodb-org
+
+
+
+# stt-wavenet
+git clone https://github.com/buriburisuri/speech-to-text-wavenet
+sudo apt install -y libsndfile-dev ffmpeg
+
+
+# python oneliners
+python -c 'import crypt; print(crypt.crypt("secret", "pass"))'
+python -c 'import uuid; print(str(uuid.uuid4())'
+
+
+
+# wpa/wpa2 pen testing
+sudo ifconfig wlp1s0 down
+sudo iwconfig wlp1s0 mode monitor
+sudo ifconfig wlp1s0 up
+
+sudo iwconfig wlp1s0
+sudo airodump-ng wlp1s0
+sudo airmon-ng start wlp1s0
+
+
+sudo airodump-ng -c 6 --bssid 98:DE:D0:FE:B2:56 -w snafu/ wlp1s0
