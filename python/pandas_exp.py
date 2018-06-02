@@ -100,6 +100,7 @@ df['change'] = (1 - df['close'] / df['close'].shift(1)) * 100
 df = df.sort_index(ascending=False)
 df.sort_index(ascending=False, inplace=True)
 
+
 # sort by column
 df.sort_values(['c1','c2'], ascending=[False,True])
 
@@ -123,3 +124,7 @@ df.columns = [i.lower() for i in df.cloumns]
 
 # filter rows
 df.loc[df['title'].str.startswith('a', na=False)]
+
+
+# detect change in column
+df['changed'] = df['ColumnB'].ne(df['ColumnB'].shift().bfill()).astype(int)

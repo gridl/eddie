@@ -37,3 +37,24 @@ invoice = stripe.Invoice.create(
 print(invoice)
 
 iid = invoice.to_dict()['id']
+print(iid)
+
+
+token = stripe.Token.create(
+ card={
+   "number": '4242424242424242',
+   "exp_month": 12,
+   "exp_year": 2019,
+   "cvc": '123'
+ },
+)
+
+stripe.Token.retrieve(token)
+
+
+charge = stripe.Charge.create(
+    amount=999,
+    currency='usd',
+    description='Example charge',
+    source=token,
+)

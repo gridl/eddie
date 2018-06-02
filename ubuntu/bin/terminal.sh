@@ -937,6 +937,8 @@ datetime() {}
 # show date time
 date
 
+date -d "today" +"%Y-%m-%d-%H-%M-%S"
+
 # set time/date
 sudo date --set "25 Sep 2013 15:00:00"  # set date
 
@@ -1270,7 +1272,7 @@ sudo update-grub && shutdown -r 0
 
 
 
-### nginx
+# nginx
 
 ```apacheconf
 server {
@@ -1306,6 +1308,9 @@ server {
 }
 ```
 
+
+# Basic auth
+sudo htpasswd -c /etc/nginx/conf.d/.htpasswd meshtech
 
 
 ### notedown
@@ -1435,6 +1440,12 @@ LRANGE list 0 -1
 
 
 
+# browsers
+
+sudo apt-get install ruby-dev
+sudo gem install redis-browser
+
+sudo npm install -g redis-commander
 
 
 
@@ -2830,6 +2841,22 @@ git clone https://github.com/buriburisuri/speech-to-text-wavenet
 sudo apt install -y libsndfile-dev ffmpeg
 
 
+# wav2letter
+
+# torch
+git clone https://github.com/torch/distro.git torch --recursive
+cd torch
+# clean old torch installation
+./clean.sh
+TORCH_LUA_VERSION=LUA52 ./install.sh
+
+./install/bin/luarocks install torch
+./install/bin/luarocks install cunn
+
+
+sudo apt-get install fftw-dev fftw3-dev
+
+
 # python oneliners
 python -c 'import crypt; print(crypt.crypt("secret", "pass"))'
 python -c 'import uuid; print(str(uuid.uuid4())'
@@ -2847,3 +2874,21 @@ sudo airmon-ng start wlp1s0
 
 
 sudo airodump-ng -c 6 --bssid 98:DE:D0:FE:B2:56 -w snafu/ wlp1s0
+
+
+
+
+# goaccess
+wget http://tar.goaccess.io/goaccess-1.2.tar.gz
+tar -xzvf goaccess-1.2.tar.gz
+cd goaccess-1.2/
+
+sudo apt-get install libncursesw5-dev libmaxminddb-dev libgeoip-dev
+
+./configure --enable-utf8 --enable-geoip=legacy
+make
+make install
+
+
+# multitail
+mutlitail -c file.log
