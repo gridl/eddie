@@ -1,0 +1,21 @@
+[Unit]
+After=network.target
+
+
+[Service]
+PIDFile=/run/dropbox/pid
+User=root
+Group=root
+WorkingDirectory=
+Environment=
+ExecStart=/home/{{ user }}/.dropbox-dist/dropboxd
+
+
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s TERM $MAINPID
+Restart=on-abort
+PrivateTmp=true
+
+
+[Install]
+WantedBy=multi-user.target

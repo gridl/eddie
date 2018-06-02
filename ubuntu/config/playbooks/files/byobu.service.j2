@@ -1,0 +1,21 @@
+[Unit]
+After=network.target
+
+
+[Service]
+PIDFile=/run/byobud/pid
+User=root
+Group=root
+WorkingDirectory=
+Environment=
+ExecStart=/usr/bin/byobu
+
+
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s TERM $MAINPID
+Restart=on-abort
+PrivateTmp=true
+
+
+[Install]
+WantedBy=multi-user.target

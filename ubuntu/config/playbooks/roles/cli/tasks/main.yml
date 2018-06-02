@@ -72,3 +72,12 @@
     version: master
     accept_hostkey: yes
     key_file: ~/.ssh/id_rsa
+
+
+- name: create service files
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items:
+    - {'src': 'files/dropbox.service.j2', 'dest': '/etc/systemd/system/dropbox.service'}
+    - {'src': 'files/byobu.service.j2', 'dest': '/etc/systemd/system/byobu.service'}

@@ -612,18 +612,6 @@ ifs () {
 }
 
 
-ifs () {
-    rm -rf test_build
-    mkdir test_build
-    ./autogen.sh
-    ./configure --prefix=$(pwd)/test_build
-    make
-    make install
-}
-
-
-
-
 
 alias fl=flash
 alias tv=tvol
@@ -932,6 +920,8 @@ alias nds='androidstudio'
 alias sl='sar -q'
 alias sq='sar -q'
 
+alias tf='tail -f'
+
 
 alias dnr='dotnet run'
 
@@ -977,6 +967,8 @@ export PATH="/usr/local/heroku/bin:$PATH"
 export PATH="$HOME/.cask/bin:$PATH"
 export PATH="$HOME/projects/eddie/ubuntu/bin:$PATH"
 export PATH="$HOME/rr/prebuilts/sdk/tools:$PATH"
+export PATH="$HOME/usr/bin:$PATH"
+
 
 export JAVA_HOME=/usr/lib/jvm/java-8-oracle/jre/bin/java
 export JAVA_HOME="/usr/lib/jvm/java-9-openjdk-amd64"
@@ -1054,3 +1046,5 @@ export NVM_DIR="$HOME/.nvm"
 export GPG_TTY=$(tty)
 
 export DJANGO_COLORS="light"
+
+# . /media/chillar/ef9ada8f-2818-458d-b450-324a17c357fc/projects/sandbox/torch/install/bin/torch-activate

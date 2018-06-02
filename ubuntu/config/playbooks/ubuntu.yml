@@ -28,7 +28,7 @@
 
 
   roles:
-    - kubernetes
+    # - kubernetes
     - cli
     - db
     - android
