@@ -600,6 +600,8 @@ alias dkc='sudo docker-compose'
 # alias sss='./scripts/start_server.sh'
 alias ssc='./scripts/start_celery.sh'
 alias st='./scripts/test.sh'
+alias sta='./scripts/test_api.sh'
+alias stw='./scripts/test_ws.sh'
 
 
 ifs () {

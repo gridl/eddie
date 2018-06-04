@@ -968,7 +968,7 @@ cmd = cmd.split()
 print(subprocess.check_output(cmd))
 
 
-# hide output
+# capture/hide output
 FNULL = open(os.devnull, 'w')
 out = subprocess.check_output(cmd, stderr=FNULL)
 print(out.decode('utf-8'))
