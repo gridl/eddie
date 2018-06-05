@@ -2,6 +2,7 @@
 
 import shlex
 import subprocess
+import sys
 
 
 def run_shell_command(cmd):
@@ -12,8 +13,12 @@ def run_shell_command(cmd):
 cmd = 'nmcli dev wifi'
 out = run_shell_command(cmd)
 out = out.split('\n')[1:]
-network = next((i for i in out if '*' in i))
-network = network.split()[1]
+try:
+    network = next((i for i in out if '*' in i))
+    network = network.split()[1]
+except:
+    print('No network - Offline')
+    sys.exit(0)
 
 cmd = 'ping 8.8.8.8 -c 1'
 out = run_shell_command(cmd)
