@@ -103,3 +103,10 @@
 
   - name: return motd to registered var
     command: cat /etc/motd
+
+
+- name: enable non local ip binding
+  lineinfile:
+    dest: /etc/sysctl.conf
+    regexp: 'net.ipv4.ip_nonlocal_bind'
+    line: 'net.ipv4.ip_nonlocal_bind = 1'

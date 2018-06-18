@@ -53,13 +53,18 @@ if any(word in 'some one long two phrase three' for word in list_):
 
 
 
-
 # dict
+def dict_d(): pass
+
 foo = 1
 bar = 2
 
 # create dict from variables
 d = dict(((k, globals()[k]) for k in ('foo', 'bar')))
+
+# set
+d.setdefault(key, value)
+
 
 # sort dict based on value
 # import operator

@@ -505,6 +505,7 @@ alias fd='sudo fastboot devices'
 
 alias wifi='nmcli dev wifi '
 alias wf=wifi
+
 wco () {
     nmcli dev wifi connect $1 password $2 name $1
 }

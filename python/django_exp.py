@@ -79,7 +79,8 @@ User.objects.order_by('-date')
 
 
 # print raw sql query
-print(Mymodel.objects.all().query)
+q=User.objects.all().query
+str(q)
 
 
 # show all sql queries
@@ -98,6 +99,11 @@ Book.objects.using('test_db').all()
 
 # queryset database
 book._state.db
+
+
+# update
+Book.objects.filter(id=id).update(is_valid=True)
+Book.objects.filter(id=id).update(field=F('field') +1))
 
 
 

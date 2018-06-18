@@ -1441,7 +1441,6 @@ LRANGE list 0 -1
 
 
 # browsers
-
 sudo apt-get install ruby-dev
 sudo gem install redis-browser
 
@@ -1664,28 +1663,39 @@ renice -20(priority) 7448(jobid)
 
 
 
-# monitor, bottleneck, performance, troubleshoot
+
+# tools monitor, bottleneck, performance, troubleshoot
+
 mpstat
+dstat
 
 
 sudo apt-get install stress
-
 
 # generate load cpu
 stress --cpu 4 --timeout 90
 stress --cpu 8 --io 4 --vm 2 --vm-bytes 128M --timeout 10s
 
 
+sudo apt install sysstat
+# sudo vim /etc/default/sysstat
+# ENABLED="true"
+sudo service sysstat restart
 
 sar
 
 # load average
 sar -q
 
+# individual cpu usage
+sar -P 1 10
+sar -P 2 10
+
 
 vmstat -s
 vmstat -m | head -5
 vmstat -f
+
 
 htop
 
@@ -1693,8 +1703,9 @@ ionice -c 3 command-name
 
 
 # io usage
-s iotop
-s iotop -d 4
+sudo iotop
+sudo iotop -d 4
+
 
 bmw-ng -i disk
 
@@ -1816,6 +1827,10 @@ adb shell dumpsys activity broadcasts
 
 
 
+# adb pull
+adb pull /storage/emulated/0/Pictures/Screenshots/ .
+adb pull /storage/emulated/0/DCIM/Camera/ .
+
 android_rooting() {}
 
 
@@ -1842,6 +1857,8 @@ fastboot oem unlock D2Z6X73ZVAG4X2FSHMNQ
 # download twrp by device codename
 adb reboot bootloader
 sudo fastboot flash recovery twrp-otus-3.0.2-r1.img
+sudo fastboot boot oneplus3/twrp-3.2.1-0-oneplus3.img
+
 sudo fastboot reboot
 
 
@@ -2123,6 +2140,10 @@ convert *.png foo.pdf
 
 convert myfigure.png -resize 200x100 myfigure.jpg
 convert -resize 50% myfigure.png myfigure.jpg
+
+# don't keep image aspect ratio
+mogrify -resize 320x240! file.png
+
 
 pdftoppm -rx 300 -ry 300 -png a.pdf prefix
 
