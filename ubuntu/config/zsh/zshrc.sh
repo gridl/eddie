@@ -2,6 +2,8 @@
 # ln ~/.custom_zsh/zshrc ~/.zshrc
 # ln ~/.custom_zsh/themes/ys2.zsh-theme ~/.oh-my-zsh/themes/ys2.zsh-theme
 
+ZSH_DISABLE_COMPFIX="true"
+
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
 
@@ -916,9 +918,6 @@ ams() {
 alias ob='python2 /home/chillaranand/projects/ocr/ocropy/ocropus-nlbin '
 alias ops='python2 /home/chillaranand/projects/ocr/ocropy/ocropus-gpageseg '
 
-alias gradle='~/projects/vendor/android-studio/gradle/gradle-3.2/bin/gradle'
-alias androidstudio='~/projects/vendor/android-studio/bin/studio.sh'
-alias nds='androidstudio'
 
 alias sl='sar -q'
 alias sq='sar -q'
@@ -965,7 +964,6 @@ alias psqlr='psql -h '$PSQL_HOST' -U '$PSQL_USER
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 export PATH="/home/chillaranand/.cask/bin:$PATH"
 export PATH="/home/chillaranand/projects/vendor/arduino:$PATH"
-export PATH="/home/chillaranand/Downloads/android-ndk-r12b-linux-x86_64/android-ndk-r12b:$PATH"
 export PATH="/usr/local/heroku/bin:$PATH"
 export PATH="$HOME/.cask/bin:$PATH"
 export PATH="$HOME/projects/eddie/ubuntu/bin:$PATH"
@@ -973,8 +971,7 @@ export PATH="$HOME/rr/prebuilts/sdk/tools:$PATH"
 export PATH="$HOME/usr/bin:$PATH"
 
 
-export JAVA_HOME=/usr/lib/jvm/java-8-oracle/jre/bin/java
-export JAVA_HOME="/usr/lib/jvm/java-9-openjdk-amd64"
+
 export NODEENV_HOME=$HOME/.nodeenvs
 export MANPATH="/usr/local/man:$MANPATH"
 
@@ -1051,3 +1048,24 @@ export GPG_TTY=$(tty)
 export DJANGO_COLORS="light"
 
 # . /media/chillar/ef9ada8f-2818-458d-b450-324a17c357fc/projects/sandbox/torch/install/bin/torch-activate
+
+
+# alias gradle='~/projects/vendor/android-studio/gradle/gradle-3.2/bin/gradle'
+alias androidstudio='~/projects/vendor/android-studio-ide-173.4819257-linux/android-studio/bin/studio.sh'
+
+export PATH="/home/chillaranand/Downloads/android-ndk-r12b-linux-x86_64/android-ndk-r12b:$PATH"
+
+alias nds='androidstudio'
+
+# export JAVA_HOME=/usr/lib/jvm/java-8-oracle/jre/bin/java
+# export JAVA_HOME="/usr/lib/jvm/java-9-openjdk-amd64"
+
+# export ANDROID_HOME="/usr/lib/android-sdk/"
+# export ANDROID_HOME="/home/chillar/projects/vendor/android-sdk-linux/"
+# export ANDROID_HOME="/home/chillar/projects/android/sdk/"
+# export ANDROID_HOME="/home/chillar/projects/android/Android"
+# export ANDROID_HOME="/home/chillar/projects/android"
+export ANDROID_HOME="/home/chillar/Android/Sdk/"
+
+
+source .env
