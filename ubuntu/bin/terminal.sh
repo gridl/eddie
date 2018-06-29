@@ -858,8 +858,16 @@ sudo apt-get install --reinstall ca-certificates
 sudo update-ca-certificates
 
 
+# certbot
+sudo add-apt-repository ppa:certbot/certbot
+sudo apt-get update
+sudo apt-get install python-certbot-nginx
+
 # generate ssl
-sudo certbot --nginx -d meshedu.com certsonly
+sudo certbot --nginx -d avilpage.com certsonly
+
+# wild card ssl
+sudo certbot certonly --manual -d '*.meshedu.com' --agree-tos --no-bootstrap --manual-public-ip-logging-ok --preferred-challenges dns-01 --server https://acme-v02.api.letsencrypt.org/directory
 
 
 # generate ssl from web
@@ -1273,6 +1281,12 @@ sudo update-grub && shutdown -r 0
 
 
 # nginx
+
+# apache
+apachectl configtest
+apachectl stop
+apachectl start
+
 
 ```apacheconf
 server {
