@@ -483,6 +483,7 @@ alias ct='crontab '
 
 alias ai='adb install '
 alias aid='ai -r app/build/outputs/apk/app-debug.apk'
+alias aid='ai -r app/build/outputs/apk/debug/app-debug.apk'
 alias ac='adb connect'
 alias ad='adb devices '
 alias aks='adb kill-server; adb start-server; adb devices'
@@ -948,11 +949,6 @@ upload_to_arduino() {
 alias uta=upload_to_arduino
 alias sm='sudo screen /dev/ttyACM0 '
 
-sma() {
-    ./gradlew assembleDebug
-    ai -r app/build/outputs/apk/app-debug.apk
-    adb shell am start -n com.foo.bar
-}
 
 
 
@@ -1066,6 +1062,12 @@ alias nds='androidstudio'
 # export ANDROID_HOME="/home/chillar/projects/android/Android"
 # export ANDROID_HOME="/home/chillar/projects/android"
 export ANDROID_HOME="/home/chillar/Android/Sdk/"
+
+gai() {
+    ./gradlew assembleDebug
+    ai -r app/build/outputs/apk/debug/app-debug.apk
+        # adb shell am start -n com.foo.bar
+}
 
 
 source .env
