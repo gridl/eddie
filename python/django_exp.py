@@ -73,6 +73,9 @@ User.objects.filter(username__icontains='joh')
 # users in
 User.objects.filter(pk__in=[1, 4, 7])
 
+# exists
+User.objects.filter(pk__in=[1, 4, 7])
+
 # sort by date
 User.objects.order_by('date')
 User.objects.order_by('-date')
@@ -105,6 +108,13 @@ book._state.db
 Book.objects.filter(id=id).update(is_valid=True)
 Book.objects.filter(id=id).update(field=F('field') +1))
 
+
+class TimeAuditModel(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Created At")
+    modified_at = models.DateTimeField(auto_now=True, verbose_name="Last Modified At")
+
+    class Meta:
+        abstract = True
 
 
 
@@ -310,3 +320,21 @@ class Command(BaseCommand):
 
 
 # translations
+
+
+# command
+import command
+
+
+from django.core.management.base import BaseCommand
+from django.conf import settings
+
+
+class Command(BaseCommand):
+
+    def add_arguments(self, parser):
+        parser.add_argument('filename', type=str)
+        parser.add_argument('--domain', type=str)
+
+    def handle(self, *args, **options):
+        filename = options['filename']

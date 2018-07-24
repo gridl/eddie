@@ -21,3 +21,15 @@ if (devices != null) {
         }
     }
 }
+
+
+// create toast
+Handler handler = new Handler(Looper.getMainLooper());
+handler.post(new Runnable() {
+    @Override
+    public void run() {
+         Toast.makeText(getApplicationContext(),
+                       getString(R.string.car_opened),
+                       Toast.LENGTH_SHORT).show();
+    }
+});

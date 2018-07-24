@@ -6,17 +6,23 @@
 
 -- users
 
+-- list users
+\du
+\du+
+
+
 -- create user
-CREATE USER foo WITH PASSWORD 'foo';
+CREATE USER chillar WITH PASSWORD 'chillar';
 
 -- to reset the password if you have forgotten
-ALTER USER "user_name" WITH PASSWORD 'new_password';
+ALTER USER chillar WITH PASSWORD 'password';
 
 -- upgrade a user to be a superuser
-ALTER USER myuser WITH SUPERUSER;
+ALTER USER chillar WITH SUPERUSER;
 
 -- delete user
-DROP USER <USER>;
+DROP USER chillar;
+
 
 
 

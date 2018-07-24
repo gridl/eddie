@@ -323,7 +323,9 @@ alias e='nohup emacs >/dev/null &'
 alias hs='history'
 # alias hg='history | grep'
 alias hgi='history | grep -i'
+
 alias ht='htop'
+alias at='atop'
 
 alias p='ping 8.8.8.8'
 
@@ -487,7 +489,7 @@ alias aid='ai -r app/build/outputs/apk/debug/app-debug.apk'
 alias ac='adb connect'
 alias ad='adb devices '
 alias aks='adb kill-server; adb start-server; adb devices'
-alias at='adb shell '
+# alias at='adb shell '
 alias app='adb push -p '
 
 aps() {

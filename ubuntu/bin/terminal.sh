@@ -116,6 +116,7 @@ grep CRON /var/log/syslog
 # every minute
 */1 * * * * echo "job every minute"
 
+
 # twice a day at 6, 18 hrs
 * 6,18 * * * echo "foo"
 
@@ -247,6 +248,11 @@ rm -r */
 # number of columns with delimiter ;
 awk -F';' '{print NF; exit}' foo.txt
 head -1 foo.txt | tr ';' '\n' | wc -l
+
+
+# csv
+awk -F"," '{print $1}' data.txt
+cut -d, -f1 data.txt
 
 # print 100th line
 tail -n+100 <file> | head -n1
@@ -848,7 +854,7 @@ chkrootkit
 # generate csr for ssl
 openssl req -new -newkey rsa:2048 -nodes -keyout foo.com.key -out foo.com.csr
 
-# get cnfrom ssl
+# get cn from ssl
 openssl x509 -noout -subject -in fullchain.pem
 
 
@@ -893,6 +899,11 @@ lsb_release -a
 # display number of cores in a CPU
 nproc
 cat /proc/cpuinfo | grep processor | wc -l  # show no. of cpu
+
+
+# get full cmd
+cat /proc/212/cmdline/
+
 
 # display amount of used/free memory in system (ram)
 free -h
@@ -1324,7 +1335,7 @@ server {
 
 
 # Basic auth
-sudo htpasswd -c /etc/nginx/conf.d/.htpasswd meshtech
+sudo htpasswd -c /etc/nginx/conf.d/.htpasswd user
 
 
 ### notedown
@@ -1680,15 +1691,28 @@ renice -20(priority) 7448(jobid)
 
 # tools monitor, bottleneck, performance, troubleshoot
 
+atop
+
+
 mpstat
 dstat
 
 
 sudo apt-get install stress
 
+
 # generate load cpu
 stress --cpu 4 --timeout 90
 stress --cpu 8 --io 4 --vm 2 --vm-bytes 128M --timeout 10s
+
+
+# io load
+stress --io 222
+sudo dd if=/dev/sda of=/dev/null
+
+
+# meme load
+stress --vm 2 --vm-bytes 1280M
 
 
 sudo apt install sysstat
@@ -2184,6 +2208,8 @@ convert -density 300x300 -quality 60 -compress jpeg in.pdf out.pdf
 
 
 
+
+gcloud() {}
 # google cloud platform - gcloud
 
 # install ubuntu
@@ -2442,6 +2468,17 @@ sudo apt-get install postgresql postgresql-contrib
 # uninstall
 sudo apt-get --purge remove postgresql postgresql-doc postgresql-common
 
+
+# config
+# /var/lib/pgsql/9.4/data/postgresql.conf
+listen_addresses = '*'
+
+
+# /var/lib/pgsql/9.4/
+host    all             all              0.0.0.0/0                       md5
+host    all             all              ::/0                            md5
+
+
 # restart
 sudo service postgresql restart
 
@@ -2516,6 +2553,9 @@ pg_restore -Fc -C database.bak
 pgbench -i -s 50 load_test_db
 
 pgbench -c 10 -j 2 -t 10000 load_test
+
+
+
 
 
 
@@ -2863,7 +2903,8 @@ autopep8 --in-place --recursive .
 
 
 
-# mongodb
+mongodb()
+
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
 echo "deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.2.list
 sudo apt-get update
