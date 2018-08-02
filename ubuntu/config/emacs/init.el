@@ -13,7 +13,7 @@
 
 ;; load custom variables
 (load "~/.emacs.d/custom.el")
-(load-file "~/Dropbox/tech/private.el")
+;;(load-file "~/Dropbox/tech/private.el")
 
 
 ;; dont truncate log messages

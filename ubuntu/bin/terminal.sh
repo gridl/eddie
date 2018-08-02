@@ -851,12 +851,17 @@ chkrootkit
 
 
 
+
+ssl()
+
 # generate csr for ssl
 openssl req -new -newkey rsa:2048 -nodes -keyout foo.com.key -out foo.com.csr
 
 # get cn from ssl
 openssl x509 -noout -subject -in fullchain.pem
 
+# get expire date
+openssl x509 -noout -endate -in file.pem
 
 
 # reinstall for openssl
