@@ -775,15 +775,19 @@ emacs > /dev/null
 # suppress error messages
 emacs 2&>1 >/dev/null
 
+
 # list all jobs with PID
 jobs -l
 
 # switch jobs from background to foreground
 fg
+fg %2
+
 bg
 
 # detach a process from terminal
 disown
+
 
 # ignore SIGHUP signal sent by terminal
 nohup
@@ -796,12 +800,19 @@ kill -9 <PID>
 kill -KILL <PID>
 kill -SIGKILL <PID
 
+# kill bg jobs
+kill %{1..10}
+
+
 # kill processes by name
 pkill emacs
 
 # kill process by some identifier
 ps -ef | grep 'celery' | awk '{print $2}' | xargs kill -9
 pgrep celery | xargs kill -9
+
+pgrep -u tecmint top
+
 
 # show all kill signals
 kill -l
@@ -1296,7 +1307,13 @@ sudo update-grub && shutdown -r 0
 
 
 
-# nginx
+nginx() {}
+
+# http basic auth
+sudo apt install --yes apache2-utils
+
+sudo htpasswd -c /etc/nginx/conf.d/.htpasswd user1
+
 
 # apache
 apachectl configtest
@@ -1578,7 +1595,7 @@ pastebinit foo.txt
 
 
 
-# REST
+curl(){}
 
 # curl post with form data
 curl http://192.168.0.152:8000/api/token/new.json -d "username=chillaranand&password=foo"
@@ -1593,6 +1610,8 @@ curl -X OPTIONS -v http://cdn.acme.com/icons.woff \
  -H "Origin: http://foo.com/" \
  -H "Access-Control-Request-Method: POST" \
  -H "Access-Control-Request-Headers: X-Requested-With" \
+
+curl https://avilpage.com/upload/  -F "file=@/tmp/t"
 
 
 
@@ -2253,6 +2272,8 @@ gcloud compute ssh "server-foo"
 gcloud compute firewall-rules create <rule-name> --allow tcp:9090 --source-tags=<list-of-your-instances-names> --source-ranges=0.0.0.0/0 --description="<your-description-here>"
 
 
+# iot
+gcloud pubsub subscriptions pull --auto-ack projects/livnse/subscriptions/livnsensenew
 
 
 
@@ -2737,7 +2758,7 @@ django()
 
 ./manage.py changepassword admin
 ./manage.py createsuperuser
-dj reset_db -c --noinput
+
 
 # Reset south migrations - delete ghost migrations
 rm <app-dir>/migrations/*
@@ -2757,6 +2778,18 @@ dj inspectdb
 # Prints the SQL statements for resetting sequences for the given app
 dj sqlsequencereset users
 
+
+
+dj test --keepdb
+
+
+# django-extensions
+dj reset_db -c --noinput
+dj show_urls
+dj show_urls | column -t
+
+# pytest
+pytest --collect-only
 
 
 
@@ -2966,7 +2999,7 @@ cd goaccess-1.2/
 
 sudo apt-get install libncursesw5-dev libmaxminddb-dev libgeoip-dev
 
-./configure --enable-utf8 --enable-geoip=legacy
+./configure --enable-utf8 --enable-geoip=legacy --with-openssl
 make
 make install
 

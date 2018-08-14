@@ -1064,6 +1064,8 @@ alias nds='androidstudio'
 # export ANDROID_HOME="/home/chillar/projects/android/Android"
 # export ANDROID_HOME="/home/chillar/projects/android"
 export ANDROID_HOME="/home/chillar/Android/Sdk/"
+export VAGRANT_NO_COLOR=True
+
 
 gai() {
     ./gradlew assembleDebug
