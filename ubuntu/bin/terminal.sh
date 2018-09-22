@@ -2574,8 +2574,12 @@ pg_restore -Fc -C database.bak
 
 
 
-# load test
 
+
+load_test()
+
+
+# postgres
 pgbench -i -s 50 load_test_db
 
 pgbench -c 10 -j 2 -t 10000 load_test
@@ -2583,14 +2587,21 @@ pgbench -c 10 -j 2 -t 10000 load_test
 
 
 
-
-
 # websocket load test
-npm install -g loadtest thor
+
+npm install -g loadtest thor artillery
+
+artillery()
+artillery quick --count 10 --num 10 -o t.json wss://echo.websocket.org
+
 
 thor -C 200 -A 800 wss://foo.com/bar/1/
 
 
+
+# apache bench - load test
+ab -c 100 -n 100 https://avilpage.com/api/courses/1/
+ab -c 100 -n 400 -T 'application/x-www-form-urlencoded; charset=UTF-8' -H "Accept-Encoding: gzip, deflate" -p scripts/signup.txt https://avilpage.com/api/signup/
 
 
 
