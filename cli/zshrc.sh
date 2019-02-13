@@ -13,6 +13,7 @@ export ZSH=~/.oh-my-zsh
 # time that oh-my-zsh is loaded.
 # best-themes-list - half-life, ys, steef, sorin, jonathan(line)
 ZSH_THEME="ys2"
+ZSH_THEME="ys"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -193,7 +194,6 @@ function search {
         --exclude-dir="dist" \
         --exclude-dir="tmp" \
         --exclude-dir=".sass_cache" \
-        --exclude-dir="Appknox" \
         --exclude-dir="build" \
         --exclude-dir="uploads" \
         --color "$*" .
@@ -953,8 +953,8 @@ alias sm='sudo screen /dev/ttyACM0 '
 
 
 
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-source ~/.zsh-autosuggestions/zsh-autosuggestions.zsh
 
 alias psqlr='psql -h '$PSQL_HOST' -U '$PSQL_USER
 
@@ -1007,10 +1007,10 @@ export PATH=$PATH:/usr/local/go/bin
 source ~/Dropbox/tech/private.sh
 workon py36
 
-source ~/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source ~/.zaw/zaw.zsh
+# source ~/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# source ~/.zsh-history-substring-search/zsh-history-substring-search.zsh
+# source ~/.zaw/zaw.zsh
 
-source ~/.zsh-history-substring-search/zsh-history-substring-search.zsh
 
 
 bindkey '^[[A' history-substring-search-up
@@ -1081,3 +1081,8 @@ if [ -f '/home/chillar/google-cloud-sdk/path.zsh.inc' ]; then source '/home/chil
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/home/chillar/google-cloud-sdk/completion.zsh.inc' ]; then source '/home/chillar/google-cloud-sdk/completion.zsh.inc'; fi
+
+
+# mac
+source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

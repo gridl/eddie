@@ -327,6 +327,10 @@ cat in_file | sudo tee -a append_file
 find . -name '*.py' -exec etags -a {} \;
 
 
+# delete files matching pattern
+find . -type d -name 'tests' | xargs rm -rf
+
+
 
 
 # increase inotify watches limit
@@ -2560,9 +2564,10 @@ pg_dump -Ft db_name > db.tar
 
 # restore from plain text
 cat db.sql | psql db_name
-
 psql -d db_name -f db.sql
 
+
+# dump file
 pg_restore -d dummy_db -1 backup-2018-05-23.dump -v
 
 # restore from compressed files
@@ -3017,3 +3022,10 @@ make install
 
 # multitail
 mutlitail -c file.log
+
+
+
+mac_book()
+
+# show cpu info
+sysctl -n machdep.cpu.brand_string

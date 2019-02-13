@@ -61,6 +61,7 @@ import models
 from django.db import models
 
 credit = models.DecimalField(max_digits=6, decimal_places=2)
+name, path, args, kwargs = credit.deconstruct()
 
 
 # all users where pk < 5
@@ -119,7 +120,9 @@ class TimeAuditModel(models.Model):
 
 
 
-
+# fields
+credit = models.DecimalField(max_digits=6, decimal_places=2)
+name, path, args, kwargs = credit.deconstruct()
 
 
 
@@ -141,6 +144,9 @@ def handler404(request):
 
 
 # admin
+def admin():
+    pass
+
 from django.contrib import admin
 
 class ProposalSectionReviewerAdmin(AuditAdmin):

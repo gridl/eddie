@@ -3,6 +3,11 @@
 
 
 
+-- extensions
+SELECT * FROM pg_available_extensions;
+SELECT * FROM pg_extension;
+\dx
+
 
 -- users
 
@@ -47,10 +52,11 @@ USE db_name
 
 
 -- show approximate row count
-SELECT schemaname, relname, n_live_tup
-FROM pg_stat_user_tables
-ORDER BY n_live_tup
-    DESC;
+SELECT schemaname, relname, n_live_tup FROM pg_stat_user_tables ORDER BY n_live_tup DESC;
+
+SELECT relname, n_live_tup FROM pg_stat_user_tables ORDER BY n_live_tup DESC;
+
+SELECT relname AS table_name, n_live_tup AS rows_count FROM pg_stat_user_tables ORDER BY n_live_tup DESC;
 
 
 
@@ -59,13 +65,41 @@ ORDER BY n_live_tup
 -- TABLES
 
 -- create table
-CREATE TABLE COMPANY(
-   ID INT PRIMARY KEY     NOT NULL,
-   NAME           TEXT    NOT NULL,
-   AGE            INT     NOT NULL,
-   ADDRESS        CHAR(50),
-   SALARY         REAL
+CREATE TABLE author(
+   ID SERIAL PRIMARY KEY NOT NULL,
+   NAME VARCHAR(32)
    );
+
+CREATE TABLE book(
+   ID INT PRIMARY KEY     NOT NULL,
+   NAME VARCHAR(32),
+   author_id INT REFERENCES author
+   );
+
+
+-- inserts
+insert into author values (1, 'author1');
+insert into author values (2, 'author2');
+
+insert into book values (1, 'book1', 1);
+insert into book values (2, 'book2', 2);
+insert into book values (3, 'book3', 1);
+insert into book values (4, 'book4', 2);
+insert into book values (5, 'book5', 1);
+
+
+insert into author values (1, 'author1');
+insert into author values (2, 'author2');
+
+insert into book values (1, 'book1', 1);
+insert into book values (2, 'book2', 2);
+insert into book values (3, 'book3', 1);
+insert into book values (4, 'book4', 2);
+insert into book values (5, 'book5', 1);
+
+
+select * from book b inner join author ON author.id = b.author_id;
+select * from author a inner join book b ON a.id = b.author_id;
 
 -- describe table
 \d <tablename>
@@ -130,3 +164,18 @@ SELECT
 FROM
     products
 INNER JOIN product_groups USING (group_id);
+
+
+
+-- indexes
+
+
+
+
+--  list custom fields
+SELECT      n.nspname as schema, t.typname as type
+FROM        pg_type t
+LEFT JOIN   pg_catalog.pg_namespace n ON n.oid = t.typnamespace
+WHERE       (t.typrelid = 0 OR (SELECT c.relkind = 'c' FROM pg_catalog.pg_class c WHERE c.oid = t.typrelid))
+AND     NOT EXISTS(SELECT 1 FROM pg_catalog.pg_type el WHERE el.oid = t.typelem AND el.typarray = t.oid)
+AND     n.nspname NOT IN ('pg_catalog', 'information_schema')
