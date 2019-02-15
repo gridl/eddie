@@ -122,11 +122,11 @@ fi
 
 
 # virtualenv wrapper
-export WORKON_HOME=$HOME/.virtualenvs
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
-export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
-source /usr/local/bin/virtualenvwrapper.sh
+# export WORKON_HOME=$HOME/.virtualenvs
+# export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+# export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
+# export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
+# source /usr/local/bin/virtualenvwrapper.sh
 
 export PYTHONDONTWRITEBYTECODE=1
 alias pd='j py && ipy'
@@ -837,7 +837,7 @@ alias hlw='heroku local web'
 
 
 # autoenv
-source /usr/local/bin/activate.sh
+# source /usr/local/bin/activate.sh
 # direnv
 # eval "$(direnv hook zsh)"
 
@@ -953,7 +953,7 @@ alias sm='sudo screen /dev/ttyACM0 '
 
 
 
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+
 
 
 alias psqlr='psql -h '$PSQL_HOST' -U '$PSQL_USER
@@ -1077,12 +1077,13 @@ gai() {
 source .env
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/chillar/google-cloud-sdk/path.zsh.inc' ]; then source '/home/chillar/google-cloud-sdk/path.zsh.inc'; fi
+# if [ -f '/home/chillar/google-cloud-sdk/path.zsh.inc' ]; then source '/home/chillar/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/home/chillar/google-cloud-sdk/completion.zsh.inc' ]; then source '/home/chillar/google-cloud-sdk/completion.zsh.inc'; fi
+# if [ -f '/home/chillar/google-cloud-sdk/completion.zsh.inc' ]; then source '/home/chillar/google-cloud-sdk/completion.zsh.inc'; fi
 
 
 # mac
 source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh

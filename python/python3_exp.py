@@ -545,6 +545,8 @@ print(datetime.datetime.strftime(now))
 d = '05 Oct 2017 10:27 AM'
 dt.datetime.strptime(d, '%d %b %Y %H:%M %p')
 dt.datetime.strptime('Jun 1 2005  1:33PM', '%b %d %Y %I:%M%p')
+dt.datetime.strptime('2019-02-13T05:14:21.691468Z', '%Y-%m-%dT%H:%M:%S.%fZ')
+
 
 dto.strftime('%m/%d/%Y')
 

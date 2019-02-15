@@ -1,9 +1,12 @@
 from datetime import date, datetime, timedelta
 
-from nsepy import get_history
+import matplotlib
 import matplotlib.pyplot as plt
+from nsepy import get_history
 from nsepy.derivatives import get_expiry_date
 
+
+matplotlib.use('TkAgg')
 
 now = datetime.now()
 today = now.date()
@@ -12,10 +15,9 @@ today = today + timedelta(days=30)
 
 # options expire on last thursday of every month
 p1_expiry = get_expiry_date(year=today.year, month=today.month - 1)
-p2_expiry = get_expiry_date(
-    year=today.year, month=today.month - 2) + timedelta(days=1)
+p2_expiry = get_expiry_date(year=today.year, month=today.month - 2) + timedelta(days=1)
 
-print(p1_expiry, p2_expiry)
+print(p2_expiry, p1_expiry)
 
 symbol = "NIFTY"
 close = 'Close'
