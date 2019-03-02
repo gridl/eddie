@@ -391,8 +391,14 @@ ffmpeg -acodec copy audio.mp3 -i vokoscreen-2018-04-13_17-29-33.mkv
 ffmpeg -acodec libmp3lame audio.mp3 -i vokoscreen-2018-04-13_17-29-33.mkv
 
 
+# merge audio video
+ffmpeg -i video.mp4 -i audio.wav -c copy output.mkv
+
 # convert one format to another
-ffmpeg -i foo.wembm adandada.mp3
+
+# convert m3u files to mp4
+ffmpeg -i foo.m3u8 -c copy -bsf:a aac_adtstoasc output.mp4
+
 
 # split video of 25 seconds
 ffmpeg -i input.mkv -ss 00:01:10 -t 25 output.mkv
@@ -424,14 +430,6 @@ ffmpeg \
     -thread_queue_size 8192 -f alsa -ac 2 -i hw:0,0 -f v4l2 -i /dev/video0 -r 25 \
     -b:a 128k -pix_fmt yuv420p -vcodec libx264 -strict -2 \
     -y f.mp4
-
-
-# convert m3u files to mp4
-ffmpeg -i 357963369_mp4_h264_aac_hd.m3u8 -c copy -bsf:a aac_adtstoasc output2.mp4
-
-
-# merge audio video
-ffmpeg -i video.mp4 -i audio.wav -c copy output.mkv
 
 
 
@@ -2806,6 +2804,7 @@ dj show_urls | column -t
 
 # pytest
 pytest --collect-only
+
 
 
 
