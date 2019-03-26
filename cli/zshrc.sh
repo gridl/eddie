@@ -1005,7 +1005,7 @@ export PATH=$PATH:/usr/local/go/bin
 
 # [[ -s "$HOME/.local/share/marker/marker.sh" ]] && source "$HOME/.local/share/marker/marker.sh"
 source ~/Dropbox/tech/private.sh
-workon py36
+# workon py36
 
 # source ~/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # source ~/.zsh-history-substring-search/zsh-history-substring-search.zsh
@@ -1087,3 +1087,24 @@ source .env
 source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+
+rdb(){
+    brew services restart postgresql@9.6
+    psql -c "drop database $1"
+    psql -c "create database $1"
+    psql -d $1 -f $2
+}
+
+eval $(thefuck --alias)
+
+
+wpe (){
+    networksetup -setwebproxystate Wi-Fi on
+    networksetup -setsecurewebproxystate Wi-Fi on
+}
+
+wpd (){
+    networksetup -setwebproxystate Wi-Fi off
+    networksetup -setsecurewebproxystate Wi-Fi off
+}

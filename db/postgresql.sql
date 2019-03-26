@@ -40,6 +40,12 @@ drop database testdb;
 \l
 SELECT datname FROM pg_database;
 
+
+-- rename
+alter database diabetes rename to diabetesm;
+
+
+
 -- connect to database
 \c db_name
 USE db_name

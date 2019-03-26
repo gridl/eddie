@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # Terminal
 
 
@@ -402,6 +403,9 @@ ffmpeg -i foo.m3u8 -c copy -bsf:a aac_adtstoasc output.mp4
 
 # split video of 25 seconds
 ffmpeg -i input.mkv -ss 00:01:10 -t 25 output.mkv
+
+# trim audio/video
+ffmpeg -i file.mkv -ss 00:00:20 -to 00:00:40 -c copy file-2.mkv
 
 # transcode live rtmp to live rtmp
 ffmpeg -i rtmp://server/live/originalStream -c:a copy -c:v libx264 -vpre slow -f flv rtmp://server/live/h264Stream
@@ -1370,6 +1374,9 @@ pip install notedown
 # convert markdown to ipython notebook
 notedown python.md > python.ipynb
 
+# convert ipython notebook to python script
+jupyter nbconvert --to script 'my-notebook.ipynb'
+
 
 
 
@@ -1985,7 +1992,6 @@ wget http://dl-xda.xposed.info/modules/de.robv.android.xposed.installer_v33_3657
 adb sideload de.robv.android.xposed.installer_v32_de4f0d.apk
 
 # download xposed apk and install it
-
 
 # decompile apk
 apktool d foo.apk
