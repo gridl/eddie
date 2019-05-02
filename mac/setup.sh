@@ -28,3 +28,6 @@ brew cask install android-platform-tools
 
 # set screenshots folder
 defaults write com.apple.screencapture location ~/Pictures
+
+
+brew cask install stretchly

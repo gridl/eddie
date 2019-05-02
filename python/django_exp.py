@@ -83,7 +83,7 @@ User.objects.order_by('-date')
 
 
 # print raw sql query
-q=User.objects.all().query
+q = User.objects.all().query
 str(q)
 
 

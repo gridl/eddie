@@ -579,6 +579,15 @@ git fetch origin
 git reset --hard origin/master
 
 
+# tags
+git tag v1.0
+
+git tag -l
+
+git tag --delete tagname
+
+git push --delete origin tagname
+git push origin :tagname
 
 
 
@@ -3034,3 +3043,8 @@ mac_book()
 
 # show cpu info
 sysctl -n machdep.cpu.brand_string
+
+
+# aptible
+aptible apps:scale --app appname web --container-size 1024
+aptible db:tunnel --type management rabbitmq-handle

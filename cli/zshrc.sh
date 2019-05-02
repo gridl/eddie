@@ -127,6 +127,8 @@ fi
 # export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
 # export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
 # source /usr/local/bin/virtualenvwrapper.sh
+source /usr/local/bin/virtualenvwrapper.sh
+
 
 export PYTHONDONTWRITEBYTECODE=1
 alias pd='j py && ipy'
@@ -291,7 +293,7 @@ alias dmmm="dmm && dm"
 
 alias dr="python manage.py runserver --no-color"
 
-alias dr="python manage.py runserver_plus --pm --no-color 0.0.0.0:8000"
+# alias dr="python manage.py runserver_plus --pm --no-color 0.0.0.0:8000"
 alias drp="python manage.py runserver_plus"
 alias drps="python manage.py runserver_plus --print-sql --pm --no-color 0.0.0.0:8000"
 
@@ -1086,11 +1088,12 @@ source .env
 # mac
 source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+# source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 
 rdb(){
-    brew services restart postgresql@9.6
+    # brew services restart postgresql@9.6
+    sleep 16;
     psql -c "drop database $1"
     psql -c "create database $1"
     psql -d $1 -f $2
@@ -1099,12 +1102,22 @@ rdb(){
 eval $(thefuck --alias)
 
 
-wpe (){
+nwe (){
     networksetup -setwebproxystate Wi-Fi on
     networksetup -setsecurewebproxystate Wi-Fi on
 }
 
-wpd (){
+nwd (){
     networksetup -setwebproxystate Wi-Fi off
     networksetup -setsecurewebproxystate Wi-Fi off
 }
+
+
+
+alias edl='eb deploy --label `git rev-parse HEAD`'
+today=`date '+%Y_%m_%d__%H_%M_%S'`;
+
+
+alias hdi='howdoi '
+alias hdip='howdoi python '
+alias hdis='howdoi shell '
