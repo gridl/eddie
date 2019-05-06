@@ -3048,3 +3048,9 @@ sysctl -n machdep.cpu.brand_string
 # aptible
 aptible apps:scale --app appname web --container-size 1024
 aptible db:tunnel --type management rabbitmq-handle
+
+
+
+# elastic beanstalk
+eb deploy library
+eb deploy --label foo library
