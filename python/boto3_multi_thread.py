@@ -9,11 +9,6 @@ aws_access_key_id = os.environ.get('AWS_ACCESS_KEY_ID')
 aws_secret_access_key = os.environ.get('AWS_SECRET_ACCESS_KEY')
 print(aws_access_key_id, aws_secret_access_key)
 
-aws_access_key_id = 'AKIAIUIOHPYGFC3XRMIA'
-aws_secret_access_key = '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'
-
-
-
 
 
 def upload_file():
